@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-image: url(C:\Users\66jus\Desktop\programy\blackjack\res\images\main_background);" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView blendMode="SRC_ATOP" layoutX="-215.0" layoutY="-20.0">
+         <image>
+            <Image url="@../../main_background.jpg" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>
