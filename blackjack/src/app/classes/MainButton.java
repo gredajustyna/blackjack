@@ -14,9 +14,10 @@ import java.io.FileNotFoundException;
 public class MainButton extends Button {
     private final String FONT_PATH = "src/app/fonts/Casino.ttf";
     private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('button_p.png'); -fx-text-fill: FFFFFF";
-    private final String BUTTON_HOVER_STYLE = "-fx-background-color: transparent; -fx-background-image: url('button_p.png'); -fx-text-fill: FFFFFF";
+    private final String BUTTON_HOVER_STYLE = "-fx-background-color: transparent; -fx-background-image: url('button_np.png'); -fx-text-fill: FFFFFF";
     private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('button_np.png')";
     AudioClip clickSound = new AudioClip("file:src/app/music/click.m4a");
+    boolean isClicked;
 
 
     public MainButton(String text){
