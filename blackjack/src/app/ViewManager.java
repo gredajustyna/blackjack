@@ -35,9 +35,10 @@ public class ViewManager {
     private AnchorPane helpPane;
     private AnchorPane loginPane;
     private AnchorPane registerPane;
+    private AnchorPane userPane;
     private MainButton startButton;
-    private SignButton loginButton;
-    private SignButton registerButton;
+    private SignButton mainLoginButton;
+    private SignButton mainRegisterButton;
     private Scene mainScene;
     private Stage mainStage;
     private static final int HEIGHT = 800;
@@ -57,6 +58,7 @@ public class ViewManager {
         helpPane = new AnchorPane();
         loginPane = new AnchorPane();
         registerPane = new AnchorPane();
+        userPane = new AnchorPane();
         mainScene = new Scene(mainPane,WIDTH,HEIGHT);
         mainStage = new Stage();
         mainStage.setScene(mainScene);
@@ -91,6 +93,8 @@ public class ViewManager {
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(true);
                 }
+                mainLoginButton.setDisable(true);
+                mainRegisterButton.setDisable(true);
             }
         });
     }
@@ -115,6 +119,8 @@ public class ViewManager {
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(true);
                 }
+                mainLoginButton.setDisable(true);
+                mainRegisterButton.setDisable(true);
             }
         });
     }
@@ -171,7 +177,6 @@ public class ViewManager {
     }
 
     private void createUserPanel(){
-        AnchorPane userPane = new AnchorPane();
         userPane.setLayoutX(900);
         userPane.setLayoutY(650);
         userPane.setPrefWidth(300);
@@ -186,31 +191,35 @@ public class ViewManager {
             userDetected.setLayoutY(30);
             userPane.getChildren().add(userDetected);
         }else{
-            loginButton = new SignButton("log in");
-            loginButton.setLayoutX(75);
-            loginButton.setLayoutY(50);
-            userPane.getChildren().add(loginButton);
-            loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            mainLoginButton = new SignButton("log in");
+            mainLoginButton.setLayoutX(75);
+            mainLoginButton.setLayoutY(50);
+            userPane.getChildren().add(mainLoginButton);
+            mainLoginButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     createLoginPanel();
                     for(int i=0; i<menuButtons.size(); i++){
                         menuButtons.get(i).setDisable(true);
                     }
+                    mainLoginButton.setDisable(true);
+                    mainRegisterButton.setDisable(true);
                 }
             });
 
-            registerButton = new SignButton("register");
-            registerButton.setLayoutX(75);
-            registerButton.setLayoutY(95);
-            userPane.getChildren().add(registerButton);
-            registerButton.setOnAction(new EventHandler<ActionEvent>() {
+            mainRegisterButton = new SignButton("register");
+            mainRegisterButton.setLayoutX(75);
+            mainRegisterButton.setLayoutY(95);
+            userPane.getChildren().add(mainRegisterButton);
+            mainRegisterButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     createRegisterPanel();
                     for(int i=0; i<menuButtons.size(); i++){
                         menuButtons.get(i).setDisable(true);
                     }
+                    mainLoginButton.setDisable(true);
+                    mainRegisterButton.setDisable(true);
                 }
             });
 
@@ -328,6 +337,16 @@ public class ViewManager {
         MainButton loginButton = new MainButton("Log in");
         loginButton.setLayoutX(130);
         loginButton.setLayoutY(220);
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                isLoggedIn = true;
+                mainPane.getChildren().remove(loginPane);
+                //mainPane.getChildren().remove(userPane);
+                //createUserPanel();
+            }
+        });
+
         loginPane.getChildren().add(loginButton);
 
         mainPane.getChildren().add(loginPane);
@@ -448,9 +467,6 @@ public class ViewManager {
         registerButton.setLayoutY(520);
         registerPane.getChildren().add(registerButton);
 
-
-
-
         mainPane.getChildren().add(registerPane);
     }
 
@@ -459,6 +475,13 @@ public class ViewManager {
         closeButton.setLayoutY(10);
         closeButton.setLayoutX(440);
         loginPane.getChildren().add(closeButton);
+        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                mainLoginButton.setDisable(false);
+                mainRegisterButton.setDisable(false);
+            }
+        });
     }
 
     private void createCloseRegisterButton(){
@@ -466,6 +489,13 @@ public class ViewManager {
         closeButton.setLayoutY(10);
         closeButton.setLayoutX(440);
         registerPane.getChildren().add(closeButton);
+        closeButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                mainLoginButton.setDisable(false);
+                mainRegisterButton.setDisable(false);
+            }
+        });
     }
 
 }
