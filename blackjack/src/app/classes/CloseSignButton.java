@@ -11,18 +11,18 @@ import javafx.scene.media.AudioClip;
 
 import java.util.List;
 
-public class CloseButton extends Button {
+public class CloseSignButton extends Button {
     private final String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('quitX.png')";
     AudioClip clickSound = new AudioClip("file:src/app/music/click.m4a");
 
-    public CloseButton(List<MainButton> menuButtons, List<SignButton> signButtons, AnchorPane mainPane, AnchorPane childPane){
+    public CloseSignButton(List<MainButton> menuButtons, List<SignButton> signButtons, AnchorPane mainPane, AnchorPane childPane){
         setPrefHeight(50);
         setPrefWidth(50);
         setStyle(BUTTON_STYLE);
-        initializeButtonListeners(menuButtons, signButtons, mainPane, childPane);
+        initializeButtonListeners(menuButtons,signButtons, mainPane, childPane);
     }
 
-    private void initializeButtonListeners(List<MainButton> menuButtons, List<SignButton> signButtons, AnchorPane mainPane, AnchorPane childPane){
+    private void initializeButtonListeners(List<MainButton> menuButtons,List<SignButton> signButtons, AnchorPane mainPane, AnchorPane childPane){
         setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -31,7 +31,7 @@ public class CloseButton extends Button {
                     for(int i=0; i<menuButtons.size(); i++){
                         menuButtons.get(i).setDisable(false);
                     }
-                    for (int i=0; i<signButtons.size(); i++){
+                    for(int i=0; i<signButtons.size(); i++){
                         signButtons.get(i).setDisable(false);
                     }
                     mainPane.getChildren().remove(childPane);
