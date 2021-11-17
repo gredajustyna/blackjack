@@ -9,8 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
 
 public class SoundButton extends Button {
-    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('Sound.png'); ";
-    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('SoundOFF.png')";
+    private final String BUTTON_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('Sound.png'); -fx-background-size: 50px 50px ";
+    private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('SoundOFF.png'); -fx-background-size: 50px 50px";
     AudioClip clickSound = new AudioClip("file:src/app/music/click.m4a");
 
     public SoundButton(){
