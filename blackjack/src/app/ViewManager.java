@@ -51,6 +51,7 @@ public class ViewManager {
     List<MainButton> menuButtons;
     List<SignButton> signButtons;
     MediaPlayer player;
+    public static boolean isSoundOn = true;
 
     public ViewManager(){
         menuButtons = new ArrayList<>();
@@ -75,6 +76,7 @@ public class ViewManager {
             }
         });
         player.play();
+        createMusicButton();
         createSoundButton();
     }
 
@@ -287,10 +289,17 @@ public class ViewManager {
         helpPane.getChildren().add(closeButton);
     }
 
-    private void createSoundButton(){
-        SoundButton button = new SoundButton(player);
+    private void createMusicButton(){
+        MusicButton button = new MusicButton(player);
         button.setLayoutY(740);
         button.setLayoutX(10);
+        mainPane.getChildren().add(button);
+    }
+
+    private void createSoundButton(){
+        SoundButton button = new SoundButton();
+        button.setLayoutY(740);
+        button.setLayoutX(70);
         mainPane.getChildren().add(button);
     }
 

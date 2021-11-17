@@ -27,7 +27,9 @@ public class CloseButton extends Button {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    clickSound.play();
+                    if(ViewManager.isSoundOn){
+                        clickSound.play();
+                    }
                     for(int i=0; i<menuButtons.size(); i++){
                         menuButtons.get(i).setDisable(false);
                     }

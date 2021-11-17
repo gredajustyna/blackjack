@@ -1,5 +1,6 @@
 package app.classes;
 
+import app.ViewManager;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -17,7 +18,6 @@ public class MainButton extends Button {
     private final String BUTTON_HOVER_STYLE = "-fx-background-color: transparent; -fx-background-image: url('button_np.png'); -fx-text-fill: FFFFFF";
     private final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('button_np.png')";
     AudioClip clickSound = new AudioClip("file:src/app/music/click.m4a");
-    boolean isClicked;
 
 
     public MainButton(String text){
@@ -55,7 +55,9 @@ public class MainButton extends Button {
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     setButtonPressedStyle();
-                    clickSound.play();
+                    if(ViewManager.isSoundOn){
+                        clickSound.play();
+                    }
                 }
             }
         });
