@@ -1,6 +1,7 @@
 package app;
 
 import app.classes.*;
+import app.database.DbConnection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -47,6 +48,8 @@ public class ViewManager {
     private final static int MENU_BUTTONS_START_Y = 250;
     private final String FONT_PATH = "src/app/fonts/Righteous.ttf";
     private boolean isLoggedIn = false;
+    static FileInputStream fis; // do avatara
+    static int length; // do avatara
 
     List<MainButton> menuButtons;
     List<SignButton> signButtons;
@@ -78,6 +81,9 @@ public class ViewManager {
         player.play();
         createMusicButton();
         createSoundButton();
+
+
+        DbConnection.connect();
     }
 
     private void addMenuButton(MainButton button){
@@ -364,7 +370,13 @@ public class ViewManager {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                isLoggedIn = true;
+                String login = DbConnection.Login(usernameField.getText(), passwordField.getText());
+                if (login != "0"){
+                    isLoggedIn = true;
+                }else{
+                    isLoggedIn = false;
+                }
+                System.out.println(isLoggedIn);
                 mainPane.getChildren().remove(loginPane);
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(false);
@@ -373,6 +385,7 @@ public class ViewManager {
                     signButtons.get(i).setDisable(false);
                 }
                 updateUserPanel();
+
             }
         });
 
@@ -502,11 +515,27 @@ public class ViewManager {
 
         openButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                File file = fileChooser.showOpenDialog(mainStage);
-                if (file!= null){
-                    Image image = new Image(file.toURI().toString());
-                    imageView.setImage(image);
+            public void handle(ActionEvent event) throws NullPointerException {
+                try {
+                    File file = fileChooser.showOpenDialog(imageView.getScene().getWindow());
+                    length = Math.toIntExact(file.length());
+                    fis = new FileInputStream(file);
+                    if (file != null) {
+                        Image image1 = new Image(file.toURI().toString());
+                        ImageView ip = new ImageView(image1);
+                        imageView.setImage(ip.getImage());
+                    }
+                } catch (NullPointerException | FileNotFoundException noFileSelected) {
+                    File file = new File("Default.png");
+                    length = Math.toIntExact(file.length());
+                    try {
+                        fis = new FileInputStream(file);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Image image1 = new Image(file.toURI().toString());
+                    ImageView ip = new ImageView(image1);
+                    imageView.setImage(ip.getImage());
                 }
             }
         });
@@ -517,6 +546,9 @@ public class ViewManager {
         registerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                if(usernameField.getText().isEmpty() == false && passwordField.getText().isEmpty() == false && confirmPasswordField.getText().isEmpty() == false && (confirmPasswordField.getText().equals(passwordField.getText()))) {
+                    DbConnection.insert(usernameField.getText(), passwordField.getText(), fis, length);
+                } else System.out.println("pusto");
                 mainPane.getChildren().remove(registerPane);
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(false);
@@ -524,6 +556,7 @@ public class ViewManager {
                 for (int i=0; i<signButtons.size(); i++){
                     signButtons.get(i).setDisable(false);
                 }
+
             }
         });
         registerPane.getChildren().add(registerButton);
