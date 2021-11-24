@@ -165,6 +165,7 @@ public class ViewManager {
         createHelpButton();
         createExitButton();
         createUserPanel();
+        createGameStartButton();
     }
 
     private void createBackground(){
@@ -973,6 +974,13 @@ public class ViewManager {
                 updateUserPanel();
             }
         });
+    }
+
+    private void createGameStartButton(){
+        MainButton gameStartButton = new MainButton("Start");
+        gameStartButton.setLayoutX(130);
+        gameStartButton.setLayoutY(520);
+        startPane.getChildren().add(gameStartButton);
     }
 
 }
