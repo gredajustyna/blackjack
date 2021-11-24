@@ -281,7 +281,8 @@ public class ViewManager {
     }
 
     private void createStartMenu(){
-
+        player4Pane.setVisible(false);
+        player3Pane.setVisible(false);
         startPane.setPrefHeight(600);
         startPane.setPrefWidth(500);
         startPane.setLayoutY(150);
@@ -390,7 +391,7 @@ public class ViewManager {
         button11.setLayoutY(150);
         button11.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
-            updatePlayerVisibility();
+            updatePlayerVisibility(button11);
         });
 
 
@@ -409,7 +410,7 @@ public class ViewManager {
         button22.setLayoutY(150);
         button22.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
-            updatePlayerVisibility();
+            updatePlayerVisibility(button22);
         });
 
         InputStream is33 = getClass().getResourceAsStream("/players4.png");
@@ -427,7 +428,7 @@ public class ViewManager {
         button33.setLayoutY(150);
         button33.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
-            updatePlayerVisibility();
+            updatePlayerVisibility(button33);
         });
 
         playersPane.getChildren().add(button11);
@@ -441,9 +442,42 @@ public class ViewManager {
             player1.setFont(Font.font("Verdana",20));
         }
         player1.setFill(Color.valueOf("FFFFFF"));
+
+        ToggleGroup player1group = new ToggleGroup();
+        InputStream ispl1 = getClass().getResourceAsStream("/player1.png");
+        Image imgpl1= new Image(ispl1);
+        ImageView buttonpl1 = new ImageView(imgpl1);
+        buttonpl1.setFitHeight(50);
+        buttonpl1.setFitWidth(50);
+        buttonpl1.setPreserveRatio(true);
+        RadioButton buttonPlayer1 = new RadioButton("");
+        buttonPlayer1.setGraphic(buttonpl1);
+        buttonPlayer1.setUserData(3);
+        buttonPlayer1.setToggleGroup(player1group);
+        buttonPlayer1.setSelected(true);
+        buttonPlayer1.setLayoutX(110);
+        buttonPlayer1.setLayoutY(-30);
+
+        InputStream iscom1 = getClass().getResourceAsStream("/computer1.png");
+        Image imgcom1= new Image(iscom1);
+        ImageView buttoncom1 = new ImageView(imgcom1);
+        buttoncom1.setFitHeight(40);
+        buttoncom1.setFitWidth(40);
+        buttoncom1.setPreserveRatio(true);
+        RadioButton buttonComputer1 = new RadioButton("");
+        buttonComputer1.setGraphic(buttoncom1);
+        buttonComputer1.setUserData(3);
+        buttonComputer1.setToggleGroup(player1group);
+        buttonComputer1.setSelected(false);
+        buttonComputer1.setLayoutX(200);
+        buttonComputer1.setLayoutY(-24);
+
+
         player1Pane.getChildren().add(player1);
         player1Pane.setLayoutX(40);
         player1Pane.setLayoutY(350);
+        player1Pane.getChildren().add(buttonPlayer1);
+        player1Pane.getChildren().add(buttonComputer1);
         startPane.getChildren().add(player1Pane);
 
 
@@ -454,7 +488,39 @@ public class ViewManager {
             player2.setFont(Font.font("Verdana",20));
         }
         player2.setFill(Color.valueOf("FFFFFF"));
+
+        ToggleGroup player2group = new ToggleGroup();
+        InputStream ispl2 = getClass().getResourceAsStream("/player1.png");
+        Image imgpl2= new Image(ispl2);
+        ImageView buttonpl2 = new ImageView(imgpl2);
+        buttonpl2.setFitHeight(50);
+        buttonpl2.setFitWidth(50);
+        buttonpl2.setPreserveRatio(true);
+        RadioButton buttonPlayer2 = new RadioButton("");
+        buttonPlayer2.setGraphic(buttonpl2);
+        buttonPlayer2.setUserData(3);
+        buttonPlayer2.setToggleGroup(player2group);
+        buttonPlayer2.setSelected(true);
+        buttonPlayer2.setLayoutX(110);
+        buttonPlayer2.setLayoutY(-30);
+
+        InputStream iscom2 = getClass().getResourceAsStream("/computer1.png");
+        Image imgcom2= new Image(iscom2);
+        ImageView buttoncom2 = new ImageView(imgcom2);
+        buttoncom2.setFitHeight(40);
+        buttoncom2.setFitWidth(40);
+        buttoncom2.setPreserveRatio(true);
+        RadioButton buttonComputer2 = new RadioButton("");
+        buttonComputer2.setGraphic(buttoncom2);
+        buttonComputer2.setUserData(3);
+        buttonComputer2.setToggleGroup(player2group);
+        buttonComputer2.setSelected(false);
+        buttonComputer2.setLayoutX(200);
+        buttonComputer2.setLayoutY(-24);
+
         player2Pane.getChildren().add(player2);
+        player2Pane.getChildren().add(buttonComputer2);
+        player2Pane.getChildren().add(buttonPlayer2);
         player2Pane.setLayoutX(40);
         player2Pane.setLayoutY(400);
         startPane.getChildren().add(player2Pane);
@@ -466,7 +532,39 @@ public class ViewManager {
             player3.setFont(Font.font("Verdana",20));
         }
         player3.setFill(Color.valueOf("FFFFFF"));
+
+        ToggleGroup player3group = new ToggleGroup();
+        InputStream ispl3 = getClass().getResourceAsStream("/player1.png");
+        Image imgpl3= new Image(ispl3);
+        ImageView buttonpl3 = new ImageView(imgpl3);
+        buttonpl3.setFitHeight(50);
+        buttonpl3.setFitWidth(50);
+        buttonpl3.setPreserveRatio(true);
+        RadioButton buttonPlayer3 = new RadioButton("");
+        buttonPlayer3.setGraphic(buttonpl3);
+        buttonPlayer3.setUserData(3);
+        buttonPlayer3.setToggleGroup(player3group);
+        buttonPlayer3.setSelected(true);
+        buttonPlayer3.setLayoutX(110);
+        buttonPlayer3.setLayoutY(-30);
+
+        InputStream iscom3 = getClass().getResourceAsStream("/computer1.png");
+        Image imgcom3= new Image(iscom1);
+        ImageView buttoncom3 = new ImageView(imgcom1);
+        buttoncom3.setFitHeight(40);
+        buttoncom3.setFitWidth(40);
+        buttoncom3.setPreserveRatio(true);
+        RadioButton buttonComputer3 = new RadioButton("");
+        buttonComputer3.setGraphic(buttoncom3);
+        buttonComputer3.setUserData(3);
+        buttonComputer3.setToggleGroup(player3group);
+        buttonComputer3.setSelected(false);
+        buttonComputer3.setLayoutX(200);
+        buttonComputer3.setLayoutY(-24);
+
         player3Pane.getChildren().add(player3);
+        player3Pane.getChildren().add(buttonPlayer3);
+        player3Pane.getChildren().add(buttonComputer3);
         player3Pane.setLayoutX(40);
         player3Pane.setLayoutY(450);
         startPane.getChildren().add(player3Pane);
@@ -478,7 +576,39 @@ public class ViewManager {
             player4.setFont(Font.font("Verdana",20));
         }
         player4.setFill(Color.valueOf("FFFFFF"));
+
+        ToggleGroup player4group = new ToggleGroup();
+        InputStream ispl4 = getClass().getResourceAsStream("/player1.png");
+        Image imgpl4= new Image(ispl4);
+        ImageView buttonpl4 = new ImageView(imgpl4);
+        buttonpl4.setFitHeight(50);
+        buttonpl4.setFitWidth(50);
+        buttonpl4.setPreserveRatio(true);
+        RadioButton buttonPlayer4 = new RadioButton("");
+        buttonPlayer4.setGraphic(buttonpl4);
+        buttonPlayer4.setUserData(3);
+        buttonPlayer4.setToggleGroup(player4group);
+        buttonPlayer4.setSelected(true);
+        buttonPlayer4.setLayoutX(110);
+        buttonPlayer4.setLayoutY(-30);
+
+        InputStream iscom4 = getClass().getResourceAsStream("/computer1.png");
+        Image imgcom4= new Image(iscom4);
+        ImageView buttoncom4 = new ImageView(imgcom4);
+        buttoncom4.setFitHeight(40);
+        buttoncom4.setFitWidth(40);
+        buttoncom4.setPreserveRatio(true);
+        RadioButton buttonComputer4 = new RadioButton("");
+        buttonComputer4.setGraphic(buttoncom4);
+        buttonComputer4.setUserData(3);
+        buttonComputer4.setToggleGroup(player4group);
+        buttonComputer4.setSelected(false);
+        buttonComputer4.setLayoutX(200);
+        buttonComputer4.setLayoutY(-24);
+
         player4Pane.getChildren().add(player4);
+        player4Pane.getChildren().add(buttonComputer4);
+        player4Pane.getChildren().add(buttonPlayer4);
         player4Pane.setLayoutX(40);
         player4Pane.setLayoutY(500);
         startPane.getChildren().add(player4Pane);
@@ -488,8 +618,8 @@ public class ViewManager {
         mainPane.getChildren().add(startPane);
     }
 
-    private void updatePlayerVisibility(){
-        int result = (int) playerToggle.getUserData();
+    private void updatePlayerVisibility(ToggleButton button){
+        int result = (int) button.getUserData();
         switch (result){
             case 1:
                 player1Pane.setVisible(true);

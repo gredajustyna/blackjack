@@ -37,6 +37,7 @@ public class CloseButton extends Button {
                         signButtons.get(i).setDisable(false);
                     }
                     mainPane.getChildren().remove(childPane);
+                    childPane.getChildren().removeAll();
                 }
             }
         });
