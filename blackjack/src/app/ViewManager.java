@@ -21,6 +21,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,6 +41,9 @@ public class ViewManager {
     private SignButton mainLogOutButton;
     private Text noUserDetected;
     private Text userDetected;
+    private ImageView userAvatar;
+    private Text username;
+    private Text level;
     private Scene mainScene;
     private Stage mainStage;
     private static final int HEIGHT = 800;
@@ -48,6 +52,8 @@ public class ViewManager {
     private final static int MENU_BUTTONS_START_Y = 250;
     private final String FONT_PATH = "src/app/fonts/Righteous.ttf";
     private boolean isLoggedIn = false;
+
+    private String login;
     static FileInputStream fis; // do avatara
     static int length; // do avatara
 
@@ -67,6 +73,7 @@ public class ViewManager {
         userPane = new AnchorPane();
         mainScene = new Scene(mainPane,WIDTH,HEIGHT);
         mainStage = new Stage();
+        userAvatar = new ImageView();
         mainStage.setScene(mainScene);
         mainStage.setTitle("Blackjack");
         createButtons();
@@ -195,6 +202,8 @@ public class ViewManager {
     private void createUserPanel(){
         createLogOutButton();
         mainLogOutButton.setVisible(false);
+
+
 
         userDetected = new Text("Logged in.");
         userDetected.setFont(Font.font("src/app/fonts/Righteous-Regular", 13));
@@ -401,6 +410,15 @@ public class ViewManager {
             noUserDetected.setVisible(false);
             userDetected.setVisible(true);
 
+            Image image = DbConnection.setAvatar(login);
+            userAvatar.setImage(image);
+            userAvatar.setLayoutY(20);
+            userAvatar.setLayoutX(20);
+            userAvatar.setFitWidth(150);
+            userAvatar.setFitHeight(150);
+            userAvatar.setVisible(true);
+            userPane.getChildren().add(userAvatar);
+
 
             mainLogOutButton.setVisible(true);
         }else{
@@ -410,6 +428,7 @@ public class ViewManager {
             userDetected.setVisible(false);
 
             mainLogOutButton.setVisible(false);
+            userAvatar.setVisible(false);
 
         }
     }
@@ -548,15 +567,17 @@ public class ViewManager {
             public void handle(ActionEvent event) {
                 if(usernameField.getText().isEmpty() == false && passwordField.getText().isEmpty() == false && confirmPasswordField.getText().isEmpty() == false && (confirmPasswordField.getText().equals(passwordField.getText()))) {
                     DbConnection.insert(usernameField.getText(), passwordField.getText(), fis, length);
-                } else System.out.println("pusto");
-                mainPane.getChildren().remove(registerPane);
-                for(int i=0; i<menuButtons.size(); i++){
-                    menuButtons.get(i).setDisable(false);
+                    login = usernameField.getText();
+                    mainPane.getChildren().remove(registerPane);
+                    for(int i=0; i<menuButtons.size(); i++){
+                        menuButtons.get(i).setDisable(false);
+                    }
+                    for (int i=0; i<signButtons.size(); i++){
+                        signButtons.get(i).setDisable(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fill all fields!!");
                 }
-                for (int i=0; i<signButtons.size(); i++){
-                    signButtons.get(i).setDisable(false);
-                }
-
             }
         });
         registerPane.getChildren().add(registerButton);
