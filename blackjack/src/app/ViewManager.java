@@ -5,8 +5,7 @@ import app.database.DbConnection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +24,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +35,10 @@ public class ViewManager {
     private AnchorPane loginPane;
     private AnchorPane registerPane;
     private AnchorPane userPane;
+    private AnchorPane player1Pane;
+    private AnchorPane player2Pane;
+    private AnchorPane player3Pane;
+    private AnchorPane player4Pane;
     private MainButton startButton;
     private SignButton mainLoginButton;
     private SignButton mainRegisterButton;
@@ -46,6 +50,7 @@ public class ViewManager {
     private Text level;
     private Scene mainScene;
     private Stage mainStage;
+    private ToggleGroup playerToggle;
     private static final int HEIGHT = 800;
     private static final int WIDTH = 1200;
     private final static int MENU_BUTTONS_START_X = 50;
@@ -71,6 +76,11 @@ public class ViewManager {
         loginPane = new AnchorPane();
         registerPane = new AnchorPane();
         userPane = new AnchorPane();
+        player1Pane = new AnchorPane();
+        player2Pane = new AnchorPane();
+        player3Pane = new AnchorPane();
+        player4Pane = new AnchorPane();
+        playerToggle = new ToggleGroup();
         mainScene = new Scene(mainPane,WIDTH,HEIGHT);
         mainStage = new Stage();
         userAvatar = new ImageView();
@@ -271,13 +281,235 @@ public class ViewManager {
     }
 
     private void createStartMenu(){
+
         startPane.setPrefHeight(600);
         startPane.setPrefWidth(500);
         startPane.setLayoutY(150);
         startPane.setLayoutX(350);
         startPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
+
+        Text startText = new Text("Start");
+        try {
+            startText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            startText.setFont(Font.font("Verdana",30));
+        }
+        startText.setFill(Color.valueOf("FFFFFF"));
+        startText.setLayoutX(200);
+        startText.setLayoutY(50);
+        startPane.getChildren().add(startText);
+
+        Text selectCards = new Text("Decks:");
+        try {
+            selectCards.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 25));
+        }catch (FileNotFoundException e){
+            selectCards.setFont(Font.font("Verdana",25));
+        }
+        selectCards.setFill(Color.valueOf("FFFFFF"));
+        selectCards.setLayoutX(210);
+        selectCards.setLayoutY(120);
+        startPane.getChildren().add(selectCards);
+
+        AnchorPane decksPane = new AnchorPane();
+        ToggleGroup group = new ToggleGroup();
+
+        InputStream is1 = getClass().getResourceAsStream("/deck1.png");
+        Image img1= new Image(is1);
+        ImageView button1img = new ImageView(img1);
+        button1img.setFitHeight(50);
+        button1img.setFitWidth(50);
+        button1img.setPreserveRatio(true);
+        RadioButton button1 = new RadioButton("");
+        button1.setGraphic(button1img);
+        button1.setToggleGroup(group);
+        button1.setSelected(true);
+        button1.setLayoutX(50);
+        button1.setLayoutY(150);
+
+
+        InputStream is2 = getClass().getResourceAsStream("/deck2.png");
+        Image img2= new Image(is2);
+        ImageView button2img = new ImageView(img2);
+        button2img.setFitHeight(50);
+        button2img.setFitWidth(50);
+        button2img.setPreserveRatio(true);
+        RadioButton button2 = new RadioButton("");
+        button2.setGraphic(button2img);
+        button2.setToggleGroup(group);
+        button2.setSelected(false);
+        button2.setLayoutX(150);
+        button2.setLayoutY(150);
+
+        InputStream is3 = getClass().getResourceAsStream("/deck3.png");
+        Image img3= new Image(is3);
+        ImageView button3img = new ImageView(img3);
+        button3img.setFitHeight(50);
+        button3img.setFitWidth(50);
+        button3img.setPreserveRatio(true);
+        RadioButton button3 = new RadioButton("");
+        button3.setGraphic(button3img);
+        button3.setToggleGroup(group);
+        button3.setSelected(false);
+        button3.setLayoutX(250);
+        button3.setLayoutY(150);
+
+        decksPane.getChildren().add(button1);
+        decksPane.getChildren().add(button2);
+        decksPane.getChildren().add(button3);
+        decksPane.setLayoutX(60);
+        startPane.getChildren().add(decksPane);
+
+        Text players = new Text("Players:");
+        try {
+            players.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 25));
+        }catch (FileNotFoundException e){
+            players.setFont(Font.font("Verdana",25));
+        }
+        players.setFill(Color.valueOf("FFFFFF"));
+        players.setLayoutX(200);
+        players.setLayoutY(250);
+        startPane.getChildren().add(players);
+
+        AnchorPane playersPane = new AnchorPane();
+        startPane.getChildren().add(playersPane);
+        playersPane.setLayoutX(65);
+        playersPane.setLayoutY(120);
+
+        InputStream is11 = getClass().getResourceAsStream("/players2.png");
+        Image img11= new Image(is11);
+        ImageView button11img = new ImageView(img11);
+        button11img.setFitHeight(50);
+        button11img.setFitWidth(50);
+        button11img.setPreserveRatio(true);
+        RadioButton button11 = new RadioButton("");
+        button11.setGraphic(button11img);
+        button11.setUserData(1);
+        button11.setToggleGroup(playerToggle);
+        button11.setSelected(true);
+        button11.setLayoutX(50);
+        button11.setLayoutY(150);
+        button11.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updatePlayerVisibility();
+        });
+
+
+        InputStream is22 = getClass().getResourceAsStream("/players3.png");
+        Image img22= new Image(is22);
+        ImageView button22img = new ImageView(img22);
+        button22img.setFitHeight(50);
+        button22img.setFitWidth(50);
+        button22img.setPreserveRatio(true);
+        RadioButton button22 = new RadioButton("");
+        button22.setGraphic(button22img);
+        button22.setUserData(2);
+        button22.setToggleGroup(playerToggle);
+        button22.setSelected(false);
+        button22.setLayoutX(150);
+        button22.setLayoutY(150);
+        button22.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updatePlayerVisibility();
+        });
+
+        InputStream is33 = getClass().getResourceAsStream("/players4.png");
+        Image img33= new Image(is33);
+        ImageView button33img = new ImageView(img33);
+        button33img.setFitHeight(50);
+        button33img.setFitWidth(50);
+        button33img.setPreserveRatio(true);
+        RadioButton button33 = new RadioButton("");
+        button33.setGraphic(button33img);
+        button33.setUserData(3);
+        button33.setToggleGroup(playerToggle);
+        button33.setSelected(false);
+        button33.setLayoutX(250);
+        button33.setLayoutY(150);
+        button33.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updatePlayerVisibility();
+        });
+
+        playersPane.getChildren().add(button11);
+        playersPane.getChildren().add(button22);
+        playersPane.getChildren().add(button33);
+
+        Text player1 = new Text("Player 1:");
+        try {
+            player1.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            player1.setFont(Font.font("Verdana",20));
+        }
+        player1.setFill(Color.valueOf("FFFFFF"));
+        player1Pane.getChildren().add(player1);
+        player1Pane.setLayoutX(40);
+        player1Pane.setLayoutY(350);
+        startPane.getChildren().add(player1Pane);
+
+
+        Text player2 = new Text("Player 2:");
+        try {
+            player2.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            player2.setFont(Font.font("Verdana",20));
+        }
+        player2.setFill(Color.valueOf("FFFFFF"));
+        player2Pane.getChildren().add(player2);
+        player2Pane.setLayoutX(40);
+        player2Pane.setLayoutY(400);
+        startPane.getChildren().add(player2Pane);
+
+        Text player3 = new Text("Player 3:");
+        try {
+            player3.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            player3.setFont(Font.font("Verdana",20));
+        }
+        player3.setFill(Color.valueOf("FFFFFF"));
+        player3Pane.getChildren().add(player3);
+        player3Pane.setLayoutX(40);
+        player3Pane.setLayoutY(450);
+        startPane.getChildren().add(player3Pane);
+
+        Text player4 = new Text("Player 4:");
+        try {
+            player4.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            player4.setFont(Font.font("Verdana",20));
+        }
+        player4.setFill(Color.valueOf("FFFFFF"));
+        player4Pane.getChildren().add(player4);
+        player4Pane.setLayoutX(40);
+        player4Pane.setLayoutY(500);
+        startPane.getChildren().add(player4Pane);
+
+
         createCloseStartButton();
         mainPane.getChildren().add(startPane);
+    }
+
+    private void updatePlayerVisibility(){
+        int result = (int) playerToggle.getUserData();
+        switch (result){
+            case 1:
+                player1Pane.setVisible(true);
+                player2Pane.setVisible(true);
+                player3Pane.setVisible(false);
+                player4Pane.setVisible(false);
+                break;
+            case 2:
+                player1Pane.setVisible(true);
+                player2Pane.setVisible(true);
+                player3Pane.setVisible(true);
+                player4Pane.setVisible(false);
+                break;
+            case 3:
+                player1Pane.setVisible(true);
+                player2Pane.setVisible(true);
+                player3Pane.setVisible(true);
+                player4Pane.setVisible(true);
+                break;
+        }
     }
 
     private void createHelpMenu(){
