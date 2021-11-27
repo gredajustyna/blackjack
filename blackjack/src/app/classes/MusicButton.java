@@ -1,13 +1,12 @@
 package app.classes;
 
-import app.ViewManager;
+import app.MenuViewManager;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class MusicButton extends Button {
@@ -27,7 +26,7 @@ public class MusicButton extends Button {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if (ViewManager.isSoundOn){
+                    if (MenuViewManager.isSoundOn){
                         clickSound.play();
                     }
                     if(player.isMute()){

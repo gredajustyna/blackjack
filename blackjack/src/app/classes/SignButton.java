@@ -1,6 +1,6 @@
 package app.classes;
 
-import app.ViewManager;
+import app.MenuViewManager;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -54,7 +54,7 @@ public class SignButton extends Button {
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                     setButtonPressedStyle();
-                    if(ViewManager.isSoundOn){
+                    if(MenuViewManager.isSoundOn){
                         clickSound.play();
                     }
                 }

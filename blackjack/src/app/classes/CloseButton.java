@@ -1,6 +1,6 @@
 package app.classes;
 
-import app.ViewManager;
+import app.MenuViewManager;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -27,7 +27,7 @@ public class CloseButton extends Button {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(ViewManager.isSoundOn){
+                    if(MenuViewManager.isSoundOn){
                         clickSound.play();
                     }
                     for(int i=0; i<menuButtons.size(); i++){

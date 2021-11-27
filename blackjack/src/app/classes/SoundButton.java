@@ -1,6 +1,6 @@
 package app.classes;
 
-import app.ViewManager;
+import app.MenuViewManager;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -25,12 +25,12 @@ public class SoundButton extends Button {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-                    if(ViewManager.isSoundOn == true){
+                    if(MenuViewManager.isSoundOn == true){
                         clickSound.play();
-                        ViewManager.isSoundOn = false;
+                        MenuViewManager.isSoundOn = false;
                         setStyle(BUTTON_FREE_STYLE);
                     }else{
-                        ViewManager.isSoundOn = true;
+                        MenuViewManager.isSoundOn = true;
                         setStyle(BUTTON_PRESSED_STYLE);
                     }
                 }
