@@ -389,7 +389,7 @@ public class MenuViewManager {
         button11img.setPreserveRatio(true);
         RadioButton button11 = new RadioButton("");
         button11.setGraphic(button11img);
-        button11.setUserData(1);
+        button11.setUserData(2);
         button11.setToggleGroup(playerToggle);
         button11.setSelected(true);
         button11.setLayoutX(50);
@@ -409,7 +409,7 @@ public class MenuViewManager {
         button22img.setPreserveRatio(true);
         RadioButton button22 = new RadioButton("");
         button22.setGraphic(button22img);
-        button22.setUserData(2);
+        button22.setUserData(3);
         button22.setToggleGroup(playerToggle);
         button22.setSelected(false);
         button22.setLayoutX(150);
@@ -427,7 +427,7 @@ public class MenuViewManager {
         button33img.setPreserveRatio(true);
         RadioButton button33 = new RadioButton("");
         button33.setGraphic(button33img);
-        button33.setUserData(3);
+        button33.setUserData(4);
         button33.setToggleGroup(playerToggle);
         button33.setSelected(false);
         button33.setLayoutX(250);
@@ -627,19 +627,19 @@ public class MenuViewManager {
     private void updatePlayerVisibility(ToggleButton button){
         int result = (int) button.getUserData();
         switch (result){
-            case 1:
+            case 2:
                 player1Pane.setVisible(true);
                 player2Pane.setVisible(true);
                 player3Pane.setVisible(false);
                 player4Pane.setVisible(false);
                 break;
-            case 2:
+            case 3:
                 player1Pane.setVisible(true);
                 player2Pane.setVisible(true);
                 player3Pane.setVisible(true);
                 player4Pane.setVisible(false);
                 break;
-            case 3:
+            case 4:
                 player1Pane.setVisible(true);
                 player2Pane.setVisible(true);
                 player3Pane.setVisible(true);

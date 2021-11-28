@@ -1,7 +1,9 @@
 package app;
 
+import app.classes.GameButton;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -23,6 +25,8 @@ import java.util.TimerTask;
 public class GameViewManager {
     private AnchorPane gamePane;
     private AnchorPane timerPane;
+    private GameButton hitButton;
+    private GameButton standButton;
     private final String FONT_PATH = "src/app/fonts/Righteous.ttf";
     private Scene gameScene;
     private Stage gameStage;
@@ -55,11 +59,14 @@ public class GameViewManager {
         secondsLeft = 15;
         secondsText = new Text(String.valueOf(secondsLeft));
         minutesText = new Text("0:");
+        hitButton = new GameButton("hit", "chip_green");
+        standButton = new GameButton("stand", "chip_red");
         createBackground();
         numberOfPlayers = players;
-        //timer = new Timer();
-        createUsersTable();
+        createUsersTable(players);
         createTimer();
+        buildHitButton();
+        buildStandButton();
         playRound();
         //TODO: muzyczka potem do dodania
 //        if (isMusicOn){
@@ -114,23 +121,113 @@ public class GameViewManager {
         gamePane.getChildren().add(timerPane);
     }
 
-    private void createUsersTable(){
+    private void createUsersTable(int numberOfPlayers){
         AnchorPane playersPane = new AnchorPane();
         gamePane.getChildren().add(playersPane);
+        AnchorPane player1Pane = new AnchorPane();
+        AnchorPane player2Pane = new AnchorPane();
+        AnchorPane player3Pane = new AnchorPane();
+        AnchorPane player4Pane = new AnchorPane();
         playersPane.setPrefWidth(1200);
         playersPane.setPrefHeight(650);
         playersPane.setLayoutY(150);
 
         switch (numberOfPlayers){
             case 2:
-                AnchorPane player1Pane = new AnchorPane();
-                gamePane.getChildren().add(player1Pane);
+                System.out.println("this many players");
+                //AnchorPane player1Pane = new AnchorPane();
+                playersPane.getChildren().add(player1Pane);
+                player1Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px; -fx-border-radius: 10px;\n" +
+                        "    -fx-border-color: black;");
+                player1Pane.setPrefHeight(100);
+                player1Pane.setPrefWidth(250);
+                player1Pane.setLayoutY(225);
+                player1Pane.setLayoutX(20);
+                player1Pane.setEffect(new DropShadow());
 
+                //AnchorPane player2Pane = new AnchorPane();
+                playersPane.getChildren().add(player2Pane);
+                player2Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px;\n" +
+                        "    -fx-border-color: black;-fx-border-radius: 10px;");
+                player2Pane.setPrefHeight(100);
+                player2Pane.setPrefWidth(250);
+                player2Pane.setLayoutY(225);
+                player2Pane.setLayoutX(930);
+                player2Pane.setEffect(new DropShadow());
 
                 break;
             case 3:
+                System.out.println("this many players");
+                //AnchorPane player1Pane = new AnchorPane();
+                playersPane.getChildren().add(player1Pane);
+                player1Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px; -fx-border-radius: 10px;\n" +
+                        "    -fx-border-color: black;");
+                player1Pane.setPrefHeight(100);
+                player1Pane.setPrefWidth(250);
+                player1Pane.setLayoutY(225);
+                player1Pane.setLayoutX(20);
+                player1Pane.setEffect(new DropShadow());
+
+                //AnchorPane player2Pane = new AnchorPane();
+                playersPane.getChildren().add(player2Pane);
+                player2Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px;\n" +
+                        "    -fx-border-color: black;-fx-border-radius: 10px;");
+                player2Pane.setPrefHeight(100);
+                player2Pane.setPrefWidth(250);
+                player2Pane.setLayoutY(225);
+                player2Pane.setLayoutX(930);
+                player2Pane.setEffect(new DropShadow());
+
+                //AnchorPane player3Pane = new AnchorPane();
+                playersPane.getChildren().add(player3Pane);
+                player3Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px;\n" +
+                        "    -fx-border-color: black;-fx-border-radius: 10px;");
+                player3Pane.setPrefHeight(100);
+                player3Pane.setPrefWidth(250);
+                player3Pane.setLayoutY(25);
+                player3Pane.setLayoutX(950);
+                player3Pane.setEffect(new DropShadow());
                 break;
             case 4:
+                System.out.println("this many players");
+                //AnchorPane player1Pane = new AnchorPane();
+                playersPane.getChildren().add(player1Pane);
+                player1Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px; -fx-border-radius: 10px;\n" +
+                        "    -fx-border-color: black;");
+                player1Pane.setPrefHeight(100);
+                player1Pane.setPrefWidth(250);
+                player1Pane.setLayoutY(225);
+                player1Pane.setLayoutX(20);
+                player1Pane.setEffect(new DropShadow());
+
+                //AnchorPane player2Pane = new AnchorPane();
+                playersPane.getChildren().add(player2Pane);
+                player2Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px;\n" +
+                        "    -fx-border-color: black;-fx-border-radius: 10px;");
+                player2Pane.setPrefHeight(100);
+                player2Pane.setPrefWidth(250);
+                player2Pane.setLayoutY(225);
+                player2Pane.setLayoutX(930);
+                player2Pane.setEffect(new DropShadow());
+
+                //AnchorPane player3Pane = new AnchorPane();
+                playersPane.getChildren().add(player3Pane);
+                player3Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px;\n" +
+                        "    -fx-border-color: black;-fx-border-radius: 10px;");
+                player3Pane.setPrefHeight(100);
+                player3Pane.setPrefWidth(250);
+                player3Pane.setLayoutY(-20);
+                player3Pane.setLayoutX(475);
+                player3Pane.setEffect(new DropShadow());
+
+                playersPane.getChildren().add(player4Pane);
+                player4Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px;\n" +
+                        "    -fx-border-color: black;-fx-border-radius: 10px;");
+                player4Pane.setPrefHeight(100);
+                player4Pane.setPrefWidth(250);
+                player4Pane.setLayoutY(525);
+                player4Pane.setLayoutX(475);
+                player4Pane.setEffect(new DropShadow());
                 break;
         }
 
@@ -171,6 +268,20 @@ public class GameViewManager {
                 System.out.println(repetitions + "repetitions");
             }
         }, 0, 15000);
+    }
+
+    private void buildHitButton(){
+        gamePane.getChildren().add(hitButton);
+        hitButton.setVisible(false);
+        hitButton.setLayoutX(400);
+        hitButton.setLayoutY(300);
+    }
+
+    private void buildStandButton(){
+        gamePane.getChildren().add(standButton);
+        standButton.setVisible(false);
+        standButton.setLayoutY(300);
+        standButton.setLayoutX(700);
     }
 
 
