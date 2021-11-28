@@ -59,8 +59,8 @@ public class GameViewManager {
         secondsLeft = 15;
         secondsText = new Text(String.valueOf(secondsLeft));
         minutesText = new Text("0:");
-        hitButton = new GameButton("hit", "chip_green");
-        standButton = new GameButton("stand", "chip_red");
+        hitButton = new GameButton("hit", "chip_green.png");
+        standButton = new GameButton("stand", "chip_red.png");
         createBackground();
         numberOfPlayers = players;
         createUsersTable(players);
@@ -272,15 +272,15 @@ public class GameViewManager {
 
     private void buildHitButton(){
         gamePane.getChildren().add(hitButton);
-        hitButton.setVisible(false);
-        hitButton.setLayoutX(400);
-        hitButton.setLayoutY(300);
+        //hitButton.setVisible(false);
+        hitButton.setLayoutX(350);
+        hitButton.setLayoutY(500);
     }
 
     private void buildStandButton(){
         gamePane.getChildren().add(standButton);
-        standButton.setVisible(false);
-        standButton.setLayoutY(300);
+        //standButton.setVisible(false);
+        standButton.setLayoutY(500);
         standButton.setLayoutX(700);
     }
 

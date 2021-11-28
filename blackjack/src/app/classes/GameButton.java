@@ -20,14 +20,15 @@ public class GameButton extends Button {
     public GameButton(String text, String buttonUrl){
         setText(text);
         setButtonFont();
-        setPrefWidth(80);
-        setPrefHeight(80);
+        setPrefWidth(140);
+        setPrefHeight(120);
         setGameButton(buttonUrl);
         initializeButtonListeners();
     }
 
     private void setGameButton(String buttonUrl){
-        final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('"+ buttonUrl +"'); -fx-text-fill: FFFFFF";
+        final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('"+ buttonUrl +"'); -fx-text-fill: FFFFFF; -fx-background-repeat: no-repeat; -fx-background-size: 120px 120px";
+        System.out.println(buttonUrl);
         setStyle(BUTTON_FREE_STYLE);
     }
 
