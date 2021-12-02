@@ -13,7 +13,7 @@ public class Deck {
     List<Card> player2 = new ArrayList<>();
     List<Card> player3 = new ArrayList<>();
     List<Card> player4 = new ArrayList<>();
-    int[] score= {0,0,0,0};
+    int[] score= {0,0,0,0,0};
     List<Card> discard = new ArrayList<>();
 
 
