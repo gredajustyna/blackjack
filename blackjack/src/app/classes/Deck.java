@@ -14,6 +14,7 @@ public class Deck {
     List<Card> player3 = new ArrayList<>();
     List<Card> player4 = new ArrayList<>();
     int[] score= {0,0,0,0};
+    List<Card> discard = new ArrayList<>();
 
 
     public Deck(int decksNumber){
@@ -59,6 +60,9 @@ public class Deck {
     }
 
     public int draw(int user){
+        if(deck.size()==0){
+            reShuffle();
+        }
         score[user] += deck.get(0).getValue();
         int value = deck.get(0).getValue();
         switch (user) {
@@ -126,6 +130,31 @@ public class Deck {
 
         deck.remove(0);
         return value;
+    }
+
+    public void discard(){
+        discard.addAll(krupier);
+        krupier.clear();
+        discard.addAll(player1);
+        player1.clear();
+        discard.addAll(player2);
+        player2.clear();
+        discard.addAll(player3);
+        player3.clear();
+        discard.addAll(player4);
+        player4.clear();
+    }
+
+    public void reShuffle(){
+        for(int i = 0; i < discard.size(); i++){
+            if(discard.get(i).getValue()==1){
+                discard.get(i).setValue(11);
+            }
+        }
+
+        deck.addAll(discard);
+        discard.clear();
+        shuffle();
     }
 
 
