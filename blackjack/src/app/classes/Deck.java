@@ -6,15 +6,15 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Deck {
-    List<Card> deck = new ArrayList<>();
+    private List<Card> deck = new ArrayList<>();
 
-    List<Card> krupier = new ArrayList<>();
-    List<Card> player1 = new ArrayList<>();
-    List<Card> player2 = new ArrayList<>();
-    List<Card> player3 = new ArrayList<>();
-    List<Card> player4 = new ArrayList<>();
-    int[] score= {0,0,0,0,0};
-    List<Card> discard = new ArrayList<>();
+    private List<Card> krupier = new ArrayList<>();
+    private List<Card> player1 = new ArrayList<>();
+    private List<Card> player2 = new ArrayList<>();
+    private List<Card> player3 = new ArrayList<>();
+    private List<Card> player4 = new ArrayList<>();
+    private int[] score= {0,0,0,0,0};
+    private List<Card> discard = new ArrayList<>();
 
 
     public Deck(int decksNumber){
@@ -60,9 +60,7 @@ public class Deck {
     }
 
     public int draw(int user){
-        if(deck.size()==0){
-            reShuffle();
-        }
+
         score[user] += deck.get(0).getValue();
         int value = deck.get(0).getValue();
         switch (user) {
@@ -129,6 +127,9 @@ public class Deck {
         }
 
         deck.remove(0);
+        if(deck.size()==0){
+            reShuffle();
+        }
         return value;
     }
 
@@ -162,6 +163,10 @@ public class Deck {
         return deck;
     }
 
+    public int getScore(int nr) {
+        return score[nr];
+    }
+
     public static void main(String[] args) {
         Deck deck= new Deck(2);
         deck.shuffle();
@@ -178,6 +183,18 @@ public class Deck {
 
         System.out.println(deck.getDeck());
         System.out.println(deck.getDeck().size());
+
+        BotPlayer bot = new BotPlayer(3,deck,4);
+        System.out.println("test bota");
+        System.out.println(bot.play());
+        System.out.println(deck.score[4]);
+        System.out.println(bot.play());
+        System.out.println(deck.score[4]);
+        System.out.println(bot.play());
+        System.out.println(deck.score[4]);
+        System.out.println(deck.getDeck());
+        System.out.println(deck.getDeck().size());
+
 
 
     }
