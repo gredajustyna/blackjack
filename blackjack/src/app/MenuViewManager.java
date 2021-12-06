@@ -286,6 +286,7 @@ public class MenuViewManager {
     private void createStartMenu(){
         player4Pane.setVisible(false);
         player3Pane.setVisible(false);
+        player2Pane.setVisible(false);
         startPane.setPrefHeight(600);
         startPane.setPrefWidth(500);
         startPane.setLayoutY(150);
@@ -378,8 +379,26 @@ public class MenuViewManager {
 
         AnchorPane playersPane = new AnchorPane();
         startPane.getChildren().add(playersPane);
-        playersPane.setLayoutX(65);
+        playersPane.setLayoutX(25);
         playersPane.setLayoutY(120);
+
+        InputStream is00 = getClass().getResourceAsStream("/player1.png");
+        Image img00= new Image(is00);
+        ImageView button00img = new ImageView(img00);
+        button00img.setFitHeight(50);
+        button00img.setFitWidth(50);
+        button00img.setPreserveRatio(true);
+        RadioButton button00 = new RadioButton("");
+        button00.setGraphic(button00img);
+        button00.setUserData(1);
+        button00.setToggleGroup(playerToggle);
+        button00.setSelected(true);
+        button00.setLayoutX(50);
+        button00.setLayoutY(150);
+        button00.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updatePlayerVisibility(button00);
+        });
 
         InputStream is11 = getClass().getResourceAsStream("/players2.png");
         Image img11= new Image(is11);
@@ -391,8 +410,8 @@ public class MenuViewManager {
         button11.setGraphic(button11img);
         button11.setUserData(2);
         button11.setToggleGroup(playerToggle);
-        button11.setSelected(true);
-        button11.setLayoutX(50);
+        button11.setSelected(false);
+        button11.setLayoutX(150);
         button11.setLayoutY(150);
         button11.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
@@ -412,7 +431,7 @@ public class MenuViewManager {
         button22.setUserData(3);
         button22.setToggleGroup(playerToggle);
         button22.setSelected(false);
-        button22.setLayoutX(150);
+        button22.setLayoutX(250);
         button22.setLayoutY(150);
         button22.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
@@ -430,13 +449,14 @@ public class MenuViewManager {
         button33.setUserData(4);
         button33.setToggleGroup(playerToggle);
         button33.setSelected(false);
-        button33.setLayoutX(250);
+        button33.setLayoutX(350);
         button33.setLayoutY(150);
         button33.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
             updatePlayerVisibility(button33);
         });
 
+        playersPane.getChildren().add(button00);
         playersPane.getChildren().add(button11);
         playersPane.getChildren().add(button22);
         playersPane.getChildren().add(button33);
@@ -627,6 +647,11 @@ public class MenuViewManager {
     private void updatePlayerVisibility(ToggleButton button){
         int result = (int) button.getUserData();
         switch (result){
+            case 1:
+                player1Pane.setVisible(true);
+                player2Pane.setVisible(false);
+                player3Pane.setVisible(false);
+                player4Pane.setVisible(false);
             case 2:
                 player1Pane.setVisible(true);
                 player2Pane.setVisible(true);
@@ -655,6 +680,19 @@ public class MenuViewManager {
         helpPane.setLayoutX(350);
         helpPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
         createCloseHelpButton();
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setPrefHeight(500);
+        scrollPane.setPrefWidth(580);
+        scrollPane.setLayoutX(10);
+        scrollPane.setLayoutY(50);
+        scrollPane.setStyle("-fx-background-color: transparent;");
+        helpPane.getChildren().add(scrollPane);
+
+        Text helpText = new Text(HelpText.getHelpText1());
+        scrollPane.setContent(helpText);
+
         mainPane.getChildren().add(helpPane);
     }
 

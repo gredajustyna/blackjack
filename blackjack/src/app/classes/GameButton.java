@@ -20,23 +20,23 @@ public class GameButton extends Button {
     public GameButton(String text, String buttonUrl){
         setText(text);
         setButtonFont();
-        setPrefWidth(140);
+        setPrefWidth(120);
         setPrefHeight(120);
         setGameButton(buttonUrl);
         initializeButtonListeners();
     }
 
     private void setGameButton(String buttonUrl){
-        final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('"+ buttonUrl +"'); -fx-text-fill: FFFFFF; -fx-background-repeat: no-repeat; -fx-background-size: 120px 120px";
+        final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('"+ buttonUrl +"'); -fx-text-fill: black; -fx-background-repeat: no-repeat; -fx-background-size: 120px 120px";
         System.out.println(buttonUrl);
         setStyle(BUTTON_FREE_STYLE);
     }
 
     private void setButtonFont(){
         try {
-            setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 25));
         } catch (FileNotFoundException e) {
-            setFont(Font.font("Verdana",30));
+            setFont(Font.font("Verdana",25));
         }
     }
 
