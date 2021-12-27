@@ -60,6 +60,10 @@ public class MenuViewManager {
     private boolean isLoggedIn = false;
 
     private String login;
+    public static User user1 = new User();
+    public static User user2 = new User();
+    public static User user3 = new User();
+    public static User user4 = new User();
     static FileInputStream fis; // do avatara
     static int length; // do avatara
 
@@ -748,8 +752,11 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
                 String login = DbConnection.Login(usernameField.getText(), passwordField.getText());
+
                 if (login != "0"){
                     isLoggedIn = true;
+                    user1.setLogin(login);
+                    System.out.println(login);
                 }else{
                     isLoggedIn = false;
                 }
@@ -933,7 +940,12 @@ public class MenuViewManager {
         registerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(usernameField.getText().isEmpty() == false && passwordField.getText().isEmpty() == false && confirmPasswordField.getText().isEmpty() == false && (confirmPasswordField.getText().equals(passwordField.getText()))) {
+                int sem = 0;
+                if (DbConnection.selectAllLogins().contains(usernameField.getText())){
+                    JOptionPane.showMessageDialog(null, "Login already taken :*");
+                    sem = 1;
+                }
+                else if(sem == 0 && usernameField.getText().length() < 20 && usernameField.getText().isEmpty() == false && passwordField.getText().isEmpty() == false && confirmPasswordField.getText().isEmpty() == false && (confirmPasswordField.getText().equals(passwordField.getText()))) {
                     DbConnection.insert(usernameField.getText(), passwordField.getText(), fis, length);
                     login = usernameField.getText();
                     mainPane.getChildren().remove(registerPane);
@@ -943,7 +955,9 @@ public class MenuViewManager {
                     for (int i=0; i<signButtons.size(); i++){
                         signButtons.get(i).setDisable(false);
                     }
-                } else {
+                } else if (usernameField.getText().length()  > 20){
+                    JOptionPane.showMessageDialog(null, "Login length must be less than 20 characters");
+                }else {
                     JOptionPane.showMessageDialog(null, "Fill all fields!!");
                 }
             }

@@ -50,6 +50,36 @@ public class DbConnection {
         }
     }
 
+    public static List<String> selectAllLogins(){
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        List<String> users = new ArrayList<>();
+
+        try {
+            String sql = "SELECT Login FROM users";
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()) {
+
+                String login = rs.getString("Login");
+                users.add(login);
+            }
+
+        } catch(SQLException e) {
+            //System.out.println(e.toString());
+        } finally {
+            try {
+                rs.close();
+                ps.close();
+                con.close();
+            } catch(SQLException e) {
+                //System.out.println(e.toString());
+            }
+        }
+        return users;
+    }
+
 
     public static String  Login(String login, String password){
         Connection con = DbConnection.connect();
