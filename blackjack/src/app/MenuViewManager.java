@@ -2,6 +2,8 @@ package app;
 
 import app.classes.*;
 import app.database.DbConnection;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -60,6 +62,10 @@ public class MenuViewManager {
     private boolean isLoggedIn = false;
 
     private String login;
+    public static String login_buff;
+    private boolean isLoggedIn2 = false;
+    private boolean isLoggedIn3 = false;
+    private boolean isLoggedIn4 = false;
     public static User user1 = new User();
     public static User user2 = new User();
     public static User user3 = new User();
@@ -126,14 +132,19 @@ public class MenuViewManager {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                createStartMenu();
-                for(int i=0; i<menuButtons.size(); i++){
-                    menuButtons.get(i).setDisable(true);
-                }
-                for (int i=0; i<signButtons.size(); i++){
-                    signButtons.get(i).setDisable(true);
-                }
+                if (isLoggedIn) {
+                    user1.setLogin(login_buff);
+                    System.out.println(user1.getLogin());
+                    createStartMenu();
+                    for (int i = 0; i < menuButtons.size(); i++) {
+                        menuButtons.get(i).setDisable(true);
+                    }
+                    for (int i = 0; i < signButtons.size(); i++) {
+                        signButtons.get(i).setDisable(true);
+                    }
+                }else{}
             }
+
         });
     }
 
@@ -244,12 +255,7 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
                 createLoginPanel();
-                for(int i=0; i<menuButtons.size(); i++){
-                    menuButtons.get(i).setDisable(true);
-                }
-                for (int i=0; i<signButtons.size(); i++){
-                    signButtons.get(i).setDisable(true);
-                }
+
             }
         });
         addSignButton(mainLoginButton);
@@ -488,6 +494,7 @@ public class MenuViewManager {
         buttonPlayer1.setLayoutX(110);
         buttonPlayer1.setLayoutY(-30);
 
+
         InputStream iscom1 = getClass().getResourceAsStream("/computer1.png");
         Image imgcom1= new Image(iscom1);
         ImageView buttoncom1 = new ImageView(imgcom1);
@@ -530,7 +537,7 @@ public class MenuViewManager {
         buttonPlayer2.setGraphic(buttonpl2);
         buttonPlayer2.setUserData(3);
         buttonPlayer2.setToggleGroup(player2group);
-        buttonPlayer2.setSelected(true);
+        buttonPlayer2.setSelected(false);
         buttonPlayer2.setLayoutX(110);
         buttonPlayer2.setLayoutY(-30);
 
@@ -544,9 +551,19 @@ public class MenuViewManager {
         buttonComputer2.setGraphic(buttoncom2);
         buttonComputer2.setUserData(3);
         buttonComputer2.setToggleGroup(player2group);
-        buttonComputer2.setSelected(false);
+        buttonComputer2.setSelected(true);
         buttonComputer2.setLayoutX(200);
         buttonComputer2.setLayoutY(-24);
+
+        buttonPlayer2.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (buttonPlayer2.isSelected()) {
+                    isLoggedIn2 = true;
+                    mainPane.getChildren().add(loginPane);
+                }
+            }
+        });
 
         player2Pane.getChildren().add(player2);
         player2Pane.getChildren().add(buttonComputer2);
@@ -574,7 +591,7 @@ public class MenuViewManager {
         buttonPlayer3.setGraphic(buttonpl3);
         buttonPlayer3.setUserData(3);
         buttonPlayer3.setToggleGroup(player3group);
-        buttonPlayer3.setSelected(true);
+        buttonPlayer3.setSelected(false);
         buttonPlayer3.setLayoutX(110);
         buttonPlayer3.setLayoutY(-30);
 
@@ -588,9 +605,19 @@ public class MenuViewManager {
         buttonComputer3.setGraphic(buttoncom3);
         buttonComputer3.setUserData(3);
         buttonComputer3.setToggleGroup(player3group);
-        buttonComputer3.setSelected(false);
+        buttonComputer3.setSelected(true);
         buttonComputer3.setLayoutX(200);
         buttonComputer3.setLayoutY(-24);
+
+        buttonPlayer3.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (buttonPlayer3.isSelected()) {
+                    isLoggedIn3 = true;
+                    mainPane.getChildren().add(loginPane);
+                }
+            }
+        });
 
         player3Pane.getChildren().add(player3);
         player3Pane.getChildren().add(buttonPlayer3);
@@ -618,7 +645,7 @@ public class MenuViewManager {
         buttonPlayer4.setGraphic(buttonpl4);
         buttonPlayer4.setUserData(3);
         buttonPlayer4.setToggleGroup(player4group);
-        buttonPlayer4.setSelected(true);
+        buttonPlayer4.setSelected(false);
         buttonPlayer4.setLayoutX(110);
         buttonPlayer4.setLayoutY(-30);
 
@@ -632,9 +659,19 @@ public class MenuViewManager {
         buttonComputer4.setGraphic(buttoncom4);
         buttonComputer4.setUserData(3);
         buttonComputer4.setToggleGroup(player4group);
-        buttonComputer4.setSelected(false);
+        buttonComputer4.setSelected(true);
         buttonComputer4.setLayoutX(200);
         buttonComputer4.setLayoutY(-24);
+
+        buttonPlayer4.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (buttonPlayer4.isSelected()) {
+                    isLoggedIn4 = true;
+                    mainPane.getChildren().add(loginPane);
+                }
+            }
+        });
 
         player4Pane.getChildren().add(player4);
         player4Pane.getChildren().add(buttonComputer4);
@@ -728,7 +765,7 @@ public class MenuViewManager {
         mainPane.getChildren().add(button);
     }
 
-    private void createLoginPanel(){
+    public void createLoginPanel(){
         loginPane.setPrefHeight(300);
         loginPane.setPrefWidth(500);
         loginPane.setLayoutY(250);
@@ -789,16 +826,24 @@ public class MenuViewManager {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String login = DbConnection.Login(usernameField.getText(), passwordField.getText());
-
-                if (login != "0"){
+                login_buff = DbConnection.Login(usernameField.getText(), passwordField.getText());
+                if (login_buff != "0"){
                     isLoggedIn = true;
-                    user1.setLogin(login);
-                    System.out.println(login);
                 }else{
                     isLoggedIn = false;
                 }
-                System.out.println(isLoggedIn);
+                if(login_buff != "0" && isLoggedIn2){
+                    user2.setLogin(login_buff);
+                    isLoggedIn2 = false;
+                }
+                if(login_buff != "0" && isLoggedIn3){
+                    user3.setLogin(login_buff);
+                    isLoggedIn3 = false;
+                }
+                if(login_buff != "0" && isLoggedIn4){
+                    user4.setLogin(login_buff);
+                    isLoggedIn4 = false;
+                }
                 mainPane.getChildren().remove(loginPane);
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(false);
@@ -830,7 +875,7 @@ public class MenuViewManager {
             userAvatar.setFitWidth(150);
             userAvatar.setFitHeight(150);
             userAvatar.setVisible(true);
-            userPane.getChildren().add(userAvatar);
+            //userPane.getChildren().add(userAvatar);
 
 
             mainLogOutButton.setVisible(true);
@@ -842,6 +887,7 @@ public class MenuViewManager {
 
             mainLogOutButton.setVisible(false);
             userAvatar.setVisible(false);
+           // userPane.getChildren().remove(userAvatar);
 
         }
     }

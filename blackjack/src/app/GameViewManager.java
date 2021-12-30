@@ -1,8 +1,13 @@
 package app;
 
+import app.classes.Deck;
 import app.classes.GameButton;
+import app.database.DbConnection;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -49,6 +55,14 @@ public class GameViewManager {
     private int player4Points = 0;
     private Text minutesText;
     private Text secondsText;
+    Text player1PointsText = new Text("Points: " + player1Points);
+    Text player2PointsText = new Text("Points: " + player2Points);
+    Text player3PointsText = new Text("Points: " + player2Points);
+    Text player4PointsText = new Text("Points: " + player4Points);
+
+    private ArrayList<Boolean> playersList =  new ArrayList<Boolean>();
+
+    private ArrayList<Boolean> playersTurn =  new ArrayList<Boolean>();
     MediaPlayer player;
     //Timer timer;
 
@@ -79,6 +93,16 @@ public class GameViewManager {
         createTimer();
         buildHitButton();
         buildStandButton();
+        //connecting to the deck class and creating game
+        Deck deck = new Deck(1);
+        deck.shuffle();
+
+        //krupier na poczatku zaczyna nie ?
+        deck.draw(0);
+        deck.draw(0);
+        deck.draw(1);
+        deck.draw(1);
+
         playRound();
         //TODO: muzyczka potem do dodania
 //        if (isMusicOn){
@@ -92,7 +116,44 @@ public class GameViewManager {
 //            player.play();
 //        }
 
+        hitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(playersTurn.get(0) == true){
+                    deck.draw(1);
+                    playersTurn.set(0,false);
+                    if (playersList.size() > 1){
+                        playersTurn.set(1,true);
+                    }
+                    player1Points = deck.score[1];
 
+                }
+                else if(playersList.size() >= 2 && playersList.get(1) == true && playersTurn.get(1) == true){
+                    deck.draw(2);
+                    playersTurn.set(1,false);
+                    if (playersList.size() > 2){
+                        playersTurn.set(2,true);
+                    }else playersTurn.set(0,true);
+                    player2Points = deck.score[2];
+                }
+                else if(playersList.size() >= 3 && playersList.get(2) == true && playersTurn.get(2) == true){
+                    deck.draw(3);
+                    playersTurn.set(2,false);
+                    if (playersList.size() > 3){
+                        playersTurn.set(3,true);
+                    } else playersTurn.set(0,true);
+                    player3Points = deck.score[3];
+                }
+                else if(playersList.size() == 4 && playersList.get(3) == true && playersTurn.get(3) == true){
+                    deck.draw(4);
+                    playersTurn.set(3,false);
+                    playersTurn.set(0,true);
+                    player4Points = deck.score[4];
+                }
+            updatePoints();
+
+            }
+        });
 
     }
 
@@ -181,7 +242,7 @@ public class GameViewManager {
         dealerPointsText.setLayoutX(10);
         dealerPointsText.setLayoutY(75);
 
-        Text player1Text = new Text("Player1"); //DOMYŚLNIE JEGO LOGIN
+        Text player1Text = new Text(MenuViewManager.user1.getLogin()); //DOMYŚLNIE JEGO LOGIN
         try {
             player1Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         }catch (FileNotFoundException e){
@@ -192,7 +253,6 @@ public class GameViewManager {
         player1Text.setLayoutX(10);
         player1Text.setLayoutY(35);
 
-        Text player1PointsText = new Text("Points: " + player1Points);
         try {
             player1PointsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
         }catch (FileNotFoundException e){
@@ -229,6 +289,10 @@ public class GameViewManager {
                 player1Pane.setLayoutX(475);
                 player1Pane.setEffect(new DropShadow());
 
+                playersList.add(true);
+                playersTurn.add(true);
+
+
                 break;
             case 2:
                 System.out.println("this many players: " + numberOfPlayers);
@@ -239,7 +303,8 @@ public class GameViewManager {
                 player1Pane.setLayoutY(225);
                 player1Pane.setLayoutX(20);
                 player1Pane.setEffect(new DropShadow());
-
+                playersList.add(true);
+                playersTurn.add(true);
                 //AnchorPane player2Pane = new AnchorPane();
                 buildPlayer2Pane();
 
@@ -253,7 +318,8 @@ public class GameViewManager {
                 player1Pane.setLayoutY(225);
                 player1Pane.setLayoutX(20);
                 player1Pane.setEffect(new DropShadow());
-
+                playersList.add(true);
+                playersTurn.add(true);
                 buildPlayer2Pane();
                 buildPlayer3Pane();
 
@@ -268,6 +334,8 @@ public class GameViewManager {
                 player1Pane.setLayoutX(20);
                 player1Pane.setEffect(new DropShadow());
 
+                playersList.add(true);
+                playersTurn.add(true);
                 buildPlayer2Pane();
                 buildPlayer3Pane();
                 buildPlayer4Pane();
@@ -304,11 +372,11 @@ public class GameViewManager {
                         if (secondsLeft ==0) {
                             secondTimer.cancel();
                         }
-                        System.out.println(secondsLeft);
+                       // System.out.println(secondsLeft);
                         updateSeconds();
                     }
                 }, 0, 1000);
-                System.out.println(repetitions + "repetitions");
+                //System.out.println(repetitions + "repetitions");
             }
         }, 0, 15000);
     }
@@ -319,6 +387,8 @@ public class GameViewManager {
         hitButton.setLayoutX(350);
         hitButton.setLayoutY(500);
     }
+
+
 
     private void buildStandButton(){
         gamePane.getChildren().add(standButton);
@@ -336,8 +406,14 @@ public class GameViewManager {
         player2Pane.setLayoutY(225);
         player2Pane.setLayoutX(930);
         player2Pane.setEffect(new DropShadow());
-
-        Text player2Text = new Text("Player2"); //DOMYŚLNIE JEGO LOGIN
+        Text player2Text = new Text(MenuViewManager.user2.getLogin());//DOMYŚLNIE JEGO LOGIN
+        playersList.add(true);
+        playersTurn.add(false);
+        System.out.println(playersList.size());
+        if(MenuViewManager.user2.getLogin() == null) {
+            player2Text = new Text("Bot2");
+            playersList.set(1,false);
+        }
         try {
             player2Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         }catch (FileNotFoundException e){
@@ -348,7 +424,7 @@ public class GameViewManager {
         player2Text.setLayoutX(10);
         player2Text.setLayoutY(35);
 
-        Text player2PointsText = new Text("Points: " + player2Points);
+
         try {
             player2PointsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
         }catch (FileNotFoundException e){
@@ -379,7 +455,13 @@ public class GameViewManager {
         player3Pane.setLayoutX(475);
         player3Pane.setEffect(new DropShadow());
 
-        Text player3Text = new Text("Player3"); //DOMYŚLNIE JEGO LOGIN
+        Text player3Text = new Text(MenuViewManager.user3.getLogin()); //DOMYŚLNIE JEGO LOGIN
+        playersList.add(true);
+        playersTurn.add(false);
+        if(MenuViewManager.user3.getLogin() == null) {
+            player3Text = new Text("Bot3");
+            playersList.set(2,false);
+        }
         try {
             player3Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         }catch (FileNotFoundException e){
@@ -390,7 +472,7 @@ public class GameViewManager {
         player3Text.setLayoutX(10);
         player3Text.setLayoutY(35);
 
-        Text player3PointsText = new Text("Points: " + player2Points);
+
         try {
             player3PointsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
         }catch (FileNotFoundException e){
@@ -424,7 +506,13 @@ public class GameViewManager {
         player4Pane.setLayoutX(650);
         player4Pane.setEffect(new DropShadow());
 
-        Text player4Text = new Text("Player4"); //DOMYŚLNIE JEGO LOGIN
+        Text player4Text = new Text(MenuViewManager.user4.getLogin()); //DOMYŚLNIE JEGO LOGIN
+        playersList.add(true);
+        playersTurn.add(false);
+        if(MenuViewManager.user4.getLogin() == null) {
+            player4Text = new Text("Bot4");
+            playersList.set(3,false);
+        }
         try {
             player4Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         }catch (FileNotFoundException e){
@@ -435,7 +523,7 @@ public class GameViewManager {
         player4Text.setLayoutX(10);
         player4Text.setLayoutY(35);
 
-        Text player4PointsText = new Text("Points: " + player4Points);
+
         try {
             player4PointsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
         }catch (FileNotFoundException e){
@@ -454,6 +542,13 @@ public class GameViewManager {
         player4Avatar.setLayoutX(150);
         player4Avatar.setLayoutY(10);
         player4Pane.getChildren().add(player4Avatar);
+    }
+
+    private void updatePoints(){
+        player1PointsText.setText("Points: " + player1Points);
+        player2PointsText.setText("Points: " + player2Points);
+        player3PointsText.setText("Points: " + player3Points);
+        player4PointsText.setText("Points: " + player4Points);
     }
 
 

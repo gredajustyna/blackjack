@@ -13,7 +13,7 @@ public class Deck {
     private List<Card> player2 = new ArrayList<>();
     private List<Card> player3 = new ArrayList<>();
     private List<Card> player4 = new ArrayList<>();
-    private int[] score= {0,0,0,0,0};
+    public int[] score= {0,0,0,0,0};
     private List<Card> discard = new ArrayList<>();
 
 
@@ -168,9 +168,9 @@ public class Deck {
     }
 
     public static void main(String[] args) {
-        Deck deck= new Deck(2);
+        Deck deck= new Deck(1);
         deck.shuffle();
-        System.out.println(deck.getDeck());
+
         System.out.println(deck.getDeck().size());
 
         deck.draw(0);

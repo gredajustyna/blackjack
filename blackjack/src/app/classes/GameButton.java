@@ -28,7 +28,7 @@ public class GameButton extends Button {
 
     private void setGameButton(String buttonUrl){
         final String BUTTON_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('"+ buttonUrl +"'); -fx-text-fill: black; -fx-background-repeat: no-repeat; -fx-background-size: 120px 120px";
-        System.out.println(buttonUrl);
+       // System.out.println(buttonUrl);
         setStyle(BUTTON_FREE_STYLE);
     }
 
