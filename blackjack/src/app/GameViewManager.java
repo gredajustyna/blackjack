@@ -1,5 +1,6 @@
 package app;
 
+import app.classes.BotPlayer;
 import app.classes.Deck;
 import app.classes.GameButton;
 import app.database.DbConnection;
@@ -61,10 +62,15 @@ public class GameViewManager {
     Text player4PointsText = new Text("Points: " + player4Points);
 
     private ArrayList<Boolean> playersList =  new ArrayList<Boolean>();
+    private ArrayList<Boolean> playingList =  new ArrayList<Boolean>();
+    private ArrayList<BotPlayer> botList =  new ArrayList<BotPlayer>();
 
     private ArrayList<Boolean> playersTurn =  new ArrayList<Boolean>();
+    int playerTurn = 1;
     MediaPlayer player;
     //Timer timer;
+
+    static Deck deck;
 
 
 
@@ -89,13 +95,23 @@ public class GameViewManager {
         standButton = new GameButton("stand", "chip_red.png");
         createBackground();
         numberOfPlayers = players;
+
+        deck = new Deck(1);
+        deck.shuffle();
+
         createUsersTable();
         createTimer();
         buildHitButton();
         buildStandButton();
         //connecting to the deck class and creating game
-        Deck deck = new Deck(1);
-        deck.shuffle();
+
+
+        playingList.add(true);
+        playingList.add(true);
+        playingList.add(true);
+        playingList.add(true);
+
+
 
         //krupier na poczatku zaczyna nie ?
         deck.draw(0);
@@ -116,7 +132,10 @@ public class GameViewManager {
 //            player.play();
 //        }
 
-        hitButton.setOnAction(new EventHandler<ActionEvent>() {
+
+
+       /*
+       hitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if(playersTurn.get(0) == true){
@@ -155,6 +174,84 @@ public class GameViewManager {
             }
         });
 
+        */
+
+        hitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+
+            public void handle(ActionEvent event) {
+                deck.draw(playerTurn);
+                player1Points = deck.score[1];
+                player2Points = deck.score[2];
+                player3Points = deck.score[3];
+                player4Points = deck.score[4];
+
+                    for(int i = playerTurn+1; i < (playersList.size()+1); i++){
+                        if(playingList.get(i-1)){
+                            playerTurn =i;
+                            break;
+                        }else{
+                            if(i == playersList.size()){
+                                i=1;
+                            }
+                        }
+                    }
+                    updatePoints();
+                botPlay();
+            }
+        });
+
+        standButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                playingList.set(playerTurn-1, false);
+
+
+                if(playingList.contains(true)){
+
+                    for(int i = playerTurn+1; i < playersList.size()+2; i++){
+                        if(i == playersList.size()+1){
+                            i=1;
+                        }
+                        if(playingList.get(i-1)){
+                            playerTurn =i;
+                            break;
+                        }
+                    }
+                }else{
+                    //TODO niech się gra kończy gdy w playinglist nie ma już true
+                }
+                botPlay();
+            }
+        });
+
+    }
+
+    private void botPlay(){
+        if(botList.get(playerTurn-1)!=null){
+            playingList.set(playerTurn-1,botList.get(playerTurn-1).play());
+            player1Points = deck.score[1];
+            player2Points = deck.score[2];
+            player3Points = deck.score[3];
+            player4Points = deck.score[4];
+            updatePoints();
+            if(playingList.contains(true)){
+
+                for(int i = playerTurn+1; i < (playersList.size()+2); i++){
+                    if(i == playersList.size()+1){
+                        i=1;
+                    }
+                    if(playingList.get(i-1)){
+                        playerTurn =i;
+                        break;
+                    }
+                }
+            }else{
+                //TODO niech się gra kończy gdy w playinglist nie ma już true
+            }
+            botPlay();
+
+        }
     }
 
     private void createBackground(){
@@ -243,6 +340,13 @@ public class GameViewManager {
         dealerPointsText.setLayoutY(75);
 
         Text player1Text = new Text(MenuViewManager.user1.getLogin()); //DOMYŚLNIE JEGO LOGIN
+        if(MenuViewManager.user1.getLogin() == null) {
+            player1Text = new Text("Bot1");
+            playersList.set(0,false);
+            botList.add(new BotPlayer(1,deck,1));
+        }else {
+            botList.add(null);
+        }
         try {
             player1Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         }catch (FileNotFoundException e){
@@ -291,6 +395,7 @@ public class GameViewManager {
 
                 playersList.add(true);
                 playersTurn.add(true);
+
 
 
                 break;
@@ -413,6 +518,9 @@ public class GameViewManager {
         if(MenuViewManager.user2.getLogin() == null) {
             player2Text = new Text("Bot2");
             playersList.set(1,false);
+            botList.add(new BotPlayer(1,deck,2));
+        }else {
+            botList.add(null);
         }
         try {
             player2Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
@@ -461,6 +569,9 @@ public class GameViewManager {
         if(MenuViewManager.user3.getLogin() == null) {
             player3Text = new Text("Bot3");
             playersList.set(2,false);
+            botList.add(new BotPlayer(1,deck,3));
+        }else {
+            botList.add(null);
         }
         try {
             player3Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
@@ -512,6 +623,9 @@ public class GameViewManager {
         if(MenuViewManager.user4.getLogin() == null) {
             player4Text = new Text("Bot4");
             playersList.set(3,false);
+            botList.add(new BotPlayer(1,deck,4));
+        }else {
+            botList.add(null);
         }
         try {
             player4Text.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
