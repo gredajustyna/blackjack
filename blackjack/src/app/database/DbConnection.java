@@ -5,6 +5,7 @@ import app.Main;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.*;
 import java.sql.*;
@@ -29,10 +30,16 @@ public class DbConnection {
         Connection con = DbConnection.connect();
         PreparedStatement ps = null;
         try {
+
+            String hashed = BCrypt.hashpw(password, "$2a$10$qtlpCtO6YXgYP1uaiVt9Mu");
+            // Check that an unencrypted password matches one that has
+            // previously been hashed
+
+
             String sql = "INSERT INTO users(login, password, avatar) VALUES(?,?,?) ";
             ps = con.prepareStatement(sql);
             ps.setString(1, login);
-            ps.setString(2, password);
+            ps.setString(2, hashed);
             ps.setBinaryStream(3, fis, length);
             ps.execute();
             System.out.println("Data has been inserted!");
@@ -85,7 +92,8 @@ public class DbConnection {
         Connection con = DbConnection.connect();
         PreparedStatement ps = null;
         try{
-            String sql = "SELECT count(1) FROM users WHERE login = '" + login +"' AND password = '" + password + "'";
+            String hashed = BCrypt.hashpw(password, "$2a$10$qtlpCtO6YXgYP1uaiVt9Mu");
+            String sql = "SELECT count(1) FROM users WHERE login = '" + login +"' AND password = '" + hashed + "'";
             Statement statement = con.createStatement();
             ResultSet queryResult = statement.executeQuery(sql);
             while (queryResult.next()){
@@ -138,4 +146,5 @@ public class DbConnection {
             return image1;
         }
     }
+
 }
