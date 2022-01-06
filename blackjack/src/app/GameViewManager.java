@@ -199,18 +199,11 @@ public class GameViewManager {
                 player3Points = deck.score[3];
                 player4Points = deck.score[4];
 
-                if(player1Points == 21) {
-                    
+                if(deck.score[playerTurn]>20){
+                    playingList.set(playerTurn-1, false);
                 }
-                else if(player2Points == 21) {
 
-                }
-                else if(player3Points == 21) {
 
-                }
-                else if(player4Points == 21) {
-
-                }
 
                     for(int i = playerTurn+1; i < (playersList.size()+1); i++){
                         if(playingList.get(i-1)){
@@ -261,6 +254,10 @@ public class GameViewManager {
             player2Points = deck.score[2];
             player3Points = deck.score[3];
             player4Points = deck.score[4];
+
+            if(deck.score[playerTurn]>20){
+                playingList.set(playerTurn-1, false);
+            }
             updatePoints();
             if(playingList.contains(true)){
 
