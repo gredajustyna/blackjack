@@ -318,10 +318,14 @@ public class MenuViewManager {
 
 
 
-        userDetected = new Text("Logged in.");
-        userDetected.setFont(Font.font("src/app/fonts/Righteous-Regular", 13));
+        userDetected = new Text();
+        try {
+            userDetected.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            userDetected.setFont(Font.font("Verdana", 20));
+        }
         userDetected.setFill(Color.valueOf("FFFFFF"));
-        userDetected.setLayoutX(50);
+        userDetected.setLayoutX(70);
         userDetected.setLayoutY(30);
         userPane.getChildren().add(userDetected);
         userDetected.setVisible(false);
@@ -456,9 +460,18 @@ public class MenuViewManager {
         button3.setLayoutX(250);
         button3.setLayoutY(150);
 
+
+        RadioButton button4 = new RadioButton("random");
+        button4.setToggleGroup(group);
+        button4.setSelected(false);
+        button4.setUserData(3);
+        button4.setLayoutX(350);
+        button4.setLayoutY(165);
+
         decksPane.getChildren().add(button1);
         decksPane.getChildren().add(button2);
         decksPane.getChildren().add(button3);
+        decksPane.getChildren().add(button4);
         decksPane.setLayoutX(60);
         startPane.getChildren().add(decksPane);
 
@@ -1129,13 +1142,14 @@ public class MenuViewManager {
 
             Image image = DbConnection.setAvatar(login_buff);
             userAvatar.setImage(image);
-            userAvatar.setLayoutY(20);
-            userAvatar.setLayoutX(40);
+            userAvatar.setLayoutY(30);
+            userAvatar.setLayoutX(200);
             userAvatar.setFitWidth(80);
             userAvatar.setFitHeight(80);
             userAvatar.setVisible(true);
             userPane.getChildren().add(userAvatar);
-
+            user1.setLogin(login_buff);
+            userDetected.setText(user1.getLogin());
 
             mainLogOutButton.setVisible(true);
         }else{
