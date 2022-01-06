@@ -129,6 +129,12 @@ public class GameViewManager {
         deck.draw(1);
         deck.draw(1);
 
+        player1Points = deck.score[1];
+        player2Points = deck.score[2];
+        player3Points = deck.score[3];
+        player4Points = deck.score[4];
+        updatePoints();
+
             playRound();
 
 
@@ -198,25 +204,29 @@ public class GameViewManager {
                 player2Points = deck.score[2];
                 player3Points = deck.score[3];
                 player4Points = deck.score[4];
+                updatePoints();
 
                 if(deck.score[playerTurn]>20){
-                    playingList.set(playerTurn-1, false);
+                    playingList.set(playerTurn, false);
                 }
 
+                if(playingList.contains(true)){
 
-
-                    for(int i = playerTurn+1; i < (playersList.size()+1); i++){
+                    for(int i = playerTurn+1; i < playersList.size()+2; i++){
+                        if(i == playersList.size()+1){
+                            i=1;
+                        }
                         if(playingList.get(i-1)){
                             playerTurn =i;
                             break;
-                        }else{
-                            if(i == playersList.size()){
-                                i=1;
-
-                            }
                         }
                     }
-                    updatePoints();
+                }else{
+                    //TODO niech się gra kończy gdy w playinglist nie ma już true
+                    createRetryPanel();
+                    return;
+                }
+
                 botPlay();
             }
         });
@@ -224,7 +234,7 @@ public class GameViewManager {
         standButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                playingList.set(playerTurn-1, false);
+                playingList.set(playerTurn, false);
 
 
                 if(playingList.contains(true)){
@@ -258,7 +268,7 @@ public class GameViewManager {
             player4Points = deck.score[4];
 
             if(deck.score[playerTurn]>20){
-                playingList.set(playerTurn-1, false);
+                playingList.set(playerTurn, false);
             }
             updatePoints();
             if(playingList.contains(true)){
