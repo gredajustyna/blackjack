@@ -72,7 +72,7 @@ public class GameViewManager {
     Text player4PointsText = new Text("Points: " + player4Points);
     Text dealerPointsText = new Text("Points: " + dealerPoints);
 
-    Text retryText = new Text("Wygrales");
+    Text retryText = new Text("The winner is: ");
     private BotPlayer krupier;
     private ArrayList<Boolean> playersList =  new ArrayList<Boolean>();
     private ArrayList<Boolean> playingList =  new ArrayList<Boolean>();
@@ -882,6 +882,8 @@ public class GameViewManager {
         retryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                hitButton.setDisable(false);
+                standButton.setDisable(false);
                 deck.discard();
                 playerTurn = 1;
                 for(int i = 0;i<=playingList.size();i++){
@@ -920,6 +922,8 @@ public class GameViewManager {
         retryPane.getChildren().add(quitButton);
 
         gamePane.getChildren().add(retryPane);
+        hitButton.setDisable(true);
+        standButton.setDisable(true);
     }
 
     private boolean[] getWinners(){
