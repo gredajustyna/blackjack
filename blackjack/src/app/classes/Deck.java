@@ -146,6 +146,11 @@ public class Deck {
         player3.clear();
         discard.addAll(player4);
         player4.clear();
+        score[0] = 0;
+        score[1] = 0;
+        score[2] = 0;
+        score[3] = 0;
+        score[4] = 0;
     }
 
     public void reShuffle(){

@@ -64,13 +64,14 @@ public class GameViewManager {
     private  Timer timer = new Timer();
     private Timer secondTimer = new Timer();
     private boolean isBot;
-    Text player1PointsText = new Text("Points: " + player1Points);
+    private Text player1PointsText = new Text("Points: " + player1Points);
     Text player2PointsText = new Text("Points: " + player2Points);
     Text player3PointsText = new Text("Points: " + player2Points);
     Text player4PointsText = new Text("Points: " + player4Points);
+    Text dealerPointsText = new Text("Points: " + dealerPoints);
 
     Text retryText = new Text("Wygrales");
-
+    private BotPlayer krupier;
     private ArrayList<Boolean> playersList =  new ArrayList<Boolean>();
     private ArrayList<Boolean> playingList =  new ArrayList<Boolean>();
     private ArrayList<BotPlayer> botList =  new ArrayList<BotPlayer>();
@@ -111,6 +112,7 @@ public class GameViewManager {
         deck = new Deck(1);
         deck.shuffle();
 
+        krupier = new BotPlayer(1,deck,0);
         createUsersTable();
         createTimer();
         buildHitButton();
@@ -126,10 +128,15 @@ public class GameViewManager {
 
 
         //krupier na poczatku zaczyna nie ?
-        deck.draw(0);
-        deck.draw(0);
-        deck.draw(1);
-        deck.draw(1);
+
+
+
+        for(int i = 0;i<=playingList.size();i++){
+            deck.draw(i);
+            deck.draw(i);
+        }
+
+
 
         player1Points = deck.score[1];
         player2Points = deck.score[2];
@@ -226,6 +233,8 @@ public class GameViewManager {
                         }
                     }
                 }else{
+                    while(krupier.play());
+                    updatePoints();
                     //TODO niech się gra kończy gdy w playinglist nie ma już true
                     //System.out.println(getMaxLow());
                     createRetryPanel();
@@ -254,8 +263,8 @@ public class GameViewManager {
                         }
                     }
                 }else{
-                    //TODO niech się gra kończy gdy w playinglist nie ma już true
-                    System.out.println(getMaxLow());
+                    while(krupier.play());
+                    updatePoints();
                     createRetryPanel();
                     return;
                 }
@@ -289,8 +298,8 @@ public class GameViewManager {
                     }
                 }
             }else{
-                //TODO niech się gra kończy gdy w playinglist nie ma już true
-                System.out.println(getMaxLow());
+                while(krupier.play());
+                updatePoints();
                 createRetryPanel();
                 return;
 
@@ -375,7 +384,7 @@ public class GameViewManager {
         dealerText.setLayoutX(80);
         dealerText.setLayoutY(35);
 
-        Text dealerPointsText = new Text("Points: " + dealerPoints);
+
         try {
             dealerPointsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
         }catch (FileNotFoundException e){
@@ -719,10 +728,11 @@ public class GameViewManager {
     }
 
     private void updatePoints(){
-        player1PointsText.setText("Points: " + player1Points);
-        player2PointsText.setText("Points: " + player2Points);
-        player3PointsText.setText("Points: " + player3Points);
-        player4PointsText.setText("Points: " + player4Points);
+        dealerPointsText.setText("Points: " + deck.score[0]);
+        player1PointsText.setText("Points: " + deck.score[1]);
+        player2PointsText.setText("Points: " + deck.score[2]);
+        player3PointsText.setText("Points: " + deck.score[3]);
+        player4PointsText.setText("Points: " + deck.score[4]);
     }
 
     public void createRetryPanel(){
@@ -751,7 +761,20 @@ public class GameViewManager {
         retryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                deck.discard();
+                for(int i = 0;i<=playingList.size();i++){
+                    deck.draw(i);
+                    deck.draw(i);
+                }
 
+                for(int i = 0; i < playingList.size();i++){
+                    playingList.set(i,true);
+                }
+                gamePane.getChildren().remove(retryPane);
+                retryPane.getChildren().remove(retryText);
+
+
+                updatePoints();
             }
         });
 
