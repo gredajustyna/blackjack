@@ -665,6 +665,10 @@ public class GameViewManager {
         player4PointsText.setText("Points: " + player4Points);
     }
 
+    private void buildWinnerPane(){
+
+    }
+
 
 
 }
