@@ -63,6 +63,7 @@ public class GameViewManager {
     private int stopTime =0;
     private  Timer timer = new Timer();
     private Timer secondTimer = new Timer();
+    private boolean isBot;
     Text player1PointsText = new Text("Points: " + player1Points);
     Text player2PointsText = new Text("Points: " + player2Points);
     Text player3PointsText = new Text("Points: " + player2Points);
@@ -89,7 +90,8 @@ public class GameViewManager {
 
 
 
-    public GameViewManager(boolean isSoundOn, boolean isMusicOn, int decks, int players){
+    public GameViewManager(boolean isSoundOn, boolean isMusicOn, int decks, int players, boolean bot1){
+        isBot = bot1;
         gamePane = new AnchorPane();
         timerPane = new AnchorPane();
         retryPane = new AnchorPane();
@@ -200,7 +202,7 @@ public class GameViewManager {
             @Override
 
             public void handle(ActionEvent event) {
-                //createRetryPanel();
+
                 deck.draw(playerTurn);
                 player1Points = deck.score[1];
                 player2Points = deck.score[2];
@@ -225,6 +227,7 @@ public class GameViewManager {
                     }
                 }else{
                     //TODO niech się gra kończy gdy w playinglist nie ma już true
+                    //System.out.println(getMaxLow());
                     createRetryPanel();
                     return;
                 }
@@ -252,6 +255,7 @@ public class GameViewManager {
                     }
                 }else{
                     //TODO niech się gra kończy gdy w playinglist nie ma już true
+                    System.out.println(getMaxLow());
                     createRetryPanel();
                     return;
                 }
@@ -286,6 +290,7 @@ public class GameViewManager {
                 }
             }else{
                 //TODO niech się gra kończy gdy w playinglist nie ma już true
+                System.out.println(getMaxLow());
                 createRetryPanel();
                 return;
 
@@ -381,8 +386,12 @@ public class GameViewManager {
         dealerPointsText.setLayoutX(10);
         dealerPointsText.setLayoutY(75);
 
+        playersList.add(true);
+        playersTurn.add(true);
+        playingList.add(true);
+
         Text player1Text = new Text(MenuViewManager.user1.getLogin()); //DOMYŚLNIE JEGO LOGIN
-        if(MenuViewManager.user1.getLogin() == null) {
+        if(isBot) {
             player1Text = new Text("Bot1");
             playersList.set(0,false);
             botList.add(new BotPlayer(1,deck,1));
@@ -435,9 +444,7 @@ public class GameViewManager {
                 player1Pane.setLayoutX(475);
                 player1Pane.setEffect(new DropShadow());
 
-                playersList.add(true);
-                playersTurn.add(true);
-                playingList.add(true);
+
 
 
 
@@ -451,9 +458,9 @@ public class GameViewManager {
                 player1Pane.setLayoutY(225);
                 player1Pane.setLayoutX(20);
                 player1Pane.setEffect(new DropShadow());
-                playersList.add(true);
-                playersTurn.add(true);
-                playingList.add(true);
+              //  playersList.add(true);
+               // playersTurn.add(true);
+               // playingList.add(true);
                 playingList.add(true);
                 //AnchorPane player2Pane = new AnchorPane();
                 buildPlayer2Pane();
@@ -468,10 +475,10 @@ public class GameViewManager {
                 player1Pane.setLayoutY(225);
                 player1Pane.setLayoutX(20);
                 player1Pane.setEffect(new DropShadow());
-                playersList.add(true);
-                playersTurn.add(true);
+               // playersList.add(true);
+               // playersTurn.add(true);
 
-                playingList.add(true);
+              //  playingList.add(true);
                 playingList.add(true);
                 playingList.add(true);
                 buildPlayer2Pane();
@@ -488,10 +495,10 @@ public class GameViewManager {
                 player1Pane.setLayoutX(20);
                 player1Pane.setEffect(new DropShadow());
 
-                playersList.add(true);
-                playersTurn.add(true);
+               // playersList.add(true);
+               // playersTurn.add(true);
 
-                playingList.add(true);
+               // playingList.add(true);
                 playingList.add(true);
                 playingList.add(true);
                 playingList.add(true);
@@ -767,6 +774,15 @@ public class GameViewManager {
         gamePane.getChildren().add(retryPane);
     }
 
-
+    private int getMaxLow(){
+        int max = 0, l=0;
+        for(int i = 0;i<4;i++){
+            if (max < deck.score[i] && deck.score[i] <=21){
+                max = deck.score[i];
+                l=i;
+            }
+        }
+        return l;
+    }
 
 }

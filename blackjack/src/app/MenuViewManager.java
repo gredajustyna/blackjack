@@ -1183,9 +1183,14 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
                 try {
+                    boolean bot1;
                     int players = Integer.parseInt(playerToggle.getSelectedToggle().getUserData().toString());
                     int decks = Integer.parseInt(group.getSelectedToggle().getUserData().toString());
-                    GameViewManager gameViewManager = new GameViewManager(isSoundOn, player.isMute(), decks,players);
+                    if(buttonComputer1.isSelected()) {
+                        bot1 = true;
+                    } else bot1 = false;
+                    System.out.println(bot1);
+                    GameViewManager gameViewManager = new GameViewManager(isSoundOn, player.isMute(), decks,players,bot1);
                     Stage primaryStage = gameViewManager.getGameStage();
                     primaryStage.show();
                     mainStage.close();
