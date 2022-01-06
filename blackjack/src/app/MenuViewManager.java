@@ -6,6 +6,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -37,6 +38,7 @@ public class MenuViewManager {
     private AnchorPane loginPane;
     private AnchorPane registerPane;
     private AnchorPane userPane;
+    private AnchorPane statsPane;
     private AnchorPane player1Pane;
     private AnchorPane player2Pane;
     private AnchorPane player3Pane;
@@ -99,6 +101,7 @@ public class MenuViewManager {
         loginPane = new AnchorPane();
         registerPane = new AnchorPane();
         userPane = new AnchorPane();
+        statsPane = new AnchorPane();
         player1Pane = new AnchorPane();
         player2Pane = new AnchorPane();
         player3Pane = new AnchorPane();
@@ -167,9 +170,68 @@ public class MenuViewManager {
         });
     }
 
+    private void createStatsPane(){
+        statsPane.setPrefHeight(600);
+        statsPane.setPrefWidth(500);
+        statsPane.setLayoutY(150);
+        statsPane.setLayoutX(350);
+        statsPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
+        createCloseStatsButton();
+        mainPane.getChildren().add(statsPane);
+
+        Text statsGreetText = new Text("Stats");
+        try {
+            statsGreetText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            statsGreetText.setFont(Font.font("Verdana",30));
+        }
+        statsGreetText.setFill(Color.valueOf("FFFFFF"));
+        statsGreetText.setLayoutX(200);
+        statsGreetText.setLayoutY(50);
+        statsPane.getChildren().add(statsGreetText);
+
+        ImageView imageView = new ImageView();
+        imageView.setLayoutY(100);
+        imageView.setLayoutX(180);
+        imageView.setFitWidth(150);
+        imageView.setFitHeight(150);
+        imageView.setStyle("-fx-border-color: white");
+        registerPane.getChildren().add(imageView);
+        imageView.setImage(userAvatar.getImage());
+        statsPane.getChildren().add(imageView);
+
+        Text loginText = new Text(user1.getLogin());
+        try {
+            loginText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            loginText.setFont(Font.font("Verdana",30));
+        }
+        loginText.setFill(Color.valueOf("FFFFFF"));
+        loginText.setLayoutX(200);
+        loginText.setLayoutY(300);
+        statsPane.getChildren().add(loginText);
+    }
+
     private void createStatsButton(){
         MainButton statsButton = new MainButton("Stats");
         addMenuButton(statsButton);
+        statsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(isLoggedIn){
+                    createStatsPane();
+                    for(int i=0; i<menuButtons.size(); i++){
+                        menuButtons.get(i).setDisable(true);
+                    }
+                    for (int i=0; i<signButtons.size(); i++){
+                        signButtons.get(i).setDisable(true);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Log in to view stats!");
+                }
+
+            }
+        });
     }
 
     private void createScoreboardButton(){
@@ -1234,7 +1296,7 @@ public class MenuViewManager {
             public void handle(ActionEvent event) {
                 int sem = 0;
                 if (DbConnection.selectAllLogins().contains(usernameField.getText())){
-                    JOptionPane.showMessageDialog(null, "Login already taken :*");
+                    JOptionPane.showMessageDialog(null, "Login already taken");
                     sem = 1;
                 }
                 else if(sem == 0 && usernameField.getText().length() < 20 && usernameField.getText().isEmpty() == false && passwordField.getText().isEmpty() == false && confirmPasswordField.getText().isEmpty() == false && (confirmPasswordField.getText().equals(passwordField.getText()))) {
@@ -1274,6 +1336,13 @@ public class MenuViewManager {
         closeButton.setLayoutY(10);
         closeButton.setLayoutX(440);
         registerPane.getChildren().add(closeButton);
+    }
+
+    private void createCloseStatsButton(){
+        CloseButton closeButton = new CloseButton(menuButtons, signButtons, mainPane, statsPane);
+        closeButton.setLayoutY(10);
+        closeButton.setLayoutX(440);
+        statsPane.getChildren().add(closeButton);
     }
 
     private void createLogOutButton(){
