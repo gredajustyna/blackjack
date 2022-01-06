@@ -81,6 +81,7 @@ public class GameViewManager {
     private ArrayList<Boolean> playersTurn =  new ArrayList<Boolean>();
     int playerTurn = 1;
     MediaPlayer player;
+    Timeline timeline;
     //Timer timer;
 
     static Deck deck;
@@ -240,6 +241,7 @@ public class GameViewManager {
                     updatePoints();
                     //TODO niech się gra kończy gdy w playinglist nie ma już true
                     //System.out.println(getMaxLow());
+                    timeline.stop();
                     createRetryPanel();
                     return;
                 }
@@ -269,6 +271,7 @@ public class GameViewManager {
                 }else{
                     while(krupier.play());
                     updatePoints();
+                    timeline.stop();
                     createRetryPanel();
                     return;
                 }
@@ -304,6 +307,7 @@ public class GameViewManager {
             }else{
                 while(krupier.play());
                 updatePoints();
+                timeline.stop();
                 createRetryPanel();
                 return;
 
@@ -634,7 +638,7 @@ public class GameViewManager {
 
     private void playRound() {
         secondsLeft = 15;
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             secondsLeft -= 1;
             if (secondsLeft == 0) {
                 secondTimer.cancel();
@@ -656,6 +660,7 @@ public class GameViewManager {
                 } else {
                     while (krupier.play()) ;
                     updatePoints();
+                    timeline.stop();
                     createRetryPanel();
                     return;
                 }
@@ -892,6 +897,7 @@ public class GameViewManager {
 
 
                 updatePoints();
+                timeline.play();
                 secondsLeft=15;
                 playerTurn =1;
             }
