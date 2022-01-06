@@ -797,15 +797,23 @@ public class GameViewManager {
         gamePane.getChildren().add(retryPane);
     }
 
-    private int getMaxLow(){
-        int max = 0, l=0;
-        for(int i = 0;i<4;i++){
-            if (max < deck.score[i] && deck.score[i] <=21){
-                max = deck.score[i];
-                l=i;
+    private boolean[] getWinners(){
+        int max =0;
+        boolean winner[] = {false,false,false,false,false};
+        for(int i =0; i<= playingList.size(); i++){
+            if(deck.getScore(i)<=21){
+                if(deck.getScore(i)>max){
+                    max=deck.getScore(i);
+                }
             }
         }
-        return l;
+        for(int i =0; i<= playingList.size(); i++){
+            if(deck.getScore(i)==max){
+                winner[i]=true;
+            }
+
+        }
+        return winner;
     }
 
 }
