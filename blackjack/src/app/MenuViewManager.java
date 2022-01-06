@@ -848,33 +848,33 @@ public class MenuViewManager {
                 if (login_buff != "0"){
                     isLoggedIn = true;
                 }else if (login_buff == "0" && buttonPlayer2.isSelected() && user2.getLogin() == null){
-                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
+                    JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer2.setSelected(false);
                     buttonComputer2.setSelected(true);
                 }else if (login_buff == "0" && buttonPlayer3.isSelected() && user3.getLogin() == null){
-                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
+                    JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer3.setSelected(false);
                     buttonComputer3.setSelected(true);
                 }else if (login_buff == "0" && buttonPlayer4.isSelected() && user4.getLogin() == null){
-                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
+                    JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer4.setSelected(false);
                     buttonComputer4.setSelected(true);
                 } else{
-                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
+                    JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     isLoggedIn = false;
                 }
 
                 if(login_buff != "0" && isLoggedIn2){
                     if(login_buff.equals(user1.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer2.setSelected(false);
                         buttonComputer2.setSelected(true);
                     } else if(login_buff.equals(user3.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer2.setSelected(false);
                         buttonComputer2.setSelected(true);
                     }else if(login_buff.equals(user4.getLogin())) {
-                            JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                            JOptionPane.showMessageDialog(null, "Account already in use!");
                             buttonPlayer2.setSelected(false);
                             buttonComputer2.setSelected(true);
                     }else {
@@ -886,15 +886,15 @@ public class MenuViewManager {
                 }
                 if(login_buff != "0" && isLoggedIn3){
                     if(login_buff.equals(user1.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer3.setSelected(false);
                         buttonComputer3.setSelected(true);
                     } else if(login_buff.equals(user2.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer3.setSelected(false);
                         buttonComputer3.setSelected(true);
                     }else if(login_buff.equals(user4.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer3.setSelected(false);
                         buttonComputer3.setSelected(true);
                     } else {
@@ -904,15 +904,15 @@ public class MenuViewManager {
                 }
                 if(login_buff != "0" && isLoggedIn4){
                     if(login_buff.equals(user1.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer4.setSelected(false);
                         buttonComputer4.setSelected(true);
                     } else if(login_buff.equals(user2.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer4.setSelected(false);
                         buttonComputer4.setSelected(true);
                     }else if(login_buff.equals(user3.getLogin())) {
-                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer4.setSelected(false);
                         buttonComputer4.setSelected(true);
                     } else {
