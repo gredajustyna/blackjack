@@ -3,12 +3,15 @@ package app;
 import app.classes.BotPlayer;
 import app.classes.Deck;
 import app.classes.GameButton;
+import app.classes.MainButton;
 import app.database.DbConnection;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,6 +36,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameViewManager {
+    private AnchorPane retryPane;
     private AnchorPane gamePane;
     private AnchorPane timerPane;
     AnchorPane player1Pane = new AnchorPane();
@@ -56,10 +60,15 @@ public class GameViewManager {
     private int player4Points = 0;
     private Text minutesText;
     private Text secondsText;
+    private int stopTime =0;
+    private  Timer timer = new Timer();
+    private Timer secondTimer = new Timer();
     Text player1PointsText = new Text("Points: " + player1Points);
     Text player2PointsText = new Text("Points: " + player2Points);
     Text player3PointsText = new Text("Points: " + player2Points);
     Text player4PointsText = new Text("Points: " + player4Points);
+
+    Text retryText = new Text("Wygrales");
 
     private ArrayList<Boolean> playersList =  new ArrayList<Boolean>();
     private ArrayList<Boolean> playingList =  new ArrayList<Boolean>();
@@ -83,6 +92,7 @@ public class GameViewManager {
     public GameViewManager(boolean isSoundOn, boolean isMusicOn, int decks, int players){
         gamePane = new AnchorPane();
         timerPane = new AnchorPane();
+        retryPane = new AnchorPane();
         gameScene = new Scene(gamePane,WIDTH,HEIGHT);
         gameStage = new Stage();
         gameStage.setScene(gameScene);
@@ -105,12 +115,12 @@ public class GameViewManager {
         buildStandButton();
         //connecting to the deck class and creating game
 
-
+/*
         playingList.add(true);
         playingList.add(true);
         playingList.add(true);
         playingList.add(true);
-
+*/
 
 
         //krupier na poczatku zaczyna nie ?
@@ -119,7 +129,17 @@ public class GameViewManager {
         deck.draw(1);
         deck.draw(1);
 
-        playRound();
+        player1Points = deck.score[1];
+        player2Points = deck.score[2];
+        player3Points = deck.score[3];
+        player4Points = deck.score[4];
+        updatePoints();
+
+            playRound();
+
+        botPlay(); //jeśli pierwszay gracz botem
+
+
         //TODO: muzyczka potem do dodania
 //        if (isMusicOn){
 //            Media sound = new Media(new File("src/app/music/theme.mp3").toURI().toString());
@@ -180,23 +200,35 @@ public class GameViewManager {
             @Override
 
             public void handle(ActionEvent event) {
+                //createRetryPanel();
                 deck.draw(playerTurn);
                 player1Points = deck.score[1];
                 player2Points = deck.score[2];
                 player3Points = deck.score[3];
                 player4Points = deck.score[4];
+                updatePoints();
 
-                    for(int i = playerTurn+1; i < (playersList.size()+1); i++){
+                if(deck.score[playerTurn]>20){
+                    playingList.set(playerTurn-1, false);
+                }
+
+                if(playingList.contains(true)){
+
+                    for(int i = playerTurn+1; i < playersList.size()+2; i++){
+                        if(i == playersList.size()+1){
+                            i=1;
+                        }
                         if(playingList.get(i-1)){
                             playerTurn =i;
                             break;
-                        }else{
-                            if(i == playersList.size()){
-                                i=1;
-                            }
                         }
                     }
-                    updatePoints();
+                }else{
+                    //TODO niech się gra kończy gdy w playinglist nie ma już true
+                    createRetryPanel();
+                    return;
+                }
+
                 botPlay();
             }
         });
@@ -220,6 +252,8 @@ public class GameViewManager {
                     }
                 }else{
                     //TODO niech się gra kończy gdy w playinglist nie ma już true
+                    createRetryPanel();
+                    return;
                 }
                 botPlay();
             }
@@ -234,6 +268,10 @@ public class GameViewManager {
             player2Points = deck.score[2];
             player3Points = deck.score[3];
             player4Points = deck.score[4];
+
+            if(deck.score[playerTurn]>20){
+                playingList.set(playerTurn-1, false);
+            }
             updatePoints();
             if(playingList.contains(true)){
 
@@ -248,6 +286,10 @@ public class GameViewManager {
                 }
             }else{
                 //TODO niech się gra kończy gdy w playinglist nie ma już true
+                createRetryPanel();
+                return;
+
+
             }
             botPlay();
 
@@ -395,6 +437,7 @@ public class GameViewManager {
 
                 playersList.add(true);
                 playersTurn.add(true);
+                playingList.add(true);
 
 
 
@@ -410,6 +453,8 @@ public class GameViewManager {
                 player1Pane.setEffect(new DropShadow());
                 playersList.add(true);
                 playersTurn.add(true);
+                playingList.add(true);
+                playingList.add(true);
                 //AnchorPane player2Pane = new AnchorPane();
                 buildPlayer2Pane();
 
@@ -425,6 +470,10 @@ public class GameViewManager {
                 player1Pane.setEffect(new DropShadow());
                 playersList.add(true);
                 playersTurn.add(true);
+
+                playingList.add(true);
+                playingList.add(true);
+                playingList.add(true);
                 buildPlayer2Pane();
                 buildPlayer3Pane();
 
@@ -441,6 +490,11 @@ public class GameViewManager {
 
                 playersList.add(true);
                 playersTurn.add(true);
+
+                playingList.add(true);
+                playingList.add(true);
+                playingList.add(true);
+                playingList.add(true);
                 buildPlayer2Pane();
                 buildPlayer3Pane();
                 buildPlayer4Pane();
@@ -465,10 +519,9 @@ public class GameViewManager {
             public void run() {
                 repetitions += 1;
                 secondsLeft = 15;
-                if (repetitions == numberOfPlayers) {
-                    timer.cancel();
+                if (repetitions == secondsLeft) {
+                       //timer.cancel();
                 }
-                Timer secondTimer = new Timer();
 
                 secondTimer.scheduleAtFixedRate(new TimerTask() {
                     @Override
@@ -665,8 +718,53 @@ public class GameViewManager {
         player4PointsText.setText("Points: " + player4Points);
     }
 
-    private void buildWinnerPane(){
+    public void createRetryPanel(){
+        retryPane.setPrefHeight(200);
+        retryPane.setPrefWidth(500);
+        retryPane.setLayoutY(250);
+        retryPane.setLayoutX(350);
+        retryPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
 
+
+        try {
+            retryText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            retryText.setFont(Font.font("Verdana",30));
+        }
+        retryText.setFill(Color.valueOf("FFFFFF"));
+        retryText.setLayoutX(200);
+        retryText.setLayoutY(45);
+        retryPane.getChildren().add(retryText);
+
+
+        MainButton retryButton = new MainButton("Retry");
+        retryButton.setLayoutX(130);
+        retryButton.setLayoutY(80);
+        //retryButton.setMaxSize(200, 200);
+        retryButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+        retryPane.getChildren().add(retryButton);
+
+        MainButton quitButton = new MainButton("Quit");
+        quitButton.setLayoutX(130);
+        quitButton.setLayoutY(160);
+       // quitButton.setMaxSize(200, 200);
+        quitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gameStage.close();
+                MenuViewManager.getMainStage2().show();
+            }
+        });
+
+        retryPane.getChildren().add(quitButton);
+
+        gamePane.getChildren().add(retryPane);
     }
 
 

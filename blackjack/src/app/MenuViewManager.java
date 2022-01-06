@@ -52,6 +52,7 @@ public class MenuViewManager {
     private Text level;
     private Scene mainScene;
     private Stage mainStage;
+    private static Stage mainStage2;
     private ToggleGroup playerToggle;
     private ToggleGroup group;
     private static final int HEIGHT = 800;
@@ -60,6 +61,17 @@ public class MenuViewManager {
     private final static int MENU_BUTTONS_START_Y = 250;
     private final String FONT_PATH = "src/app/fonts/Righteous.ttf";
     private boolean isLoggedIn = false;
+
+    //radiobuttons
+
+    private RadioButton buttonPlayer1 = new RadioButton("");
+    private RadioButton buttonPlayer2 = new RadioButton("");
+    private RadioButton buttonPlayer3 = new RadioButton("");
+    private RadioButton buttonPlayer4 = new RadioButton("");
+    private  RadioButton buttonComputer1 = new RadioButton("");
+    private RadioButton buttonComputer2 = new RadioButton("");
+    private RadioButton buttonComputer3 = new RadioButton("");
+    private RadioButton buttonComputer4 = new RadioButton("");
 
     private String login;
     public static String login_buff;
@@ -133,8 +145,15 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
                 if (isLoggedIn) {
+
                     user1.setLogin(login_buff);
                     System.out.println(user1.getLogin());
+                    player1Pane.getChildren().clear();
+                    player2Pane.getChildren().clear();
+                    player3Pane.getChildren().clear();
+                    player4Pane.getChildren().clear();
+                    startPane.getChildren().clear();
+                    createGameStartButton();
                     createStartMenu();
                     for (int i = 0; i < menuButtons.size(); i++) {
                         menuButtons.get(i).setDisable(true);
@@ -193,6 +212,10 @@ public class MenuViewManager {
 
     public Stage getMainStage(){
         return mainStage;
+    }
+
+    public static Stage getMainStage2(){
+        return mainStage2;
     }
 
 
@@ -274,6 +297,7 @@ public class MenuViewManager {
                 for (int i=0; i<signButtons.size(); i++){
                     signButtons.get(i).setDisable(true);
                 }
+
             }
         });
         addSignButton(mainRegisterButton);
@@ -486,7 +510,7 @@ public class MenuViewManager {
         buttonpl1.setFitHeight(50);
         buttonpl1.setFitWidth(50);
         buttonpl1.setPreserveRatio(true);
-        RadioButton buttonPlayer1 = new RadioButton("");
+
         buttonPlayer1.setGraphic(buttonpl1);
         buttonPlayer1.setUserData(3);
         buttonPlayer1.setToggleGroup(player1group);
@@ -501,7 +525,6 @@ public class MenuViewManager {
         buttoncom1.setFitHeight(40);
         buttoncom1.setFitWidth(40);
         buttoncom1.setPreserveRatio(true);
-        RadioButton buttonComputer1 = new RadioButton("");
         buttonComputer1.setGraphic(buttoncom1);
         buttonComputer1.setUserData(3);
         buttonComputer1.setToggleGroup(player1group);
@@ -533,7 +556,6 @@ public class MenuViewManager {
         buttonpl2.setFitHeight(50);
         buttonpl2.setFitWidth(50);
         buttonpl2.setPreserveRatio(true);
-        RadioButton buttonPlayer2 = new RadioButton("");
         buttonPlayer2.setGraphic(buttonpl2);
         buttonPlayer2.setUserData(3);
         buttonPlayer2.setToggleGroup(player2group);
@@ -547,7 +569,6 @@ public class MenuViewManager {
         buttoncom2.setFitHeight(40);
         buttoncom2.setFitWidth(40);
         buttoncom2.setPreserveRatio(true);
-        RadioButton buttonComputer2 = new RadioButton("");
         buttonComputer2.setGraphic(buttoncom2);
         buttonComputer2.setUserData(3);
         buttonComputer2.setToggleGroup(player2group);
@@ -587,7 +608,6 @@ public class MenuViewManager {
         buttonpl3.setFitHeight(50);
         buttonpl3.setFitWidth(50);
         buttonpl3.setPreserveRatio(true);
-        RadioButton buttonPlayer3 = new RadioButton("");
         buttonPlayer3.setGraphic(buttonpl3);
         buttonPlayer3.setUserData(3);
         buttonPlayer3.setToggleGroup(player3group);
@@ -601,7 +621,6 @@ public class MenuViewManager {
         buttoncom3.setFitHeight(40);
         buttoncom3.setFitWidth(40);
         buttoncom3.setPreserveRatio(true);
-        RadioButton buttonComputer3 = new RadioButton("");
         buttonComputer3.setGraphic(buttoncom3);
         buttonComputer3.setUserData(3);
         buttonComputer3.setToggleGroup(player3group);
@@ -641,7 +660,6 @@ public class MenuViewManager {
         buttonpl4.setFitHeight(50);
         buttonpl4.setFitWidth(50);
         buttonpl4.setPreserveRatio(true);
-        RadioButton buttonPlayer4 = new RadioButton("");
         buttonPlayer4.setGraphic(buttonpl4);
         buttonPlayer4.setUserData(3);
         buttonPlayer4.setToggleGroup(player4group);
@@ -655,7 +673,6 @@ public class MenuViewManager {
         buttoncom4.setFitHeight(40);
         buttoncom4.setFitWidth(40);
         buttoncom4.setPreserveRatio(true);
-        RadioButton buttonComputer4 = new RadioButton("");
         buttonComputer4.setGraphic(buttoncom4);
         buttonComputer4.setUserData(3);
         buttonComputer4.setToggleGroup(player4group);
@@ -827,21 +844,80 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
                 login_buff = DbConnection.Login(usernameField.getText(), passwordField.getText());
+                System.out.println(login_buff);
                 if (login_buff != "0"){
                     isLoggedIn = true;
-                }else{
+                }else if (login_buff == "0" && buttonPlayer2.isSelected() && user2.getLogin() == null){
+                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
+                    buttonPlayer2.setSelected(false);
+                    buttonComputer2.setSelected(true);
+                }else if (login_buff == "0" && buttonPlayer3.isSelected() && user3.getLogin() == null){
+                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
+                    buttonPlayer3.setSelected(false);
+                    buttonComputer3.setSelected(true);
+                }else if (login_buff == "0" && buttonPlayer4.isSelected() && user4.getLogin() == null){
+                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
+                    buttonPlayer4.setSelected(false);
+                    buttonComputer4.setSelected(true);
+                } else{
+                    JOptionPane.showMessageDialog(null, "Podany login i hasło są nieprawidłowe");
                     isLoggedIn = false;
                 }
+
                 if(login_buff != "0" && isLoggedIn2){
-                    user2.setLogin(login_buff);
+                    if(login_buff.equals(user1.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer2.setSelected(false);
+                        buttonComputer2.setSelected(true);
+                    } else if(login_buff.equals(user3.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer2.setSelected(false);
+                        buttonComputer2.setSelected(true);
+                    }else if(login_buff.equals(user4.getLogin())) {
+                            JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                            buttonPlayer2.setSelected(false);
+                            buttonComputer2.setSelected(true);
+                    }else {
+                        user2.setLogin(login_buff);
+                        System.out.println(login_buff);
+                        System.out.println(user1.getLogin());
+                    }
                     isLoggedIn2 = false;
                 }
                 if(login_buff != "0" && isLoggedIn3){
-                    user3.setLogin(login_buff);
+                    if(login_buff.equals(user1.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer3.setSelected(false);
+                        buttonComputer3.setSelected(true);
+                    } else if(login_buff.equals(user2.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer3.setSelected(false);
+                        buttonComputer3.setSelected(true);
+                    }else if(login_buff.equals(user4.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer3.setSelected(false);
+                        buttonComputer3.setSelected(true);
+                    } else {
+                        user3.setLogin(login_buff);
+                    }
                     isLoggedIn3 = false;
                 }
                 if(login_buff != "0" && isLoggedIn4){
-                    user4.setLogin(login_buff);
+                    if(login_buff.equals(user1.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer4.setSelected(false);
+                        buttonComputer4.setSelected(true);
+                    } else if(login_buff.equals(user2.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer4.setSelected(false);
+                        buttonComputer4.setSelected(true);
+                    }else if(login_buff.equals(user3.getLogin())) {
+                        JOptionPane.showMessageDialog(null, "Nie możesz się zalogować na to konto");
+                        buttonPlayer4.setSelected(false);
+                        buttonComputer4.setSelected(true);
+                    } else {
+                        user4.setLogin(login_buff);
+                    }
                     isLoggedIn4 = false;
                 }
                 mainPane.getChildren().remove(loginPane);
@@ -851,8 +927,12 @@ public class MenuViewManager {
                 for (int i=0; i<signButtons.size(); i++){
                     signButtons.get(i).setDisable(false);
                 }
-                updateUserPanel();
 
+                if(login_buff != "0" && user1.getLogin() == null){
+                    updateUserPanel();
+                }
+                usernameField.setText("");
+                passwordField.setText("");
             }
         });
 
@@ -868,14 +948,14 @@ public class MenuViewManager {
             noUserDetected.setVisible(false);
             userDetected.setVisible(true);
 
-            Image image = DbConnection.setAvatar(login);
+            Image image = DbConnection.setAvatar(login_buff);
             userAvatar.setImage(image);
             userAvatar.setLayoutY(20);
-            userAvatar.setLayoutX(20);
-            userAvatar.setFitWidth(150);
-            userAvatar.setFitHeight(150);
+            userAvatar.setLayoutX(40);
+            userAvatar.setFitWidth(80);
+            userAvatar.setFitHeight(80);
             userAvatar.setVisible(true);
-            //userPane.getChildren().add(userAvatar);
+            userPane.getChildren().add(userAvatar);
 
 
             mainLogOutButton.setVisible(true);
@@ -887,7 +967,7 @@ public class MenuViewManager {
 
             mainLogOutButton.setVisible(false);
             userAvatar.setVisible(false);
-           // userPane.getChildren().remove(userAvatar);
+            userPane.getChildren().remove(userAvatar);
 
         }
     }
@@ -989,6 +1069,17 @@ public class MenuViewManager {
         imageView.setStyle("-fx-border-color: white");
         registerPane.getChildren().add(imageView);
 
+        File file = new File("Default.png");
+        length = Math.toIntExact(file.length());
+        try {
+            fis = new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Image image1 = new Image(file.toURI().toString());
+        ImageView ip = new ImageView(image1);
+        imageView.setImage(ip.getImage());
+
         final FileChooser fileChooser = new FileChooser();
 
         openButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -1044,6 +1135,9 @@ public class MenuViewManager {
                 }else {
                     JOptionPane.showMessageDialog(null, "Fill all fields!!");
                 }
+
+
+
             }
         });
         registerPane.getChildren().add(registerButton);
@@ -1074,6 +1168,7 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
                 isLoggedIn = false;
+                user1.setLogin(null);
                 updateUserPanel();
             }
         });
@@ -1094,6 +1189,7 @@ public class MenuViewManager {
                     Stage primaryStage = gameViewManager.getGameStage();
                     primaryStage.show();
                     mainStage.close();
+                    mainStage2= mainStage;
                     player.dispose();
                 }catch (Exception e){
                     e.printStackTrace();
