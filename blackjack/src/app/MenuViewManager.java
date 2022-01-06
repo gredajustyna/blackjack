@@ -739,17 +739,134 @@ public class MenuViewManager {
         helpPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
         createCloseHelpButton();
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setPrefHeight(500);
-        scrollPane.setPrefWidth(580);
-        scrollPane.setLayoutX(10);
-        scrollPane.setLayoutY(50);
-        scrollPane.setStyle("-fx-background-color: transparent;");
-        helpPane.getChildren().add(scrollPane);
+        Text helpGreetText = new Text("Help");
+        try {
+            helpGreetText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            helpGreetText.setFont(Font.font("Verdana",30));
+        }
+        helpGreetText.setFill(Color.valueOf("FFFFFF"));
+        helpGreetText.setLayoutX(200);
+        helpGreetText.setLayoutY(50);
+        helpPane.getChildren().add(helpGreetText);
 
-        Text helpText = new Text(HelpText.getHelpText1());
-        scrollPane.setContent(helpText);
+        Label label1 = new Label(HelpText.getHelpText1());
+        try {
+            label1.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 12));
+        }catch (FileNotFoundException e){
+            label1.setFont(Font.font("Verdana",12));
+        }
+        label1.setTextFill(Color.valueOf("FFFFFF"));
+        label1.setMaxWidth(470);
+        label1.setLayoutX(20);
+        label1.setLayoutY(80);
+        label1.setWrapText(true);
+        helpPane.getChildren().add(label1);
+
+//        ScrollPane scrollPane = new ScrollPane();
+//        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
+//        scrollPane.setPrefHeight(500);
+//        scrollPane.setPrefWidth(580);
+//        scrollPane.setLayoutX(10);
+//        scrollPane.setLayoutY(50);
+//        scrollPane.setStyle("-fx-background: transparent; -fx-control-inner-background: transparent;");
+//        helpPane.getChildren().add(scrollPane);
+
+        Text cardText = new Text("Cards");
+        try {
+            cardText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            cardText.setFont(Font.font("Verdana",20));
+        }
+        cardText.setFill(Color.valueOf("FFFFFF"));
+        cardText.setLayoutX(20);
+        cardText.setLayoutY(170);
+        helpPane.getChildren().add(cardText);
+
+        Label label2 = new Label(HelpText.getThePack());
+        try {
+            label2.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 12));
+        }catch (FileNotFoundException e){
+            label2.setFont(Font.font("Verdana",12));
+        }
+        label2.setTextFill(Color.valueOf("FFFFFF"));
+        label2.setMaxWidth(470);
+        label2.setLayoutX(20);
+        label2.setLayoutY(183);
+        label2.setWrapText(true);
+        helpPane.getChildren().add(label2);
+
+        Text gameObjective = new Text("Objective");
+        try {
+            gameObjective.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            gameObjective.setFont(Font.font("Verdana",20));
+        }
+        gameObjective.setFill(Color.valueOf("FFFFFF"));
+        gameObjective.setLayoutX(20);
+        gameObjective.setLayoutY(240);
+        helpPane.getChildren().add(gameObjective);
+
+        Label label3 = new Label(HelpText.getObjectOfTheGame());
+        try {
+            label3.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 12));
+        }catch (FileNotFoundException e){
+            label3.setFont(Font.font("Verdana",12));
+        }
+        label3.setTextFill(Color.valueOf("FFFFFF"));
+        label3.setMaxWidth(470);
+        label3.setLayoutX(20);
+        label3.setLayoutY(253);
+        label3.setWrapText(true);
+        helpPane.getChildren().add(label3);
+
+        Text cardScoring = new Text("Card Values");
+        try {
+            cardScoring.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            cardScoring.setFont(Font.font("Verdana",20));
+        }
+        cardScoring.setFill(Color.valueOf("FFFFFF"));
+        cardScoring.setLayoutX(20);
+        cardScoring.setLayoutY(310);
+        helpPane.getChildren().add(cardScoring);
+
+        Label label4 = new Label(HelpText.getCardValuesScoring());
+        try {
+            label4.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 12));
+        }catch (FileNotFoundException e){
+            label4.setFont(Font.font("Verdana",12));
+        }
+        label4.setTextFill(Color.valueOf("FFFFFF"));
+        label4.setMaxWidth(470);
+        label4.setLayoutX(20);
+        label4.setLayoutY(323);
+        label4.setWrapText(true);
+        helpPane.getChildren().add(label4);
+
+        Text thePlay = new Text("The Play");
+        try {
+            thePlay.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
+        }catch (FileNotFoundException e){
+            thePlay.setFont(Font.font("Verdana",20));
+        }
+        thePlay.setFill(Color.valueOf("FFFFFF"));
+        thePlay.setLayoutX(20);
+        thePlay.setLayoutY(395);
+        helpPane.getChildren().add(thePlay);
+
+        Label label5 = new Label(HelpText.getThePlay());
+        try {
+            label5.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 12));
+        }catch (FileNotFoundException e){
+            label5.setFont(Font.font("Verdana",12));
+        }
+        label5.setTextFill(Color.valueOf("FFFFFF"));
+        label5.setMaxWidth(470);
+        label5.setLayoutX(20);
+        label5.setLayoutY(412);
+        label5.setWrapText(true);
+        helpPane.getChildren().add(label5);
 
         mainPane.getChildren().add(helpPane);
     }
