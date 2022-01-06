@@ -5,6 +5,8 @@ import app.classes.Deck;
 import app.classes.GameButton;
 import app.classes.MainButton;
 import app.database.DbConnection;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -209,6 +211,7 @@ public class GameViewManager {
             @Override
 
             public void handle(ActionEvent event) {
+                secondsLeft =15;
 
                 deck.draw(playerTurn);
                 player1Points = deck.score[1];
@@ -248,6 +251,7 @@ public class GameViewManager {
         standButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                secondsLeft =15;
                 playingList.set(playerTurn-1, false);
 
 
@@ -526,6 +530,7 @@ public class GameViewManager {
         }
     }
 
+    /*
     private void playRound() {
         repetitions = 0;
         secondsLeft = 15;
@@ -551,8 +556,119 @@ public class GameViewManager {
                     }
                 }, 0, 1000);
                 //System.out.println(repetitions + "repetitions");
+
             }
+
         }, 0, 15000);
+        playingList.set(playerTurn-1, false);
+        timer.cancel();
+
+
+        if(playingList.contains(true)){
+
+            for(int i = playerTurn+1; i < playersList.size()+2; i++){
+                if(i == playersList.size()+1){
+                    i=1;
+                }
+                if(playingList.get(i-1)){
+                    playerTurn =i;
+                    break;
+                }
+            }
+        }else{
+            while(krupier.play());
+            updatePoints();
+            createRetryPanel();
+            return;
+        }
+        botPlay();
+        playRound();
+
+    }
+
+     */
+/*
+    private void playRound() {
+        repetitions = 0;
+        secondsLeft = 15;
+
+                secondTimer.scheduleAtFixedRate(new TimerTask() {
+                    @Override
+                    public void run() {
+                        secondsLeft -=1;
+                        if (secondsLeft ==0) {
+                            secondTimer.cancel();
+                            playingList.set(playerTurn - 1, false);
+                            timer.cancel();
+
+
+                            if (playingList.contains(true)) {
+
+                                for (int i = playerTurn + 1; i < playersList.size() + 2; i++) {
+                                    if (i == playersList.size() + 1) {
+                                        i = 1;
+                                    }
+                                    if (playingList.get(i - 1)) {
+                                        playerTurn = i;
+                                        break;
+                                    }
+                                }
+                            } else {
+                                while (krupier.play()) ;
+                                updatePoints();
+                                createRetryPanel();
+                                return;
+                            }
+                            botPlay();
+                            playRound();
+                        }
+                        // System.out.println(secondsLeft);
+                        updateSeconds();
+                    }
+                }, 0, 1000);
+                //System.out.println(repetitions + "repetitions");
+
+    }
+
+ */
+
+    private void playRound() {
+        secondsLeft = 15;
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            secondsLeft -= 1;
+            if (secondsLeft == 0) {
+                secondTimer.cancel();
+                playingList.set(playerTurn - 1, false);
+                timer.cancel();
+
+
+                if (playingList.contains(true)) {
+
+                    for (int i = playerTurn + 1; i < playersList.size() + 2; i++) {
+                        if (i == playersList.size() + 1) {
+                            i = 1;
+                        }
+                        if (playingList.get(i - 1)) {
+                            playerTurn = i;
+                            break;
+                        }
+                    }
+                } else {
+                    while (krupier.play()) ;
+                    updatePoints();
+                    createRetryPanel();
+                    return;
+                }
+                botPlay();
+                secondsLeft = 15;
+            }
+            // System.out.println(secondsLeft);
+            updateSeconds();
+        }
+        ));
+        timeline.setCycleCount(-1);
+        timeline.play();
+
     }
 
     private void buildHitButton(){
@@ -776,6 +892,8 @@ public class GameViewManager {
 
 
                 updatePoints();
+                secondsLeft=15;
+                playerTurn =1;
             }
         });
 
