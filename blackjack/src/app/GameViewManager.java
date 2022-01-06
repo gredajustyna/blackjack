@@ -115,12 +115,12 @@ public class GameViewManager {
         buildStandButton();
         //connecting to the deck class and creating game
 
-
+/*
         playingList.add(true);
         playingList.add(true);
         playingList.add(true);
         playingList.add(true);
-
+*/
 
 
         //krupier na poczatku zaczyna nie ?
@@ -136,6 +136,8 @@ public class GameViewManager {
         updatePoints();
 
             playRound();
+
+        botPlay(); //jeśli pierwszay gracz botem
 
 
         //TODO: muzyczka potem do dodania
@@ -207,7 +209,7 @@ public class GameViewManager {
                 updatePoints();
 
                 if(deck.score[playerTurn]>20){
-                    playingList.set(playerTurn, false);
+                    playingList.set(playerTurn-1, false);
                 }
 
                 if(playingList.contains(true)){
@@ -234,7 +236,7 @@ public class GameViewManager {
         standButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                playingList.set(playerTurn, false);
+                playingList.set(playerTurn-1, false);
 
 
                 if(playingList.contains(true)){
@@ -268,7 +270,7 @@ public class GameViewManager {
             player4Points = deck.score[4];
 
             if(deck.score[playerTurn]>20){
-                playingList.set(playerTurn, false);
+                playingList.set(playerTurn-1, false);
             }
             updatePoints();
             if(playingList.contains(true)){
@@ -435,6 +437,7 @@ public class GameViewManager {
 
                 playersList.add(true);
                 playersTurn.add(true);
+                playingList.add(true);
 
 
 
@@ -450,6 +453,8 @@ public class GameViewManager {
                 player1Pane.setEffect(new DropShadow());
                 playersList.add(true);
                 playersTurn.add(true);
+                playingList.add(true);
+                playingList.add(true);
                 //AnchorPane player2Pane = new AnchorPane();
                 buildPlayer2Pane();
 
@@ -465,6 +470,10 @@ public class GameViewManager {
                 player1Pane.setEffect(new DropShadow());
                 playersList.add(true);
                 playersTurn.add(true);
+
+                playingList.add(true);
+                playingList.add(true);
+                playingList.add(true);
                 buildPlayer2Pane();
                 buildPlayer3Pane();
 
@@ -481,6 +490,11 @@ public class GameViewManager {
 
                 playersList.add(true);
                 playersTurn.add(true);
+
+                playingList.add(true);
+                playingList.add(true);
+                playingList.add(true);
+                playingList.add(true);
                 buildPlayer2Pane();
                 buildPlayer3Pane();
                 buildPlayer4Pane();
