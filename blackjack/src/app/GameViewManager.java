@@ -240,6 +240,8 @@ public class GameViewManager {
                     }
                 }else{
                     //TODO niech się gra kończy gdy w playinglist nie ma już true
+                    createRetryPanel();
+                    return;
                 }
                 botPlay();
             }
@@ -272,6 +274,10 @@ public class GameViewManager {
                 }
             }else{
                 //TODO niech się gra kończy gdy w playinglist nie ma już true
+                createRetryPanel();
+                return;
+
+
             }
             botPlay();
 
