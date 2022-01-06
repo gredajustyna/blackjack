@@ -762,6 +762,7 @@ public class GameViewManager {
             @Override
             public void handle(ActionEvent event) {
                 deck.discard();
+                playerTurn = 1;
                 for(int i = 0;i<=playingList.size();i++){
                     deck.draw(i);
                     deck.draw(i);

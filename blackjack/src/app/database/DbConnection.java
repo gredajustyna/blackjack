@@ -90,7 +90,6 @@ public class DbConnection {
 
     public static String  Login(String login, String password){
         Connection con = DbConnection.connect();
-        PreparedStatement ps = null;
         try{
             String hashed = BCrypt.hashpw(password, "$2a$10$qtlpCtO6YXgYP1uaiVt9Mu");
             String sql = "SELECT count(1) FROM users WHERE login = '" + login +"' AND password = '" + hashed + "'";
@@ -103,10 +102,19 @@ public class DbConnection {
                     return "0";
                 }
             }
+
         }catch (SQLException e){
             System.out.println(e.toString());
+        } finally{
+        try {
+            con.close();
+        } catch(SQLException e) {
+            //System.out.println(e.toString());
+        }
         }
         return "0";
+
+
     }
 
     public static Image setAvatar(String login) {
