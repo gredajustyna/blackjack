@@ -242,31 +242,33 @@ public class GameViewManager {
 
                 if(deck.score[playerTurn]>20){
                     playingList.set(playerTurn-1, false);
-                }
 
-                if(playingList.contains(true)){
+                    if(playingList.contains(true)){
 
-                    for(int i = playerTurn+1; i < playersList.size()+2; i++){
-                        if(i == playersList.size()+1){
-                            i=1;
+                        for(int i = playerTurn+1; i < playersList.size()+2; i++){
+                            if(i == playersList.size()+1){
+                                i=1;
+                            }
+                            if(playingList.get(i-1)){
+                                playerTurn =i;
+                                break;
+                            }
                         }
-                        if(playingList.get(i-1)){
-                            playerTurn =i;
-                            break;
-                        }
+                    }else{
+                        while(krupier.play());
+                        updatePoints();
+                        //TODO niech się gra kończy gdy w playinglist nie ma już true
+                        //System.out.println(getMaxLow());
+                        timeline.stop();
+                        getUsers();
+                        createRetryPanel();
+                        return;
                     }
-                }else{
-                    while(krupier.play());
-                    updatePoints();
-                    //TODO niech się gra kończy gdy w playinglist nie ma już true
-                    //System.out.println(getMaxLow());
-                    timeline.stop();
-                    getUsers();
-                    createRetryPanel();
-                    return;
+
+                    botPlay();
                 }
 
-                botPlay();
+
             }
         });
 
@@ -314,28 +316,31 @@ public class GameViewManager {
                 playingList.set(playerTurn-1, false);
             }
             updatePoints();
-            if(playingList.contains(true)){
+            if(!playingList.get(playerTurn-1)) {
+                if (playingList.contains(true)) {
 
-                for(int i = playerTurn+1; i < (playersList.size()+2); i++){
-                    if(i == playersList.size()+1){
-                        i=1;
+                    for (int i = playerTurn + 1; i < (playersList.size() + 2); i++) {
+                        if (i == playersList.size() + 1) {
+                            i = 1;
+                        }
+                        if (playingList.get(i - 1)) {
+                            playerTurn = i;
+                            break;
+                        }
                     }
-                    if(playingList.get(i-1)){
-                        playerTurn =i;
-                        break;
-                    }
+                } else {
+                    while (krupier.play()) ;
+                    updatePoints();
+                    timeline.stop();
+                    getUsers();
+                    createRetryPanel();
+                    return;
+
+
                 }
-            }else{
-                while(krupier.play());
-                updatePoints();
-                timeline.stop();
-                getUsers();
-                createRetryPanel();
-                return;
-
-
             }
-            botPlay();
+                botPlay();
+
 
         }
     }
