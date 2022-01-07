@@ -63,6 +63,7 @@ public class MenuViewManager {
     private final static int MENU_BUTTONS_START_Y = 250;
     private final String FONT_PATH = "src/app/fonts/Righteous.ttf";
     private boolean isLoggedIn = false;
+    MainButton gameStartButton;
 
     //radiobuttons
 
@@ -665,6 +666,9 @@ public class MenuViewManager {
         startPane.getChildren().add(player1Pane);
 
 
+
+
+
         Text player2 = new Text("Player 2:");
         try {
             player2.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
@@ -716,9 +720,11 @@ public class MenuViewManager {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonPlayer2.isSelected()) {
+                    gameStartButton.setDisable(true);
                     isLoggedIn2 = true;
                     mainPane.getChildren().add(loginPane);
                 }
+
             }
         });
 
@@ -780,6 +786,7 @@ public class MenuViewManager {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonPlayer3.isSelected()) {
+                    gameStartButton.setDisable(true);
                     isLoggedIn3 = true;
                     mainPane.getChildren().add(loginPane);
                 }
@@ -844,6 +851,7 @@ public class MenuViewManager {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonPlayer4.isSelected()) {
+                    gameStartButton.setDisable(true);
                     isLoggedIn4 = true;
                     mainPane.getChildren().add(loginPane);
                 }
@@ -1131,6 +1139,7 @@ public class MenuViewManager {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                gameStartButton.setDisable(false);
                 login_buff = DbConnection.Login(usernameField.getText(), passwordField.getText());
                 System.out.println(login_buff);
                 if (login_buff != "0"){
@@ -1465,13 +1474,16 @@ public class MenuViewManager {
             public void handle(ActionEvent event) {
                 isLoggedIn = false;
                 user1.setLogin(null);
+                user2.setLogin(null);
+                user3.setLogin(null);
+                user4.setLogin(null);
                 updateUserPanel();
             }
         });
     }
 
     private void createGameStartButton(){
-        MainButton gameStartButton = new MainButton("Start");
+        gameStartButton = new MainButton("Start");
         gameStartButton.setLayoutX(130);
         gameStartButton.setLayoutY(520);
         startPane.getChildren().add(gameStartButton);

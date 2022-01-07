@@ -72,6 +72,11 @@ public class GameViewManager {
     private int dif4;
 
     private Text player1PointsText = new Text("Points: " + player1Points);
+
+    private Text player1Text;
+    private Text player2Text;
+    private Text player3Text;
+    private Text player4Text;
     Text player2PointsText = new Text("Points: " + player2Points);
     Text player3PointsText = new Text("Points: " + player2Points);
     Text player4PointsText = new Text("Points: " + player4Points);
@@ -251,6 +256,7 @@ public class GameViewManager {
                     //TODO niech się gra kończy gdy w playinglist nie ma już true
                     //System.out.println(getMaxLow());
                     timeline.stop();
+                    getUsers();
                     createRetryPanel();
                     return;
                 }
@@ -281,6 +287,7 @@ public class GameViewManager {
                     while(krupier.play());
                     updatePoints();
                     timeline.stop();
+                    getUsers();
                     createRetryPanel();
                     return;
                 }
@@ -317,6 +324,7 @@ public class GameViewManager {
                 while(krupier.play());
                 updatePoints();
                 timeline.stop();
+                getUsers();
                 createRetryPanel();
                 return;
 
@@ -416,7 +424,7 @@ public class GameViewManager {
         playersTurn.add(true);
         playingList.add(true);
 
-        Text player1Text = new Text(MenuViewManager.user1.getLogin()); //DOMYŚLNIE JEGO LOGIN
+        player1Text = new Text(MenuViewManager.user1.getLogin()); //DOMYŚLNIE JEGO LOGIN
         if(isBot) {
             player1Text = new Text("Bot1");
             playersList.set(0,false);
@@ -670,6 +678,7 @@ public class GameViewManager {
                     while (krupier.play()) ;
                     updatePoints();
                     timeline.stop();
+                    getUsers();
                     createRetryPanel();
                     return;
                 }
@@ -710,7 +719,7 @@ public class GameViewManager {
         player2Pane.setLayoutY(225);
         player2Pane.setLayoutX(930);
         player2Pane.setEffect(new DropShadow());
-        Text player2Text = new Text(MenuViewManager.user2.getLogin());//DOMYŚLNIE JEGO LOGIN
+        player2Text = new Text(MenuViewManager.user2.getLogin());//DOMYŚLNIE JEGO LOGIN
         playersList.add(true);
         playersTurn.add(false);
         System.out.println(playersList.size());
@@ -762,7 +771,7 @@ public class GameViewManager {
         player3Pane.setLayoutX(475);
         player3Pane.setEffect(new DropShadow());
 
-        Text player3Text = new Text(MenuViewManager.user3.getLogin()); //DOMYŚLNIE JEGO LOGIN
+        player3Text = new Text(MenuViewManager.user3.getLogin()); //DOMYŚLNIE JEGO LOGIN
         playersList.add(true);
         playersTurn.add(false);
         if(MenuViewManager.user3.getLogin() == null) {
@@ -816,7 +825,7 @@ public class GameViewManager {
         player4Pane.setLayoutX(650);
         player4Pane.setEffect(new DropShadow());
 
-        Text player4Text = new Text(MenuViewManager.user4.getLogin()); //DOMYŚLNIE JEGO LOGIN
+        player4Text = new Text(MenuViewManager.user4.getLogin()); //DOMYŚLNIE JEGO LOGIN
         playersList.add(true);
         playersTurn.add(false);
         if(MenuViewManager.user4.getLogin() == null) {
@@ -879,7 +888,7 @@ public class GameViewManager {
             retryText.setFont(Font.font("Verdana",30));
         }
         retryText.setFill(Color.valueOf("FFFFFF"));
-        retryText.setLayoutX(200);
+        retryText.setLayoutX(20);
         retryText.setLayoutY(45);
         retryPane.getChildren().add(retryText);
 
@@ -952,6 +961,66 @@ public class GameViewManager {
 
         }
         return winner;
+    }
+
+    private void getUsers(){
+
+        retryText.setText("The winner is ");
+        int licznik = 0, sem =1;
+        String winners ="";
+        for (int i =0; i<=playingList.size();i++){
+            if(getWinners()[i]){
+                licznik++;
+            }
+        }
+
+        for (int i =0; i<= playingList.size();i++){
+            if(licznik == 1 && getWinners()[i]){
+                switch (i) {
+                    case 0:
+                        retryText.setText("The winner is Krupier");
+                        break;
+                    case 1:
+                        retryText.setText("The winner is " + player1Text.getText());
+                        break;
+                    case 2:
+                        retryText.setText("The winner is " + player2Text.getText());
+                        break;
+                    case 3:
+                        retryText.setText("The winner is " + player3Text.getText());
+                        break;
+                    case 4:
+                        retryText.setText("The winner is " + player4Text.getText());
+                        break;
+                }
+            }
+
+            if(sem == 1) {
+                winners = "The winners are ";
+                sem=0;
+            }
+            if(licznik > 1  && getWinners()[i]){
+                switch (i) {
+                    case 0:
+                        winners = winners + "Krupier, ";
+                        break;
+                    case 1:
+                        winners = winners + player1Text.getText() + ", ";
+                        break;
+                    case 2:
+                        winners = winners + player2Text.getText() + ", ";
+                        break;
+                    case 3:
+                        winners = winners + player3Text.getText() + ", ";
+                        break;
+                    case 4:
+                        winners = winners + player4Text.getText() + ", ";
+                        break;
+                }
+                retryText.setText(winners.substring(0, winners.length() - 2));
+            }
+
+        }
     }
 
 }
