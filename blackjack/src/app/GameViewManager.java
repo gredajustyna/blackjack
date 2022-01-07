@@ -1,21 +1,16 @@
 package app;
 
 import app.classes.*;
-import app.database.DbConnection;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -23,17 +18,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameViewManager {
     private AnchorPane retryPane;
@@ -68,6 +58,8 @@ public class GameViewManager {
     private int dif2;
     private int dif3;
     private int dif4;
+
+    StackPane playerCardsPane;
 
     private Text player1PointsText = new Text("Points: " + player1Points);
 
@@ -122,6 +114,12 @@ public class GameViewManager {
         minutesText = new Text("0:");
         hitButton = new GameButton("hit", "chip_green.png");
         standButton = new GameButton("stand", "chip_red.png");
+        playerCardsPane = new StackPane();
+        playerCardsPane.setLayoutX(500);
+        playerCardsPane.setLayoutY(500);
+        playerCardsPane.setPrefHeight(95);
+        playerCardsPane.setMinWidth(70);
+        gamePane.getChildren().add(playerCardsPane);
         createBackground();
         numberOfPlayers = players;
         dif1 = diff1;
@@ -162,7 +160,8 @@ public class GameViewManager {
         player3Points = deck.score[3];
         player4Points = deck.score[4];
         updatePoints();
-
+        showDealerCards();
+        showCurrentPlayerCards();
             playRound();
 
         botPlay(); //jeśli pierwszay gracz botem
@@ -232,6 +231,7 @@ public class GameViewManager {
 
 
                 deck.draw(playerTurn);
+                addCard();
                 player1Points = deck.score[1];
                 player2Points = deck.score[2];
                 player3Points = deck.score[3];
@@ -1027,5 +1027,104 @@ public class GameViewManager {
 
         }
     }
+
+    private void showDealerCards(){
+        InputStream card1 = getClass().getResourceAsStream(Card.getCardImage("default"));
+        Image card1img= new Image(card1);
+        ImageView dealer1img = new ImageView(card1img);
+        InputStream card2 = getClass().getResourceAsStream(Card.getCardImage(deck.krupier.get(1).getName()));
+        Image card2img= new Image(card2);
+        ImageView dealer2img = new ImageView(card2img);
+
+        dealer1img.setFitWidth(70);
+        dealer1img.setFitHeight(95);
+        dealer1img.setLayoutY(250);
+        dealer1img.setLayoutX(500);
+        gamePane.getChildren().add(dealer1img);
+
+        dealer2img.setFitWidth(70);
+        dealer2img.setFitHeight(95);
+        dealer2img.setLayoutY(250);
+        dealer2img.setLayoutX(520);
+        gamePane.getChildren().add(dealer2img);
+
+    }
+
+    private void showCurrentPlayerCards(){
+        String card1string = "";
+        String card2string = "";
+        switch (playerTurn){
+            case 1:
+                card1string = Card.getCardImage(deck.player1.get(0).getName());
+                card2string = Card.getCardImage(deck.player1.get(1).getName());
+                break;
+            case 2:
+                card1string = Card.getCardImage(deck.player2.get(0).getName());
+                card2string = Card.getCardImage(deck.player2.get(1).getName());
+                break;
+            case 3:
+                card1string = Card.getCardImage(deck.player3.get(0).getName());
+                card2string = Card.getCardImage(deck.player3.get(1).getName());
+                break;
+            case 4:
+                card1string = Card.getCardImage(deck.player4.get(0).getName());
+                card2string = Card.getCardImage(deck.player4.get(1).getName());
+                break;
+        }
+
+
+        InputStream card11 = getClass().getResourceAsStream(card1string);
+        Image card11img= new Image(card11);
+        ImageView player1img = new ImageView(card11img);
+        InputStream card22 = getClass().getResourceAsStream(card2string);
+        Image card22img= new Image(card22);
+        ImageView player2img = new ImageView(card22img);
+
+
+        player1img.setFitWidth(70);
+        player1img.setFitHeight(95);
+        playerCardsPane.getChildren().add(player1img);
+
+        player2img.setFitWidth(70);
+        player2img.setFitHeight(95);
+        playerCardsPane.getChildren().add(player2img);
+        player2img.setTranslateX(playerCardsPane.getWidth()+20);
+    }
+
+    private void removeCurrentPlayerCards(){
+        playerCardsPane.getChildren().removeAll();
+    }
+
+    private void addCard(){
+        String card1string = "";
+        switch (playerTurn){
+            case 1:
+                card1string = Card.getCardImage(deck.player1.get(deck.player1.size()-1).getName());
+                break;
+            case 2:
+                card1string = Card.getCardImage(deck.player2.get(deck.player2.size()-1).getName());
+                break;
+            case 3:
+                card1string = Card.getCardImage(deck.player3.get(deck.player3.size()-1).getName());
+                break;
+            case 4:
+                card1string = Card.getCardImage(deck.player4.get(deck.player4.size()-1).getName());
+                break;
+        }
+
+        InputStream card11 = getClass().getResourceAsStream(card1string);
+        Image card11img= new Image(card11);
+        ImageView player1img = new ImageView(card11img);
+
+
+        player1img.setFitWidth(70);
+        player1img.setFitHeight(95);
+        playerCardsPane.getChildren().add(player1img);
+        player1img.setTranslateX(playerCardsPane.getWidth()-20);
+    }
+
+
+
+    //private void
 
 }

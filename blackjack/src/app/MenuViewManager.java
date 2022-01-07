@@ -942,15 +942,6 @@ public class MenuViewManager {
         label1.setWrapText(true);
         helpPane.getChildren().add(label1);
 
-//        ScrollPane scrollPane = new ScrollPane();
-//        scrollPane.vbarPolicyProperty().setValue(ScrollPane.ScrollBarPolicy.ALWAYS);
-//        scrollPane.setPrefHeight(500);
-//        scrollPane.setPrefWidth(580);
-//        scrollPane.setLayoutX(10);
-//        scrollPane.setLayoutY(50);
-//        scrollPane.setStyle("-fx-background: transparent; -fx-control-inner-background: transparent;");
-//        helpPane.getChildren().add(scrollPane);
-
         Text cardText = new Text("Cards");
         try {
             cardText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 20));
