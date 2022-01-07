@@ -66,6 +66,11 @@ public class GameViewManager {
     private  Timer timer = new Timer();
     private Timer secondTimer = new Timer();
     private boolean isBot;
+    private int dif1;
+    private int dif2;
+    private int dif3;
+    private int dif4;
+
     private Text player1PointsText = new Text("Points: " + player1Points);
     Text player2PointsText = new Text("Points: " + player2Points);
     Text player3PointsText = new Text("Points: " + player2Points);
@@ -94,7 +99,7 @@ public class GameViewManager {
 
 
 
-    public GameViewManager(boolean isSoundOn, boolean isMusicOn, int decks, int players, boolean bot1){
+    public GameViewManager(boolean isSoundOn, boolean isMusicOn, int decks, int players, boolean bot1, int diff1, int diff2, int diff3, int diff4){
         isBot = bot1;
         gamePane = new AnchorPane();
         timerPane = new AnchorPane();
@@ -111,6 +116,10 @@ public class GameViewManager {
         standButton = new GameButton("stand", "chip_red.png");
         createBackground();
         numberOfPlayers = players;
+        dif1 = diff1;
+        dif2 = diff2;
+        dif3 = diff3;
+        dif4 = diff4;
 
         deck = new Deck(1);
         deck.shuffle();
@@ -411,7 +420,7 @@ public class GameViewManager {
         if(isBot) {
             player1Text = new Text("Bot1");
             playersList.set(0,false);
-            botList.add(new BotPlayer(1,deck,1));
+            botList.add(new BotPlayer(dif1,deck,1));
         }else {
             botList.add(null);
         }
@@ -708,7 +717,7 @@ public class GameViewManager {
         if(MenuViewManager.user2.getLogin() == null) {
             player2Text = new Text("Bot2");
             playersList.set(1,false);
-            botList.add(new BotPlayer(1,deck,2));
+            botList.add(new BotPlayer(dif2,deck,2));
         }else {
             botList.add(null);
         }
@@ -759,7 +768,7 @@ public class GameViewManager {
         if(MenuViewManager.user3.getLogin() == null) {
             player3Text = new Text("Bot3");
             playersList.set(2,false);
-            botList.add(new BotPlayer(1,deck,3));
+            botList.add(new BotPlayer(dif3,deck,3));
         }else {
             botList.add(null);
         }
@@ -813,7 +822,7 @@ public class GameViewManager {
         if(MenuViewManager.user4.getLogin() == null) {
             player4Text = new Text("Bot4");
             playersList.set(3,false);
-            botList.add(new BotPlayer(1,deck,4));
+            botList.add(new BotPlayer(dif4,deck,4));
         }else {
             botList.add(null);
         }

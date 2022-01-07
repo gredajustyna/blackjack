@@ -184,7 +184,7 @@ public class MenuViewManager {
                 if (isLoggedIn) {
 
                     user1.setLogin(login_buff);
-                    System.out.println(user1.getLogin());
+                   // System.out.println(user1.getLogin());
                     player1Pane.getChildren().clear();
                     player2Pane.getChildren().clear();
                     player3Pane.getChildren().clear();
@@ -1167,8 +1167,8 @@ public class MenuViewManager {
                             buttonComputer2.setSelected(true);
                     }else {
                         user2.setLogin(login_buff);
-                        System.out.println(login_buff);
-                        System.out.println(user1.getLogin());
+                       // System.out.println(login_buff);
+                        //System.out.println(user1.getLogin());
                     }
                     isLoggedIn2 = false;
                 }
@@ -1480,13 +1480,28 @@ public class MenuViewManager {
             public void handle(ActionEvent event) {
                 try {
                     boolean bot1;
+                    int diff1 = 0, diff2 = 0, diff3 = 0, diff4 = 0;
                     int players = Integer.parseInt(playerToggle.getSelectedToggle().getUserData().toString());
                     int decks = Integer.parseInt(group.getSelectedToggle().getUserData().toString());
                     if(buttonComputer1.isSelected()) {
                         bot1 = true;
+                        diff1 = returnDiff(levelComboBox1.getSelectionModel().getSelectedItem().toString());
+                        //System.out.println(diff1);
                     } else bot1 = false;
-                    System.out.println(bot1);
-                    GameViewManager gameViewManager = new GameViewManager(isSoundOn, player.isMute(), decks,players,bot1);
+                    if(buttonComputer2.isSelected()) {
+                        diff2 = returnDiff(levelComboBox2.getSelectionModel().getSelectedItem().toString());
+                       // System.out.println(diff2);
+                    }
+                    if(buttonComputer3.isSelected()) {
+                        diff3 = returnDiff(levelComboBox3.getSelectionModel().getSelectedItem().toString());
+                        //System.out.println(diff3);
+                    }
+                    if(buttonComputer4.isSelected()) {
+                        diff4 = returnDiff(levelComboBox4.getSelectionModel().getSelectedItem().toString());
+                        //System.out.println(diff4);
+                    }
+
+                    GameViewManager gameViewManager = new GameViewManager(isSoundOn, player.isMute(), decks,players,bot1,diff1,diff2,diff3,diff4);
                     Stage primaryStage = gameViewManager.getGameStage();
                     primaryStage.show();
                     mainStage.close();
@@ -1497,6 +1512,13 @@ public class MenuViewManager {
                 }
             }
         });
+    }
+
+    public int returnDiff(String name){
+        if (name.equals("Easy")) return 0;
+        if (name.equals("Medium")) return 1;
+        if (name.equals("Hard")) return 2;
+        return 1;
     }
 
 }
