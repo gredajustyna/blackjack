@@ -75,6 +75,11 @@ public class MenuViewManager {
     private RadioButton buttonComputer3 = new RadioButton("");
     private RadioButton buttonComputer4 = new RadioButton("");
 
+    private ComboBox levelComboBox1;
+    private ComboBox levelComboBox2;
+    private ComboBox levelComboBox3;
+    private ComboBox levelComboBox4;
+
     private String login;
     public static String login_buff;
     private boolean isLoggedIn2 = false;
@@ -106,6 +111,35 @@ public class MenuViewManager {
         player2Pane = new AnchorPane();
         player3Pane = new AnchorPane();
         player4Pane = new AnchorPane();
+        levelComboBox1 = new ComboBox();
+        levelComboBox1.getItems().addAll(
+                "Easy",
+                "Medium",
+                "Hard"
+        );
+        levelComboBox1.setValue("Easy");
+        levelComboBox2 = new ComboBox();
+        levelComboBox2.getItems().addAll(
+                "Easy",
+                "Medium",
+                "Hard"
+        );
+        levelComboBox2.setValue("Easy");
+        levelComboBox3 = new ComboBox();
+        levelComboBox3.getItems().addAll(
+                "Easy",
+                "Medium",
+                "Hard"
+        );
+        levelComboBox3.setValue("Easy");
+        levelComboBox4 = new ComboBox();
+        levelComboBox4.getItems().addAll(
+                "Easy",
+                "Medium",
+                "Hard"
+        );
+        levelComboBox4.setValue("Easy");
+
         playerToggle = new ToggleGroup();
         mainScene = new Scene(mainPane,WIDTH,HEIGHT);
         mainStage = new Stage();
@@ -387,6 +421,10 @@ public class MenuViewManager {
         player4Pane.setVisible(false);
         player3Pane.setVisible(false);
         player2Pane.setVisible(false);
+        levelComboBox1.setVisible(false);
+        levelComboBox2.setVisible(true);
+        levelComboBox3.setVisible(true);
+        levelComboBox4.setVisible(true);
         startPane.setPrefHeight(600);
         startPane.setPrefWidth(500);
         startPane.setLayoutY(150);
@@ -586,12 +624,20 @@ public class MenuViewManager {
         buttonpl1.setFitWidth(50);
         buttonpl1.setPreserveRatio(true);
 
+        levelComboBox1.setLayoutX(300);
+        levelComboBox1.setLayoutY(-25);
+        player1Pane.getChildren().addAll(levelComboBox1);
+
         buttonPlayer1.setGraphic(buttonpl1);
-        buttonPlayer1.setUserData(3);
+        buttonPlayer1.setUserData(0);
         buttonPlayer1.setToggleGroup(player1group);
         buttonPlayer1.setSelected(true);
         buttonPlayer1.setLayoutX(110);
         buttonPlayer1.setLayoutY(-30);
+        buttonPlayer1.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox1, (int)buttonPlayer1.getUserData());
+        });
 
 
         InputStream iscom1 = getClass().getResourceAsStream("/computer1.png");
@@ -601,12 +647,15 @@ public class MenuViewManager {
         buttoncom1.setFitWidth(40);
         buttoncom1.setPreserveRatio(true);
         buttonComputer1.setGraphic(buttoncom1);
-        buttonComputer1.setUserData(3);
+        buttonComputer1.setUserData(1);
         buttonComputer1.setToggleGroup(player1group);
         buttonComputer1.setSelected(false);
         buttonComputer1.setLayoutX(200);
         buttonComputer1.setLayoutY(-24);
-
+        buttonComputer1.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox1, (int)buttonComputer1.getUserData());
+        });
 
         player1Pane.getChildren().add(player1);
         player1Pane.setLayoutX(40);
@@ -624,6 +673,10 @@ public class MenuViewManager {
         }
         player2.setFill(Color.valueOf("FFFFFF"));
 
+        levelComboBox2.setLayoutX(300);
+        levelComboBox2.setLayoutY(-25);
+        player2Pane.getChildren().addAll(levelComboBox2);
+
         ToggleGroup player2group = new ToggleGroup();
         InputStream ispl2 = getClass().getResourceAsStream("/player1.png");
         Image imgpl2= new Image(ispl2);
@@ -632,11 +685,15 @@ public class MenuViewManager {
         buttonpl2.setFitWidth(50);
         buttonpl2.setPreserveRatio(true);
         buttonPlayer2.setGraphic(buttonpl2);
-        buttonPlayer2.setUserData(3);
+        buttonPlayer2.setUserData(0);
         buttonPlayer2.setToggleGroup(player2group);
         buttonPlayer2.setSelected(false);
         buttonPlayer2.setLayoutX(110);
         buttonPlayer2.setLayoutY(-30);
+        buttonPlayer2.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox2, (int)buttonPlayer2.getUserData());
+        });
 
         InputStream iscom2 = getClass().getResourceAsStream("/computer1.png");
         Image imgcom2= new Image(iscom2);
@@ -645,11 +702,15 @@ public class MenuViewManager {
         buttoncom2.setFitWidth(40);
         buttoncom2.setPreserveRatio(true);
         buttonComputer2.setGraphic(buttoncom2);
-        buttonComputer2.setUserData(3);
+        buttonComputer2.setUserData(1);
         buttonComputer2.setToggleGroup(player2group);
         buttonComputer2.setSelected(true);
         buttonComputer2.setLayoutX(200);
         buttonComputer2.setLayoutY(-24);
+        buttonComputer2.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox2, (int)buttonComputer2.getUserData());
+        });
 
         buttonPlayer2.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -676,6 +737,10 @@ public class MenuViewManager {
         }
         player3.setFill(Color.valueOf("FFFFFF"));
 
+        levelComboBox3.setLayoutX(300);
+        levelComboBox3.setLayoutY(-25);
+        player3Pane.getChildren().addAll(levelComboBox3);
+
         ToggleGroup player3group = new ToggleGroup();
         InputStream ispl3 = getClass().getResourceAsStream("/player1.png");
         Image imgpl3= new Image(ispl3);
@@ -689,6 +754,10 @@ public class MenuViewManager {
         buttonPlayer3.setSelected(false);
         buttonPlayer3.setLayoutX(110);
         buttonPlayer3.setLayoutY(-30);
+        buttonPlayer3.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox3, (int)buttonPlayer3.getUserData());
+        });
 
         InputStream iscom3 = getClass().getResourceAsStream("/computer1.png");
         Image imgcom3= new Image(iscom3);
@@ -702,6 +771,10 @@ public class MenuViewManager {
         buttonComputer3.setSelected(true);
         buttonComputer3.setLayoutX(200);
         buttonComputer3.setLayoutY(-24);
+        buttonComputer3.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox3, (int)buttonComputer3.getUserData());
+        });
 
         buttonPlayer3.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -728,6 +801,10 @@ public class MenuViewManager {
         }
         player4.setFill(Color.valueOf("FFFFFF"));
 
+        levelComboBox4.setLayoutX(300);
+        levelComboBox4.setLayoutY(-25);
+        player4Pane.getChildren().addAll(levelComboBox4);
+
         ToggleGroup player4group = new ToggleGroup();
         InputStream ispl4 = getClass().getResourceAsStream("/player1.png");
         Image imgpl4= new Image(ispl4);
@@ -741,6 +818,10 @@ public class MenuViewManager {
         buttonPlayer4.setSelected(false);
         buttonPlayer4.setLayoutX(110);
         buttonPlayer4.setLayoutY(-30);
+        buttonPlayer4.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox4, (int)buttonPlayer4.getUserData());
+        });
 
         InputStream iscom4 = getClass().getResourceAsStream("/computer1.png");
         Image imgcom4= new Image(iscom4);
@@ -754,6 +835,10 @@ public class MenuViewManager {
         buttonComputer4.setSelected(true);
         buttonComputer4.setLayoutX(200);
         buttonComputer4.setLayoutY(-24);
+        buttonComputer4.setOnAction(e ->{
+            ToggleButton toggle = (ToggleButton) e.getSource();
+            updateLevelVisibility(levelComboBox4, (int)buttonComputer4.getUserData());
+        });
 
         buttonPlayer4.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
@@ -775,6 +860,17 @@ public class MenuViewManager {
 
         createCloseStartButton();
         mainPane.getChildren().add(startPane);
+    }
+
+    private void updateLevelVisibility(ComboBox comboBox, int value){
+        switch (value){
+            case 0:
+                comboBox.setVisible(false);
+                break;
+            case 1:
+                comboBox.setVisible(true);
+                break;
+        }
     }
 
     private void updatePlayerVisibility(ToggleButton button){
