@@ -10,11 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Deck {
     private List<Card> deck = new ArrayList<>();
 
-    private List<Card> krupier = new ArrayList<>();
-    private List<Card> player1 = new ArrayList<>();
-    private List<Card> player2 = new ArrayList<>();
-    private List<Card> player3 = new ArrayList<>();
-    private List<Card> player4 = new ArrayList<>();
+    public List<Card> krupier = new ArrayList<>();
+    public List<Card> player1 = new ArrayList<>();
+    public List<Card> player2 = new ArrayList<>();
+    public List<Card> player3 = new ArrayList<>();
+    public List<Card> player4 = new ArrayList<>();
     public int[] score= {0,0,0,0,0};
     private List<Card> discard = new ArrayList<>();
 
@@ -185,7 +185,9 @@ public class Deck {
         deck.draw(0);
         deck.draw(0);
         deck.draw(0);
+        deck.draw(1);
         System.out.println(deck.krupier);
+        System.out.println(deck.player1);
         System.out.println(deck.score[0]);
 
         System.out.println(deck.getDeck());

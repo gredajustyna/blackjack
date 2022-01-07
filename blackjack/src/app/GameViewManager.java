@@ -1,9 +1,6 @@
 package app;
 
-import app.classes.BotPlayer;
-import app.classes.Deck;
-import app.classes.GameButton;
-import app.classes.MainButton;
+import app.classes.*;
 import app.database.DbConnection;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,6 +31,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -81,6 +79,11 @@ public class GameViewManager {
     Text player3PointsText = new Text("Points: " + player2Points);
     Text player4PointsText = new Text("Points: " + player4Points);
     Text dealerPointsText = new Text("Points: " + dealerPoints);
+
+    private List<Card> player1 = new ArrayList<>();
+    private List<Card> player2 = new ArrayList<>();
+    private List<Card> player3 = new ArrayList<>();
+    private List<Card> player4 = new ArrayList<>();
 
     Text retryText = new Text("The winner is: ");
     private BotPlayer krupier;
@@ -152,7 +155,6 @@ public class GameViewManager {
             deck.draw(i);
             deck.draw(i);
         }
-
 
 
         player1Points = deck.score[1];
@@ -227,6 +229,7 @@ public class GameViewManager {
 
             public void handle(ActionEvent event) {
                 secondsLeft =15;
+
 
                 deck.draw(playerTurn);
                 player1Points = deck.score[1];
