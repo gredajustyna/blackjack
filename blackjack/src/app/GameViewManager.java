@@ -238,6 +238,8 @@ public class GameViewManager {
                 player4Points = deck.score[4];
                 updatePoints();
 
+                System.out.println(deck.player1);
+
                 if(deck.score[playerTurn]>20){
                     playingList.set(playerTurn-1, false);
                 }
