@@ -47,4 +47,8 @@ public class BotPlayer {
         }
         return true; // return dodany bo inaczej krzyczy :v
     }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
 }

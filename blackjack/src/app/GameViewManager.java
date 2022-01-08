@@ -1,6 +1,7 @@
 package app;
 
 import app.classes.*;
+import app.database.DbConnection;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -77,6 +78,9 @@ public class GameViewManager {
     private List<Card> player3 = new ArrayList<>();
     private List<Card> player4 = new ArrayList<>();
 
+    private int[] timePlayed = new int[4];
+
+
     Text retryText = new Text("The winner is: ");
     private BotPlayer krupier;
     private ArrayList<Boolean> playersList =  new ArrayList<Boolean>();
@@ -136,16 +140,6 @@ public class GameViewManager {
         buildHitButton();
         buildStandButton();
         //connecting to the deck class and creating game
-
-/*
-        playingList.add(true);
-        playingList.add(true);
-        playingList.add(true);
-        playingList.add(true);
-*/
-
-
-        //krupier na poczatku zaczyna nie ?
 
 
 
@@ -238,7 +232,7 @@ public class GameViewManager {
                 player4Points = deck.score[4];
                 updatePoints();
 
-                System.out.println(deck.player1);
+
 
                 if(deck.score[playerTurn]>20){
                     playingList.set(playerTurn-1, false);
@@ -258,8 +252,10 @@ public class GameViewManager {
                         while(krupier.play());
                         updatePoints();
                         //TODO niech się gra kończy gdy w playinglist nie ma już true
-                        //System.out.println(getMaxLow());
+
+
                         timeline.stop();
+                        System.out.println(secondsLeft);
                         getUsers();
                         createRetryPanel();
                         return;
@@ -293,6 +289,7 @@ public class GameViewManager {
                 }else{
                     while(krupier.play());
                     updatePoints();
+                    System.out.println(15 - secondsLeft);
                     timeline.stop();
                     getUsers();
                     createRetryPanel();
@@ -306,6 +303,7 @@ public class GameViewManager {
 
     private void botPlay(){
         if(botList.get(playerTurn-1)!=null){
+            timePlayed[playerTurn-1]++;
             playingList.set(playerTurn-1,botList.get(playerTurn-1).play());
             player1Points = deck.score[1];
             player2Points = deck.score[2];
@@ -478,8 +476,8 @@ public class GameViewManager {
 
         switch (numberOfPlayers){
             case 1:
-                System.out.println("HERE");
-                System.out.println("this many players: " + numberOfPlayers);
+                //System.out.println("HERE");
+                //System.out.println("this many players: " + numberOfPlayers);
                 player1Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px; -fx-border-radius: 10px;\n" +
                         "    -fx-border-color: black;");
                 player1Pane.setPrefHeight(100);
@@ -494,7 +492,7 @@ public class GameViewManager {
 
                 break;
             case 2:
-                System.out.println("this many players: " + numberOfPlayers);
+                //System.out.println("this many players: " + numberOfPlayers);
                 player1Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px; -fx-border-radius: 10px;\n" +
                         "    -fx-border-color: black;");
                 player1Pane.setPrefHeight(100);
@@ -511,7 +509,7 @@ public class GameViewManager {
 
                 break;
             case 3:
-                System.out.println("this many players" + numberOfPlayers);
+                //System.out.println("this many players" + numberOfPlayers);
                 player1Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px; -fx-border-radius: 10px;\n" +
                         "    -fx-border-color: black;");
                 player1Pane.setPrefHeight(100);
@@ -530,7 +528,7 @@ public class GameViewManager {
 
                 break;
             case 4:
-                System.out.println("this many players" + numberOfPlayers);
+               // System.out.println("this many players" + numberOfPlayers);
                 player1Pane.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10px;-fx-border-width: 2px; -fx-border-radius: 10px;\n" +
                         "    -fx-border-color: black;");
                 player1Pane.setPrefHeight(100);
@@ -667,6 +665,7 @@ public class GameViewManager {
         secondsLeft = 15;
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             secondsLeft -= 1;
+            timePlayed[playerTurn-1]++;
             if (secondsLeft == 0) {
                 secondTimer.cancel();
                 playingList.set(playerTurn - 1, false);
@@ -695,7 +694,6 @@ public class GameViewManager {
                 botPlay();
                 secondsLeft = 15;
             }
-            // System.out.println(secondsLeft);
             updateSeconds();
         }
         ));
@@ -732,7 +730,6 @@ public class GameViewManager {
         player2Text = new Text(MenuViewManager.user2.getLogin());//DOMYŚLNIE JEGO LOGIN
         playersList.add(true);
         playersTurn.add(false);
-        System.out.println(playersList.size());
         if(MenuViewManager.user2.getLogin() == null) {
             player2Text = new Text("Bot2");
             playersList.set(1,false);
@@ -903,6 +900,7 @@ public class GameViewManager {
         retryPane.getChildren().add(retryText);
 
 
+
         MainButton retryButton = new MainButton("Retry");
         retryButton.setLayoutX(130);
         retryButton.setLayoutY(80);
@@ -952,6 +950,24 @@ public class GameViewManager {
         gamePane.getChildren().add(retryPane);
         hitButton.setDisable(true);
         standButton.setDisable(true);
+
+        //update bazy
+        if(botList.get(0) != null) {
+            DbConnection.updateUser(returnBotDiffName(botList.get(0).getDifficulty()),deck.player1.size(),timePlayed[0]);
+        }else DbConnection.updateUser(MenuViewManager.user1.getLogin(),deck.player1.size(),timePlayed[0]);
+
+        if(playingList.size() >= 2 && botList.get(1) != null) {
+            DbConnection.updateUser(returnBotDiffName(botList.get(1).getDifficulty()),deck.player2.size(),timePlayed[1]);
+        }else if (playingList.size() >= 2) DbConnection.updateUser(MenuViewManager.user2.getLogin(),deck.player2.size(),timePlayed[1]);
+
+        if(playingList.size() >= 3 && botList.get(2) != null) {
+            DbConnection.updateUser(returnBotDiffName(botList.get(2).getDifficulty()),deck.player3.size(),timePlayed[2]);
+        }else if (playingList.size() >= 3)  DbConnection.updateUser(MenuViewManager.user3.getLogin(),deck.player3.size(),timePlayed[2]);
+
+        if(playingList.size() == 4 && botList.get(3) != null) {
+            DbConnection.updateUser(returnBotDiffName(botList.get(3).getDifficulty()),deck.player4.size(),timePlayed[3]);
+        }else if (playingList.size() == 4) DbConnection.updateUser(MenuViewManager.user4.getLogin(),deck.player4.size(),timePlayed[3]);
+
     }
 
     private boolean[] getWinners(){
@@ -976,7 +992,7 @@ public class GameViewManager {
     private void getUsers(){
 
         retryText.setText("The winner is ");
-        int licznik = 0, sem =1;
+        int licznik = 0, sem =1, noWinner = 0;
         String winners ="";
         for (int i =0; i<=playingList.size();i++){
             if(getWinners()[i]){
@@ -986,21 +1002,39 @@ public class GameViewManager {
 
         for (int i =0; i<= playingList.size();i++){
             if(licznik == 1 && getWinners()[i]){
+                noWinner = 1;
                 switch (i) {
                     case 0:
                         retryText.setText("The winner is Krupier");
+
                         break;
                     case 1:
                         retryText.setText("The winner is " + player1Text.getText());
+                        if(botList.get(0) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(0).getDifficulty()));
+                        } else DbConnection.updateWin(player1Text.getText());
+
                         break;
                     case 2:
                         retryText.setText("The winner is " + player2Text.getText());
+                        if(botList.get(1) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(1).getDifficulty()));
+                        }else DbConnection.updateWin(player2Text.getText());
+
                         break;
                     case 3:
                         retryText.setText("The winner is " + player3Text.getText());
+                        if(botList.get(2) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(2).getDifficulty()));
+                        }else DbConnection.updateWin(player3Text.getText());
+
                         break;
                     case 4:
                         retryText.setText("The winner is " + player4Text.getText());
+                        if(botList.get(3) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(3).getDifficulty()));
+                        }else DbConnection.updateWin(player4Text.getText());
+
                         break;
                 }
             }
@@ -1010,24 +1044,41 @@ public class GameViewManager {
                 sem=0;
             }
             if(licznik > 1  && getWinners()[i]){
+                noWinner = 1;
                 switch (i) {
                     case 0:
                         winners = winners + "Krupier, ";
                         break;
                     case 1:
                         winners = winners + player1Text.getText() + ", ";
+                        if(botList.get(0) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(0).getDifficulty()));
+                        } else DbConnection.updateWin(player1Text.getText());
                         break;
                     case 2:
                         winners = winners + player2Text.getText() + ", ";
+                        if(botList.get(1) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(1).getDifficulty()));
+                        }else DbConnection.updateWin(player2Text.getText());
                         break;
                     case 3:
                         winners = winners + player3Text.getText() + ", ";
+                        if(botList.get(2) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(2).getDifficulty()));
+                        }else DbConnection.updateWin(player3Text.getText());
                         break;
                     case 4:
                         winners = winners + player4Text.getText() + ", ";
+                        if(botList.get(3) != null) {
+                            DbConnection.updateWin(returnBotDiffName(botList.get(3).getDifficulty()));
+                        }else DbConnection.updateWin(player4Text.getText());
                         break;
                 }
                 retryText.setText(winners.substring(0, winners.length() - 2));
+
+            }
+            if(noWinner == 0){
+                retryText.setText("No winners!");
             }
 
         }
@@ -1126,6 +1177,13 @@ public class GameViewManager {
         player1img.setFitHeight(95);
         playerCardsPane.getChildren().add(player1img);
         player1img.setTranslateX(playerCardsPane.getWidth()-20);
+    }
+
+    public String returnBotDiffName(int diff){
+        if (diff == 0) return "easybot";
+        if (diff == 1) return "mediumbot";
+        if (diff == 2) return "hardbot";
+        return "";
     }
 
 

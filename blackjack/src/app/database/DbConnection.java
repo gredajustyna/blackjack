@@ -45,6 +45,7 @@ public class DbConnection {
             System.out.println("Data has been inserted!");
         } catch(SQLException e) {
             System.out.println(e.toString());
+            System.out.println("tuu");
             // always remember to close database connections
         } finally {
             try{
@@ -52,6 +53,7 @@ public class DbConnection {
                 con.close();
             } catch(SQLException e) {
                 System.out.println(e.toString());
+
             }
 
         }
@@ -74,14 +76,14 @@ public class DbConnection {
             }
 
         } catch(SQLException e) {
-            //System.out.println(e.toString());
+            System.out.println(e.toString());
         } finally {
             try {
                 rs.close();
                 ps.close();
                 con.close();
             } catch(SQLException e) {
-                //System.out.println(e.toString());
+                System.out.println(e.toString());
             }
         }
         return users;
@@ -99,19 +101,23 @@ public class DbConnection {
                 if(queryResult.getInt(1)==1){
                     return login;
                 }else{
+                    con.close();
+                    queryResult.close();
                     return "0";
                 }
             }
-
+            con.close();
+            queryResult.close();
         }catch (SQLException e){
             System.out.println(e.toString());
         } finally{
         try {
             con.close();
         } catch(SQLException e) {
-            //System.out.println(e.toString());
+            System.out.println(e.toString());
         }
         }
+
         return "0";
 
 
@@ -154,5 +160,71 @@ public class DbConnection {
             return image1;
         }
     }
+
+    public static void updateUser(String login, int cards, int time) {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE users set Matches = Matches +1 , Cards_used = Cards_used + "  + cards + ", Time_played = Time_played + " + time + " WHERE Login = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, login);
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateWin(String login) {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE users set Wins = Wins + 1 WHERE Login = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, login);
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static int[] getData(String login) {
+
+        int[] data = new int[4];
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "Select Matches, Wins, Cards_used, Time_played from users WHERE Login = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, login);
+            rs = ps.executeQuery();
+
+
+            data[0] = rs.getInt(1);
+            data[1] = rs.getInt(2);
+            data[2] = rs.getInt(3);
+            data[3] = rs.getInt(4);
+
+        } catch(SQLException e) {
+            System.out.println(e.toString());
+        } finally {
+            // close connections
+            try{
+                rs.close();
+                ps.close();
+                con.close();
+            } catch (SQLException e) {
+                // TODO: handle exception
+                System.out.println(e.toString());
+            }
+
+        }
+        return data;
+    }
+
 
 }

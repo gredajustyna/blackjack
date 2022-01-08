@@ -63,7 +63,8 @@ public class MenuViewManager {
     private final static int MENU_BUTTONS_START_Y = 250;
     private final String FONT_PATH = "src/app/fonts/Righteous.ttf";
     private boolean isLoggedIn = false;
-    MainButton gameStartButton;
+    private MainButton gameStartButton;
+    private CloseButton closeLoginButton;
 
     //radiobuttons
 
@@ -163,6 +164,7 @@ public class MenuViewManager {
 
 
         DbConnection.connect();
+
     }
 
     private void addMenuButton(MainButton button){
@@ -723,6 +725,7 @@ public class MenuViewManager {
                     gameStartButton.setDisable(true);
                     isLoggedIn2 = true;
                     mainPane.getChildren().add(loginPane);
+                    loginPane.getChildren().remove(closeLoginButton);
                 }
 
             }
@@ -789,6 +792,7 @@ public class MenuViewManager {
                     gameStartButton.setDisable(true);
                     isLoggedIn3 = true;
                     mainPane.getChildren().add(loginPane);
+                    loginPane.getChildren().remove(closeLoginButton);
                 }
             }
         });
@@ -854,6 +858,7 @@ public class MenuViewManager {
                     gameStartButton.setDisable(true);
                     isLoggedIn4 = true;
                     mainPane.getChildren().add(loginPane);
+                    loginPane.getChildren().remove(closeLoginButton);
                 }
             }
         });
@@ -1130,9 +1135,11 @@ public class MenuViewManager {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
                 gameStartButton.setDisable(false);
                 login_buff = DbConnection.Login(usernameField.getText(), passwordField.getText());
                 System.out.println(login_buff);
+
                 if (login_buff != "0"){
                     isLoggedIn = true;
                 }else if (login_buff == "0" && buttonPlayer2.isSelected() && user2.getLogin() == null){
@@ -1150,6 +1157,7 @@ public class MenuViewManager {
                 } else{
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     isLoggedIn = false;
+
                 }
 
                 if(login_buff != "0" && isLoggedIn2){
@@ -1435,10 +1443,10 @@ public class MenuViewManager {
     }
 
     private void createCloseLoginButton(){
-        CloseButton closeButton = new CloseButton(menuButtons, signButtons, mainPane, loginPane);
-        closeButton.setLayoutY(10);
-        closeButton.setLayoutX(440);
-        loginPane.getChildren().add(closeButton);
+        closeLoginButton = new CloseButton(menuButtons, signButtons, mainPane, loginPane);
+        closeLoginButton.setLayoutY(10);
+        closeLoginButton.setLayoutX(440);
+        loginPane.getChildren().add(closeLoginButton);
     }
 
     private void createCloseRegisterButton(){
