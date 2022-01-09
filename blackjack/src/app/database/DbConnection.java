@@ -212,7 +212,6 @@ public class DbConnection {
         } catch(SQLException e) {
             System.out.println(e.toString());
         } finally {
-            // close connections
             try{
                 rs.close();
                 ps.close();

@@ -52,6 +52,10 @@ public class MenuViewManager {
     private ImageView userAvatar;
     private Text username;
     private Text level;
+    private Text matchesText;
+    private Text cardsUsedText;
+    private Text timePlayedText;
+    private Text winPercentage;
     private Scene mainScene;
     private Stage mainStage;
     private static Stage mainStage2;
@@ -246,7 +250,64 @@ public class MenuViewManager {
         loginText.setFill(Color.valueOf("FFFFFF"));
         loginText.setLayoutX(200);
         loginText.setLayoutY(300);
+
         statsPane.getChildren().add(loginText);
+
+        int[] data = new int[4];
+        data = DbConnection.getData(user1.getLogin());
+        System.out.println(data[0]);
+        matchesText = new Text("Matches played: " + data[0]);
+        try {
+            matchesText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            matchesText.setFont(Font.font("Verdana",30));
+        }
+        matchesText.setFill(Color.valueOf("FFFFFF"));
+        matchesText.setLayoutX(50);
+        matchesText.setLayoutY(350);
+
+        statsPane.getChildren().add(matchesText);
+
+        cardsUsedText = new Text("Cards used: " + data[2]);
+        try {
+            cardsUsedText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            cardsUsedText.setFont(Font.font("Verdana",30));
+        }
+        cardsUsedText.setFill(Color.valueOf("FFFFFF"));
+        cardsUsedText.setLayoutX(50);
+        cardsUsedText.setLayoutY(400);
+
+        statsPane.getChildren().add(cardsUsedText);
+
+        timePlayedText = new Text("Time played: " + data[3]/60 + " min");
+        try {
+            timePlayedText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            timePlayedText.setFont(Font.font("Verdana",30));
+        }
+        timePlayedText.setFill(Color.valueOf("FFFFFF"));
+        timePlayedText.setLayoutX(50);
+        timePlayedText.setLayoutY(450);
+
+        statsPane.getChildren().add(timePlayedText);
+
+        winPercentage = new Text("Win percentage: " + 100 * data[1]/data[0] + "%");
+        try {
+            winPercentage.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            winPercentage.setFont(Font.font("Verdana",30));
+        }
+        winPercentage.setFill(Color.valueOf("FFFFFF"));
+        winPercentage.setLayoutX(50);
+        winPercentage.setLayoutY(500);
+
+        statsPane.getChildren().add(winPercentage);
+
+
+
+
+
     }
 
     private void createStatsButton(){

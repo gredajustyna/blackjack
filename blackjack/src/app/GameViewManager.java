@@ -148,7 +148,7 @@ public class GameViewManager {
             deck.draw(i);
         }
 
-
+        System.out.println(deck.player1);
         player1Points = deck.score[1];
         player2Points = deck.score[2];
         player3Points = deck.score[3];
