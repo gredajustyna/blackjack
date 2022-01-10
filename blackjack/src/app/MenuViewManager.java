@@ -520,7 +520,7 @@ public class MenuViewManager {
         }
         selectCards.setFill(Color.valueOf("FFFFFF"));
         selectCards.setLayoutX(210);
-        selectCards.setLayoutY(120);
+        selectCards.setLayoutY(110);
         startPane.getChildren().add(selectCards);
 
         AnchorPane decksPane = new AnchorPane();
@@ -537,7 +537,7 @@ public class MenuViewManager {
         button1.setSelected(true);
         button1.setUserData(1);
         button1.setLayoutX(50);
-        button1.setLayoutY(150);
+        button1.setLayoutY(0);
 
 
         InputStream is2 = getClass().getResourceAsStream("/deck2.png");
@@ -552,7 +552,7 @@ public class MenuViewManager {
         button2.setUserData(2);
         button2.setSelected(false);
         button2.setLayoutX(150);
-        button2.setLayoutY(150);
+        button2.setLayoutY(0);
 
         InputStream is3 = getClass().getResourceAsStream("/deck3.png");
         Image img3= new Image(is3);
@@ -566,7 +566,7 @@ public class MenuViewManager {
         button3.setSelected(false);
         button3.setUserData(3);
         button3.setLayoutX(250);
-        button3.setLayoutY(150);
+        button3.setLayoutY(0);
 
 
         RadioButton button4 = new RadioButton("random");
@@ -574,13 +574,14 @@ public class MenuViewManager {
         button4.setSelected(false);
         button4.setUserData(3);
         button4.setLayoutX(350);
-        button4.setLayoutY(165);
+        button4.setLayoutY(15);
 
         decksPane.getChildren().add(button1);
         decksPane.getChildren().add(button2);
         decksPane.getChildren().add(button3);
         decksPane.getChildren().add(button4);
-        decksPane.setLayoutX(60);
+        decksPane.setLayoutX(30);
+        decksPane.setLayoutY(150);
         startPane.getChildren().add(decksPane);
 
         Text players = new Text("Players:");
@@ -597,7 +598,7 @@ public class MenuViewManager {
         AnchorPane playersPane = new AnchorPane();
         startPane.getChildren().add(playersPane);
         playersPane.setLayoutX(25);
-        playersPane.setLayoutY(120);
+        playersPane.setLayoutY(270);
 
         InputStream is00 = getClass().getResourceAsStream("/player1.png");
         Image img00= new Image(is00);
@@ -611,7 +612,7 @@ public class MenuViewManager {
         button00.setToggleGroup(playerToggle);
         button00.setSelected(true);
         button00.setLayoutX(50);
-        button00.setLayoutY(150);
+        button00.setLayoutY(0);
         button00.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
             updatePlayerVisibility(button00);
@@ -629,7 +630,7 @@ public class MenuViewManager {
         button11.setToggleGroup(playerToggle);
         button11.setSelected(false);
         button11.setLayoutX(150);
-        button11.setLayoutY(150);
+        button11.setLayoutY(0);
         button11.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
             updatePlayerVisibility(button11);
@@ -649,7 +650,7 @@ public class MenuViewManager {
         button22.setToggleGroup(playerToggle);
         button22.setSelected(false);
         button22.setLayoutX(250);
-        button22.setLayoutY(150);
+        button22.setLayoutY(0);
         button22.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
             updatePlayerVisibility(button22);
@@ -667,7 +668,7 @@ public class MenuViewManager {
         button33.setToggleGroup(playerToggle);
         button33.setSelected(false);
         button33.setLayoutX(350);
-        button33.setLayoutY(150);
+        button33.setLayoutY(0);
         button33.setOnAction(e ->{
             ToggleButton toggle = (ToggleButton) e.getSource();
             updatePlayerVisibility(button33);
