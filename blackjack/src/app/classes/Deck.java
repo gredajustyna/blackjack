@@ -43,8 +43,11 @@ public class Deck {
             deck.add(card);
         }
 
+        List<Card> temp = new ArrayList<>();
+        temp.addAll(deck);
+
         for(int i=1; i<decksNumber;i++){
-            deck.addAll(deck);
+            deck.addAll(temp);
         }
 
     }
@@ -175,7 +178,7 @@ public class Deck {
     }
 
     public static void main(String[] args) {
-        Deck deck= new Deck(1);
+        Deck deck= new Deck(3);
         deck.shuffle();
 
         System.out.println(deck.getDeck().size());
@@ -205,7 +208,13 @@ public class Deck {
         System.out.println(deck.getDeck().size());
 
 
-
+        System.out.println(ThreadLocalRandom.current().nextInt(1, 3 + 1));
+        System.out.println(ThreadLocalRandom.current().nextInt(1, 3 + 1));
+        System.out.println(ThreadLocalRandom.current().nextInt(1, 3 + 1));
+        System.out.println(ThreadLocalRandom.current().nextInt(1, 3 + 1));
+        System.out.println(ThreadLocalRandom.current().nextInt(1, 3 + 1));
+        System.out.println(ThreadLocalRandom.current().nextInt(1, 3 + 1));
+        System.out.println(ThreadLocalRandom.current().nextInt(1, 3 + 1));
 
 
     }

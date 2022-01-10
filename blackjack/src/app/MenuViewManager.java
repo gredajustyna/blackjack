@@ -719,7 +719,7 @@ public class MenuViewManager {
         RadioButton button4 = new RadioButton("random");
         button4.setToggleGroup(group);
         button4.setSelected(false);
-        button4.setUserData(3);
+        button4.setUserData(4);
         button4.setLayoutX(350);
         button4.setLayoutY(15);
 

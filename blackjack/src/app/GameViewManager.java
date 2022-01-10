@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GameViewManager {
     private AnchorPane retryPane;
@@ -131,7 +132,13 @@ public class GameViewManager {
         dif3 = diff3;
         dif4 = diff4;
 
-        deck = new Deck(1);
+        if(decks==4){
+            deck = new Deck(ThreadLocalRandom.current().nextInt(1, 3 + 1));
+
+        }else{
+            deck = new Deck(decks);
+        }
+
         deck.shuffle();
 
         krupier = new BotPlayer(1,deck,0);
