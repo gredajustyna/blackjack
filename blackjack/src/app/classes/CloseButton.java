@@ -38,6 +38,7 @@ public class CloseButton extends Button {
                     }
                     mainPane.getChildren().remove(childPane);
                     childPane.getChildren().removeAll();
+                    childPane.getChildren().clear();
                 }
             }
         });
