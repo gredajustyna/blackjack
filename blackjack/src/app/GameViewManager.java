@@ -52,6 +52,7 @@ public class GameViewManager {
     private int player4Points = 0;
     private Text minutesText;
     private Text secondsText;
+    private Text currentPlayer;
     private int stopTime =0;
     private  Timer timer = new Timer();
     private Timer secondTimer = new Timer();
@@ -74,6 +75,7 @@ public class GameViewManager {
     Text player3PointsText = new Text("Points: " + player2Points);
     Text player4PointsText = new Text("Points: " + player4Points);
     Text dealerPointsText = new Text("Points: " + dealerPoints);
+
 
     private List<Card> player1 = new ArrayList<>();
     private List<Card> player2 = new ArrayList<>();
@@ -118,6 +120,7 @@ public class GameViewManager {
         secondsLeft = 15;
         secondsText = new Text(String.valueOf(secondsLeft));
         minutesText = new Text("0:");
+        currentPlayer = new Text("Currently playing: ");
         hitButton = new GameButton("hit", "chip_green.png");
         standButton = new GameButton("stand", "chip_red.png");
         dealerCardsPane = new StackPane();
@@ -138,6 +141,16 @@ public class GameViewManager {
         dif2 = diff2;
         dif3 = diff3;
         dif4 = diff4;
+
+        currentPlayer.setLayoutY(110);
+        currentPlayer.setLayoutX(400);
+        gamePane.getChildren().add(currentPlayer);
+        try {
+            currentPlayer.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            currentPlayer.setFont(Font.font("Verdana",30));
+        }
+        currentPlayer.setFill(Color.valueOf("FFFFFF"));
 
         if(decks==4){
             deck = new Deck(ThreadLocalRandom.current().nextInt(1, 3 + 1));
@@ -259,6 +272,7 @@ public class GameViewManager {
                             }
                             if(playingList.get(i-1)){
                                 playerTurn =i;
+
                                 break;
                             }
                         }
@@ -337,6 +351,7 @@ public class GameViewManager {
                         }
                         if (playingList.get(i - 1)) {
                             playerTurn = i;
+
                             break;
                         }
                     }
@@ -354,6 +369,23 @@ public class GameViewManager {
                 botPlay();
 
 
+        }
+    }
+
+    private void updateCurrentlyPlaying(){
+        switch (playerTurn){
+            case 1:
+                currentPlayer.setText("Currently playing: " + MenuViewManager.user1.getLogin());
+                break;
+            case 2:
+                currentPlayer.setText("Currently playing: " + MenuViewManager.user2.getLogin());
+                break;
+            case 3:
+                currentPlayer.setText("Currently playing: " + MenuViewManager.user3.getLogin());
+                break;
+            case 4:
+                currentPlayer.setText("Currently playing: " + MenuViewManager.user4.getLogin());
+                break;
         }
     }
 
@@ -690,10 +722,13 @@ public class GameViewManager {
 
                     for (int i = playerTurn + 1; i < playersList.size() + 2; i++) {
                         if (i == playersList.size() + 1) {
+
                             i = 1;
+                            updateCurrentlyPlaying();
                         }
                         if (playingList.get(i - 1)) {
                             playerTurn = i;
+                            updateCurrentlyPlaying();
                             break;
                         }
                     }

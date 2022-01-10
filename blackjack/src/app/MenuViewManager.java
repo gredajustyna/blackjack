@@ -421,9 +421,9 @@ public class MenuViewManager {
 
         twoCardsText = new Text("2");
         try {
-            twoCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            twoCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            twoCardsText.setFont(Font.font("Verdana",30));
+            twoCardsText.setFont(Font.font("Verdana",24));
         }
         twoCardsText.setFill(Color.valueOf("FFFFFF"));
         twoCardsText.setLayoutX(50);
@@ -431,9 +431,9 @@ public class MenuViewManager {
 
         threeCardsText = new Text("3");
         try {
-            threeCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            threeCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            threeCardsText.setFont(Font.font("Verdana",30));
+            threeCardsText.setFont(Font.font("Verdana",24));
         }
         threeCardsText.setFill(Color.valueOf("FFFFFF"));
         threeCardsText.setLayoutX(50);
@@ -441,9 +441,9 @@ public class MenuViewManager {
 
         fourCardsText = new Text("3");
         try {
-            fourCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            fourCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            fourCardsText.setFont(Font.font("Verdana",30));
+            fourCardsText.setFont(Font.font("Verdana",24));
         }
         fourCardsText.setFill(Color.valueOf("FFFFFF"));
         fourCardsText.setLayoutX(50);
@@ -451,9 +451,9 @@ public class MenuViewManager {
 
         fiveCardsText = new Text("4");
         try {
-            fiveCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            fiveCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            fiveCardsText.setFont(Font.font("Verdana",30));
+            fiveCardsText.setFont(Font.font("Verdana",24));
         }
         fiveCardsText.setFill(Color.valueOf("FFFFFF"));
         fiveCardsText.setLayoutX(50);
@@ -461,9 +461,9 @@ public class MenuViewManager {
 
         sixCardsText = new Text("6");
         try {
-            sixCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            sixCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            sixCardsText.setFont(Font.font("Verdana",30));
+            sixCardsText.setFont(Font.font("Verdana",24));
         }
         sixCardsText.setFill(Color.valueOf("FFFFFF"));
         sixCardsText.setLayoutX(50);
@@ -471,9 +471,9 @@ public class MenuViewManager {
 
         sevenCardsText = new Text("7");
         try {
-            sevenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            sevenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            sevenCardsText.setFont(Font.font("Verdana",30));
+            sevenCardsText.setFont(Font.font("Verdana",24));
         }
         sevenCardsText.setFill(Color.valueOf("FFFFFF"));
         sevenCardsText.setLayoutX(50);
@@ -481,9 +481,9 @@ public class MenuViewManager {
 
         eightCardsText = new Text("8");
         try {
-            eightCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            eightCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            eightCardsText.setFont(Font.font("Verdana",30));
+            eightCardsText.setFont(Font.font("Verdana",24));
         }
         eightCardsText.setFill(Color.valueOf("FFFFFF"));
         eightCardsText.setLayoutX(50);
@@ -491,9 +491,9 @@ public class MenuViewManager {
 
         nineCardsText = new Text("9");
         try {
-            nineCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            nineCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            nineCardsText.setFont(Font.font("Verdana",30));
+            nineCardsText.setFont(Font.font("Verdana",24));
         }
         nineCardsText.setFill(Color.valueOf("FFFFFF"));
         nineCardsText.setLayoutX(50);
@@ -501,19 +501,19 @@ public class MenuViewManager {
 
         tenCardsText = new Text("10");
         try {
-            tenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            tenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            tenCardsText.setFont(Font.font("Verdana",30));
+            tenCardsText.setFont(Font.font("Verdana",24));
         }
         tenCardsText.setFill(Color.valueOf("FFFFFF"));
         tenCardsText.setLayoutX(50);
         tenCardsText.setLayoutY(387);
 
-        waletCardsText = new Text("walet");
+        waletCardsText = new Text("jack");
         try {
-            waletCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            waletCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            waletCardsText.setFont(Font.font("Verdana",30));
+            waletCardsText.setFont(Font.font("Verdana",24));
         }
         waletCardsText.setFill(Color.valueOf("FFFFFF"));
         waletCardsText.setLayoutX(50);
@@ -522,9 +522,9 @@ public class MenuViewManager {
 
         queenCardsText = new Text("queen");
         try {
-            queenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            queenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            queenCardsText.setFont(Font.font("Verdana",30));
+            queenCardsText.setFont(Font.font("Verdana",24));
         }
         queenCardsText.setFill(Color.valueOf("FFFFFF"));
         queenCardsText.setLayoutX(50);
@@ -532,19 +532,19 @@ public class MenuViewManager {
 
         kingCardsText = new Text("king");
         try {
-            kingCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            kingCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            kingCardsText.setFont(Font.font("Verdana",30));
+            kingCardsText.setFont(Font.font("Verdana",24));
         }
         kingCardsText.setFill(Color.valueOf("FFFFFF"));
         kingCardsText.setLayoutX(50);
         kingCardsText.setLayoutY(500);
 
-        aceCardsText = new Text("ass");
+        aceCardsText = new Text("ace");
         try {
-            aceCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+            aceCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
-            aceCardsText.setFont(Font.font("Verdana",30));
+            aceCardsText.setFont(Font.font("Verdana",24));
         }
         aceCardsText.setFill(Color.valueOf("FFFFFF"));
         aceCardsText.setLayoutX(50);
