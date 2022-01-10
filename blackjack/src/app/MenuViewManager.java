@@ -1684,6 +1684,7 @@ public class MenuViewManager {
             mainRegisterButton.setVisible(true);
             noUserDetected.setVisible(true);
             userDetected.setVisible(false);
+            userPanelWins.setVisible(false);
 
             mainLogOutButton.setVisible(false);
             userAvatar.setVisible(false);
