@@ -62,6 +62,7 @@ public class GameViewManager {
     private int dif4;
 
     StackPane playerCardsPane;
+    StackPane dealerCardsPane;
 
     private Text player1PointsText = new Text("Points: " + player1Points);
 
@@ -119,6 +120,12 @@ public class GameViewManager {
         minutesText = new Text("0:");
         hitButton = new GameButton("hit", "chip_green.png");
         standButton = new GameButton("stand", "chip_red.png");
+        dealerCardsPane = new StackPane();
+        dealerCardsPane.setPrefHeight(95);
+        dealerCardsPane.setMinWidth(70);
+        dealerCardsPane.setLayoutY(250);
+        dealerCardsPane.setLayoutX(500);
+        gamePane.getChildren().add(dealerCardsPane);
         playerCardsPane = new StackPane();
         playerCardsPane.setLayoutX(500);
         playerCardsPane.setLayoutY(500);
@@ -918,6 +925,8 @@ public class GameViewManager {
                 hitButton.setDisable(false);
                 standButton.setDisable(false);
                 deck.discard();
+                removeCurrentPlayerCards();
+                removeCurrentPlayerCards();
                 playerTurn = 1;
                 for(int i = 0;i<=playingList.size();i++){
                     deck.draw(i);
@@ -935,6 +944,8 @@ public class GameViewManager {
                 timeline.play();
                 secondsLeft=15;
                 playerTurn =1;
+                showCurrentPlayerCards();
+                showDealerCards();
             }
         });
 
@@ -947,6 +958,8 @@ public class GameViewManager {
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                removeCurrentPlayerCards();
+                removeDealerCards();
                 gameStage.close();
                 MenuViewManager.getMainStage2().show();
             }
@@ -1101,15 +1114,12 @@ public class GameViewManager {
 
         dealer1img.setFitWidth(70);
         dealer1img.setFitHeight(95);
-        dealer1img.setLayoutY(250);
-        dealer1img.setLayoutX(500);
-        gamePane.getChildren().add(dealer1img);
+        dealerCardsPane.getChildren().add(dealer1img);
 
         dealer2img.setFitWidth(70);
         dealer2img.setFitHeight(95);
-        dealer2img.setLayoutY(250);
-        dealer2img.setLayoutX(520);
-        gamePane.getChildren().add(dealer2img);
+        dealer2img.setTranslateX(dealerCardsPane.getWidth()+20);
+        dealerCardsPane.getChildren().add(dealer2img);
 
     }
 
@@ -1155,7 +1165,11 @@ public class GameViewManager {
     }
 
     private void removeCurrentPlayerCards(){
-        playerCardsPane.getChildren().removeAll();
+        playerCardsPane.getChildren().clear();
+    }
+
+    private void removeDealerCards(){
+        dealerCardsPane.getChildren().clear();
     }
 
     private void addCard(){
