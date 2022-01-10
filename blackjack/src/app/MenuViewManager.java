@@ -292,7 +292,12 @@ public class MenuViewManager {
 
         statsPane.getChildren().add(timePlayedText);
 
-        winPercentage = new Text("Win percentage: " + 100 * data[1]/data[0] + "%");
+        if(data[0]==0){
+            winPercentage = new Text("Win percentage: " + 100 * 0 + "%");
+        }else{
+            winPercentage = new Text("Win percentage: " + 100 * data[1]/data[0] + "%");
+        }
+
         try {
             winPercentage.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         }catch (FileNotFoundException e){
