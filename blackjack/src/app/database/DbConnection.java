@@ -225,5 +225,47 @@ public class DbConnection {
         return data;
     }
 
+    public static int[] getCards() {
+
+        int[] data = new int[13];
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            String sql = "Select 2, 3, 4, 5, 6, 7, 8, 9, 10, walet, dama, krol, ass from cards where ID = ? " ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            rs = ps.executeQuery();
+
+            data[0] = rs.getInt(1);
+            data[1] = rs.getInt(2);
+            data[2] = rs.getInt(3);
+            data[3] = rs.getInt(4);
+            data[4] = rs.getInt(5);
+            data[5] = rs.getInt(6);
+            data[6] = rs.getInt(7);
+            data[7] = rs.getInt(8);
+            data[8] = rs.getInt(9);
+            data[9] = rs.getInt(10);
+            data[10] = rs.getInt(11);
+            data[11] = rs.getInt(12);
+            data[12] = rs.getInt(13);
+
+        } catch(SQLException e) {
+            System.out.println(e.toString());
+        } finally {
+            try{
+                rs.close();
+                ps.close();
+                con.close();
+            } catch (SQLException e) {
+                // TODO: handle exception
+                System.out.println(e.toString());
+            }
+
+        }
+        return data;
+    }
+
 
 }

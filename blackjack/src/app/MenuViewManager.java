@@ -60,6 +60,20 @@ public class MenuViewManager {
     private Text timePlayedBotText;
     private Text winPercentageBot;
     private Text botText;
+    private Text twoCardsText;
+    private Text threeCardsText;
+    private Text fourCardsText;
+    private Text fiveCardsText;
+    private Text sixCardsText;
+    private Text sevenCardsText;
+    private Text eightCardsText;
+    private Text nineCardsText;
+    private Text tenCardsText;
+    private Text waletCardsText;
+    private Text queenCardsText;
+    private Text kingCardsText;
+    private Text aceCardsText;
+    private Text cardsText;
     private Scene mainScene;
     private Stage mainStage;
     private static Stage mainStage2;
@@ -122,7 +136,10 @@ public class MenuViewManager {
         player3Pane = new AnchorPane();
         player4Pane = new AnchorPane();
         levelComboBox1 = new ComboBox();
-        userPanelWins = new Text("Win percentage: ");
+
+        userPanelWins = new Text("Win percentage: " + 100 * 0 + "%");
+
+
         levelComboBox1.getItems().addAll(
                 "Easy",
                 "Medium",
@@ -259,6 +276,8 @@ public class MenuViewManager {
 
         statsPane.getChildren().add(loginText);
 
+
+
         int[] data = new int[4];
         data = DbConnection.getData(user1.getLogin());
         matchesText = new Text("Matches played: " + data[0]);
@@ -390,6 +409,148 @@ public class MenuViewManager {
         winPercentageBot.setLayoutY(500);
 
 
+        cardsText = new Text("Cards Stats");
+        try {
+            cardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            cardsText.setFont(Font.font("Verdana",30));
+        }
+        cardsText.setFill(Color.valueOf("FFFFFF"));
+        cardsText.setLayoutX(40);
+        cardsText.setLayoutY(50);
+
+        twoCardsText = new Text("2");
+        try {
+            twoCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            twoCardsText.setFont(Font.font("Verdana",30));
+        }
+        twoCardsText.setFill(Color.valueOf("FFFFFF"));
+        twoCardsText.setLayoutX(50);
+        twoCardsText.setLayoutY(87);
+
+        threeCardsText = new Text("3");
+        try {
+            threeCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            threeCardsText.setFont(Font.font("Verdana",30));
+        }
+        threeCardsText.setFill(Color.valueOf("FFFFFF"));
+        threeCardsText.setLayoutX(50);
+        threeCardsText.setLayoutY(125);
+
+        fourCardsText = new Text("3");
+        try {
+            fourCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            fourCardsText.setFont(Font.font("Verdana",30));
+        }
+        fourCardsText.setFill(Color.valueOf("FFFFFF"));
+        fourCardsText.setLayoutX(50);
+        fourCardsText.setLayoutY(162);
+
+        fiveCardsText = new Text("4");
+        try {
+            fiveCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            fiveCardsText.setFont(Font.font("Verdana",30));
+        }
+        fiveCardsText.setFill(Color.valueOf("FFFFFF"));
+        fiveCardsText.setLayoutX(50);
+        fiveCardsText.setLayoutY(200);
+
+        sixCardsText = new Text("6");
+        try {
+            sixCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            sixCardsText.setFont(Font.font("Verdana",30));
+        }
+        sixCardsText.setFill(Color.valueOf("FFFFFF"));
+        sixCardsText.setLayoutX(50);
+        sixCardsText.setLayoutY(237);
+
+        sevenCardsText = new Text("7");
+        try {
+            sevenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            sevenCardsText.setFont(Font.font("Verdana",30));
+        }
+        sevenCardsText.setFill(Color.valueOf("FFFFFF"));
+        sevenCardsText.setLayoutX(50);
+        sevenCardsText.setLayoutY(275);
+
+        eightCardsText = new Text("8");
+        try {
+            eightCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            eightCardsText.setFont(Font.font("Verdana",30));
+        }
+        eightCardsText.setFill(Color.valueOf("FFFFFF"));
+        eightCardsText.setLayoutX(50);
+        eightCardsText.setLayoutY(312);
+
+        nineCardsText = new Text("9");
+        try {
+            nineCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            nineCardsText.setFont(Font.font("Verdana",30));
+        }
+        nineCardsText.setFill(Color.valueOf("FFFFFF"));
+        nineCardsText.setLayoutX(50);
+        nineCardsText.setLayoutY(350);
+
+        tenCardsText = new Text("10");
+        try {
+            tenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            tenCardsText.setFont(Font.font("Verdana",30));
+        }
+        tenCardsText.setFill(Color.valueOf("FFFFFF"));
+        tenCardsText.setLayoutX(50);
+        tenCardsText.setLayoutY(387);
+
+        waletCardsText = new Text("walet");
+        try {
+            waletCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            waletCardsText.setFont(Font.font("Verdana",30));
+        }
+        waletCardsText.setFill(Color.valueOf("FFFFFF"));
+        waletCardsText.setLayoutX(50);
+        waletCardsText.setLayoutY(425);
+
+
+        queenCardsText = new Text("queen");
+        try {
+            queenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            queenCardsText.setFont(Font.font("Verdana",30));
+        }
+        queenCardsText.setFill(Color.valueOf("FFFFFF"));
+        queenCardsText.setLayoutX(50);
+        queenCardsText.setLayoutY(462);
+
+        kingCardsText = new Text("king");
+        try {
+            kingCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            kingCardsText.setFont(Font.font("Verdana",30));
+        }
+        kingCardsText.setFill(Color.valueOf("FFFFFF"));
+        kingCardsText.setLayoutX(50);
+        kingCardsText.setLayoutY(500);
+
+        aceCardsText = new Text("ass");
+        try {
+            aceCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            aceCardsText.setFont(Font.font("Verdana",30));
+        }
+        aceCardsText.setFill(Color.valueOf("FFFFFF"));
+        aceCardsText.setLayoutX(50);
+        aceCardsText.setLayoutY(532);
+
+
 
 
         MainButton botStats = new MainButton("Bot Stats");
@@ -432,6 +593,20 @@ public class MenuViewManager {
                 statsPane.getChildren().remove(cardsUsedBotText);
                 statsPane.getChildren().remove(timePlayedBotText);
                 statsPane.getChildren().remove(winPercentageBot);
+                statsPane.getChildren().add(cardsText);
+                statsPane.getChildren().add(twoCardsText);
+                statsPane.getChildren().add(threeCardsText);
+                statsPane.getChildren().add(fourCardsText);
+                statsPane.getChildren().add(fiveCardsText);
+                statsPane.getChildren().add(sixCardsText);
+                statsPane.getChildren().add(sevenCardsText);
+                statsPane.getChildren().add(eightCardsText);
+                statsPane.getChildren().add(nineCardsText);
+                statsPane.getChildren().add(tenCardsText);
+                statsPane.getChildren().add(waletCardsText);
+                statsPane.getChildren().add(queenCardsText);
+                statsPane.getChildren().add(kingCardsText);
+                statsPane.getChildren().add(aceCardsText);
                 statsPane.getChildren().add(userStats);
                 statsPane.getChildren().remove(cardStats);
 
@@ -442,7 +617,20 @@ public class MenuViewManager {
         userStats.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                statsPane.getChildren().remove(cardsText);
+                statsPane.getChildren().remove(twoCardsText);
+                statsPane.getChildren().remove(threeCardsText);
+                statsPane.getChildren().remove(fourCardsText);
+                statsPane.getChildren().remove(fiveCardsText);
+                statsPane.getChildren().remove(sixCardsText);
+                statsPane.getChildren().remove(sevenCardsText);
+                statsPane.getChildren().remove(eightCardsText);
+                statsPane.getChildren().remove(nineCardsText);
+                statsPane.getChildren().remove(tenCardsText);
+                statsPane.getChildren().remove(waletCardsText);
+                statsPane.getChildren().remove(queenCardsText);
+                statsPane.getChildren().remove(kingCardsText);
+                statsPane.getChildren().remove(aceCardsText);
                 statsPane.getChildren().add(statsGreetText);
                 statsPane.getChildren().add(imageView);
                 statsPane.getChildren().add(loginText);
@@ -1361,6 +1549,7 @@ public class MenuViewManager {
 
                 if (login_buff != "0"){
                     isLoggedIn = true;
+
                 }else if (login_buff == "0" && buttonPlayer2.isSelected() && user2.getLogin() == null){
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer2.setSelected(false);
@@ -1474,8 +1663,20 @@ public class MenuViewManager {
             userAvatar.setVisible(true);
             userPane.getChildren().add(userAvatar);
             user1.setLogin(login_buff);
+
+            int[] data = new int[4];
+            data = DbConnection.getData(user1.getLogin());
+
+            if(data[0]==0){
+                userPanelWins.setText("Win percentage: " + 100 * 0 + "%");
+
+            }else{
+                userPanelWins.setText("Win percentage: " + 100 * data[1]/data[0] + "%");
+
+            }
             userDetected.setText(user1.getLogin());
-            userPanelWins.setText("Win percentage: " + user1.getWins() +"%");
+
+            System.out.println(DbConnection.getCards()[12]);
 
             mainLogOutButton.setVisible(true);
         }else{

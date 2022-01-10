@@ -68,6 +68,7 @@ public class Deck {
 
         score[user] += deck.get(0).getValue();
         int value = deck.get(0).getValue();
+
         switch (user) {
             case 0:
                 krupier.add(deck.get(0));
