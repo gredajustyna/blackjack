@@ -50,12 +50,11 @@ public class MenuViewManager {
     private Text noUserDetected;
     private Text userDetected;
     private ImageView userAvatar;
-    private Text username;
-    private Text level;
     private Text matchesText;
     private Text cardsUsedText;
     private Text timePlayedText;
     private Text winPercentage;
+    private Text userPanelWins;
     private Text matchesBotText;
     private Text cardsUsedBotText;
     private Text timePlayedBotText;
@@ -123,6 +122,7 @@ public class MenuViewManager {
         player3Pane = new AnchorPane();
         player4Pane = new AnchorPane();
         levelComboBox1 = new ComboBox();
+        userPanelWins = new Text("Win percentage: ");
         levelComboBox1.getItems().addAll(
                 "Easy",
                 "Medium",
@@ -561,8 +561,17 @@ public class MenuViewManager {
     private void createUserPanel(){
         createLogOutButton();
         mainLogOutButton.setVisible(false);
+        userPanelWins.setVisible(false);
+        userPane.getChildren().add(userPanelWins);
 
-
+        try {
+            userPanelWins.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
+        }catch (FileNotFoundException e){
+            userPanelWins.setFont(Font.font("Verdana",15));
+        }
+        userPanelWins.setFill(Color.valueOf("FFFFFF"));
+        userPanelWins.setLayoutX(40);
+        userPanelWins.setLayoutY(75);
 
         userDetected = new Text();
         try {
@@ -1453,6 +1462,8 @@ public class MenuViewManager {
             mainRegisterButton.setVisible(false);
             noUserDetected.setVisible(false);
             userDetected.setVisible(true);
+            userPanelWins.setVisible(true);
+
 
             Image image = DbConnection.setAvatar(login_buff);
             userAvatar.setImage(image);
@@ -1464,6 +1475,7 @@ public class MenuViewManager {
             userPane.getChildren().add(userAvatar);
             user1.setLogin(login_buff);
             userDetected.setText(user1.getLogin());
+            userPanelWins.setText("Win percentage: " + user1.getWins());
 
             mainLogOutButton.setVisible(true);
         }else{
