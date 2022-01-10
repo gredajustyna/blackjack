@@ -56,6 +56,11 @@ public class MenuViewManager {
     private Text cardsUsedText;
     private Text timePlayedText;
     private Text winPercentage;
+    private Text matchesBotText;
+    private Text cardsUsedBotText;
+    private Text timePlayedBotText;
+    private Text winPercentageBot;
+    private Text botText;
     private Scene mainScene;
     private Stage mainStage;
     private static Stage mainStage2;
@@ -255,7 +260,6 @@ public class MenuViewManager {
 
         int[] data = new int[4];
         data = DbConnection.getData(user1.getLogin());
-        System.out.println(data[0]);
         matchesText = new Text("Matches played: " + data[0]);
         try {
             matchesText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
@@ -308,6 +312,149 @@ public class MenuViewManager {
         winPercentage.setLayoutY(500);
 
         statsPane.getChildren().add(winPercentage);
+
+
+        botText = new Text("Bot Stats : easy/medium/hard");
+        try {
+            botText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            botText.setFont(Font.font("Verdana",30));
+        }
+        botText.setFill(Color.valueOf("FFFFFF"));
+        botText.setLayoutX(20);
+        botText.setLayoutY(100);
+
+
+
+        int[] easyBotData = new int[4];
+        easyBotData = DbConnection.getData("easybot");
+        int[] mediumBotData = new int[4];
+        mediumBotData = DbConnection.getData("mediumbot");
+        int[] hardBotData = new int[4];
+        hardBotData = DbConnection.getData("hardbot");
+        matchesBotText = new Text("Matches played: " + easyBotData[0] + "/" + mediumBotData[0] + "/" + hardBotData[0]);
+        try {
+            matchesBotText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            matchesBotText.setFont(Font.font("Verdana",30));
+        }
+        matchesBotText.setFill(Color.valueOf("FFFFFF"));
+        matchesBotText.setLayoutX(50);
+        matchesBotText.setLayoutY(200);
+
+
+
+        cardsUsedBotText = new Text("Cards used: " + easyBotData[2] + "/" + mediumBotData[2] + "/" + hardBotData[2]);
+        try {
+            cardsUsedBotText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            cardsUsedBotText.setFont(Font.font("Verdana",30));
+        }
+        cardsUsedBotText.setFill(Color.valueOf("FFFFFF"));
+        cardsUsedBotText.setLayoutX(50);
+        cardsUsedBotText.setLayoutY(300);
+
+
+
+        timePlayedBotText = new Text("Time played: " + easyBotData[3]/60 + "/" + mediumBotData[3]/60 + "/" + hardBotData[3]/60 +" min");
+        try {
+            timePlayedBotText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            timePlayedBotText.setFont(Font.font("Verdana",30));
+        }
+        timePlayedBotText.setFill(Color.valueOf("FFFFFF"));
+        timePlayedBotText.setLayoutX(50);
+        timePlayedBotText.setLayoutY(400);
+
+
+
+        if(easyBotData[0]==0 && mediumBotData[0] ==0 && hardBotData[0] == 0){
+            winPercentageBot = new Text("Win percentage: 0/0/0 %");
+        }else if (easyBotData[0]==0 && mediumBotData[0] ==0){
+            winPercentageBot = new Text("Win percentage: 0/0/" + 100* hardBotData[1]/hardBotData[0] + " %");
+        }
+        else if (easyBotData[0]==0 && hardBotData[0] == 0){
+            winPercentageBot = new Text("Win percentage: 0/" + 100* mediumBotData[1]/mediumBotData[0] + "/0 %");
+        }else if (mediumBotData[0] ==0 && hardBotData[0] == 0){
+            winPercentageBot = new Text("Win percentage: " + 100* easyBotData[1]/easyBotData[0] + "0/0 %");
+        }else winPercentageBot = new Text("Win percentage: " + 100* easyBotData[1]/easyBotData[0] + "/" + 100* mediumBotData[1]/mediumBotData[0] +"/" +100* hardBotData[1]/hardBotData[0] + " %");
+
+        try {
+            winPercentageBot.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        }catch (FileNotFoundException e){
+            winPercentageBot.setFont(Font.font("Verdana",30));
+        }
+        winPercentageBot.setFill(Color.valueOf("FFFFFF"));
+        winPercentageBot.setLayoutX(50);
+        winPercentageBot.setLayoutY(500);
+
+
+
+
+        MainButton botStats = new MainButton("Bot Stats");
+        botStats.setLayoutX(120);
+        botStats.setLayoutY(530);
+        MainButton cardStats = new MainButton("Card Stats");
+        cardStats.setLayoutX(120);
+        cardStats.setLayoutY(530);
+        MainButton userStats = new MainButton("User Stats");
+        userStats.setLayoutX(120);
+        userStats.setLayoutY(530);
+        botStats.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                statsPane.getChildren().remove(statsGreetText);
+                statsPane.getChildren().remove(imageView);
+                statsPane.getChildren().remove(loginText);
+                statsPane.getChildren().remove(matchesText);
+                statsPane.getChildren().remove(cardsUsedText);
+                statsPane.getChildren().remove(timePlayedText);
+                statsPane.getChildren().remove(winPercentage);
+                statsPane.getChildren().add(botText);
+                statsPane.getChildren().add(matchesBotText);
+                statsPane.getChildren().add(cardsUsedBotText);
+                statsPane.getChildren().add(timePlayedBotText);
+                statsPane.getChildren().add(winPercentageBot);
+                statsPane.getChildren().add(cardStats);
+                statsPane.getChildren().remove(botStats);
+            }
+        });
+
+        statsPane.getChildren().add(botStats);
+
+
+        cardStats.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                statsPane.getChildren().remove(botText);
+                statsPane.getChildren().remove(matchesBotText);
+                statsPane.getChildren().remove(cardsUsedBotText);
+                statsPane.getChildren().remove(timePlayedBotText);
+                statsPane.getChildren().remove(winPercentageBot);
+                statsPane.getChildren().add(userStats);
+                statsPane.getChildren().remove(cardStats);
+
+            }
+        });
+
+
+        userStats.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                statsPane.getChildren().add(statsGreetText);
+                statsPane.getChildren().add(imageView);
+                statsPane.getChildren().add(loginText);
+                statsPane.getChildren().add(matchesText);
+                statsPane.getChildren().add(cardsUsedText);
+                statsPane.getChildren().add(timePlayedText);
+                statsPane.getChildren().add(winPercentage);
+                statsPane.getChildren().add(botStats);
+                statsPane.getChildren().remove(userStats);
+
+            }
+        });
+
 
 
 
