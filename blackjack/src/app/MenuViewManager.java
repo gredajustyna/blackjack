@@ -748,6 +748,7 @@ public class MenuViewManager {
 
     private void createUserPanel(){
         createLogOutButton();
+        signButtons.add(mainLogOutButton);
         mainLogOutButton.setVisible(false);
         userPanelWins.setVisible(false);
         userPane.getChildren().add(userPanelWins);
