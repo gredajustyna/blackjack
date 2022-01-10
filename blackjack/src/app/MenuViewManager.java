@@ -170,6 +170,7 @@ public class MenuViewManager {
         player.play();
         createMusicButton();
         createSoundButton();
+        createLogo();
 
 
         DbConnection.connect();
@@ -544,22 +545,16 @@ public class MenuViewManager {
     }
 
     private void createLogo(){
-        ImageView logo = new ImageView("logo.gif");
-        logo.setLayoutX(320);
-        logo.setLayoutY(50);
-        logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                logo.setEffect(new DropShadow());
-            }
-        });
-
-        logo.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                logo.setEffect(null);
-            }
-        });
+        Text logo = new Text("Blackjack");
+        try {
+            logo.setFont(javafx.scene.text.Font.loadFont(new FileInputStream("src/app/fonts/Casino.ttf"), 120));
+        } catch (FileNotFoundException e) {
+            logo.setFont(Font.font("Verdana",30));
+        }
+        logo.setFill(Color.valueOf("FFFFFF"));
+        logo.setLayoutX(160);
+        logo.setLayoutY(130);
+        logo.setEffect(new DropShadow());
         mainPane.getChildren().add(logo);
     }
 
