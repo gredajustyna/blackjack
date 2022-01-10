@@ -1475,7 +1475,7 @@ public class MenuViewManager {
             userPane.getChildren().add(userAvatar);
             user1.setLogin(login_buff);
             userDetected.setText(user1.getLogin());
-            userPanelWins.setText("Win percentage: " + user1.getWins());
+            userPanelWins.setText("Win percentage: " + user1.getWins() +"%");
 
             mainLogOutButton.setVisible(true);
         }else{
