@@ -18,7 +18,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.control.TextArea;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -97,6 +99,10 @@ public class GameViewManager {
     Timeline timeline;
     //Timer timer;
 
+    TextArea log;
+
+    int roundN = 1;
+
     static Deck deck;
 
 
@@ -141,6 +147,31 @@ public class GameViewManager {
         dif2 = diff2;
         dif3 = diff3;
         dif4 = diff4;
+
+
+        log = new TextArea();
+        log.setLayoutX(0);
+        log.setLayoutY(0);
+        log.setMaxSize(250,250);
+
+
+        log.appendText("ROUND 1\n ");
+
+
+        log.setEditable(false);
+
+
+        log.setVisible(true);
+        try {
+            log.setFont(Font.loadFont(new FileInputStream(FONT_PATH), 10));
+        }catch (FileNotFoundException e){
+            log.setFont(Font.font("Verdana",10));
+        }
+
+
+
+        gamePane.getChildren().add(log);
+
 
         currentPlayer.setLayoutY(110);
         currentPlayer.setLayoutX(400);
@@ -251,7 +282,22 @@ public class GameViewManager {
                 secondsLeft =15;
 
 
+                switch (playerTurn){
+                    case 1:
+                        log.appendText("\n"+"Player: "+player1Text.getText()+ " have drawn "+ deck.getDeck().get(0).getName());
+                        break;
+                    case 2:
+                        log.appendText("\n"+"Player: "+player2Text.getText()+ " have drawn "+ deck.getDeck().get(0).getName());
+                        break;
+                    case 3:
+                        log.appendText("\n"+"Player: "+player3Text.getText()+ " have drawn "+ deck.getDeck().get(0).getName());
+                        break;
+                    case 4:
+                        log.appendText("\n"+"Player: "+player4Text.getText()+ " have drawn "+ deck.getDeck().get(0).getName());
+                        break;
+                }
                 deck.draw(playerTurn);
+
                 addCard();
                 player1Points = deck.score[1];
                 player2Points = deck.score[2];
@@ -262,6 +308,22 @@ public class GameViewManager {
 
 
                 if(deck.score[playerTurn]>20){
+
+                    switch (playerTurn){
+                        case 1:
+                            log.appendText("\n"+"Player: "+player1Text.getText()+ " have passed");
+                            break;
+                        case 2:
+                            log.appendText("\n"+"Player: "+player2Text.getText()+ " have passed");
+                            break;
+                        case 3:
+                            log.appendText("\n"+"Player: "+player3Text.getText()+ " have passed");
+                            break;
+                        case 4:
+                            log.appendText("\n"+"Player: "+player4Text.getText()+ " have passed");
+                            break;
+                    }
+
                     playingList.set(playerTurn-1, false);
 
                     if(playingList.contains(true)){
@@ -277,7 +339,9 @@ public class GameViewManager {
                             }
                         }
                     }else{
-                        while(krupier.play());
+                        while(krupier.play()){
+                            log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
+                        };
                         updatePoints();
                         //TODO niech się gra kończy gdy w playinglist nie ma już true
 
@@ -302,6 +366,21 @@ public class GameViewManager {
                 secondsLeft =15;
                 playingList.set(playerTurn-1, false);
 
+                switch (playerTurn){
+                    case 1:
+                        log.appendText("\n"+"Player: "+player1Text.getText()+ " have passed");
+                        break;
+                    case 2:
+                        log.appendText("\n"+"Player: "+player2Text.getText()+ " have passed");
+                        break;
+                    case 3:
+                        log.appendText("\n"+"Player: "+player3Text.getText()+ " have passed");
+                        break;
+                    case 4:
+                        log.appendText("\n"+"Player: "+player4Text.getText()+ " have passed");
+                        break;
+                }
+
 
                 if(playingList.contains(true)){
 
@@ -315,7 +394,9 @@ public class GameViewManager {
                         }
                     }
                 }else{
-                    while(krupier.play());
+                    while(krupier.play()){
+                        log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
+                    };
                     updatePoints();
                     System.out.println(15 - secondsLeft);
                     timeline.stop();
@@ -332,7 +413,26 @@ public class GameViewManager {
     private void botPlay(){
         if(botList.get(playerTurn-1)!=null){
             timePlayed[playerTurn-1]++;
-            playingList.set(playerTurn-1,botList.get(playerTurn-1).play());
+
+            if(botList.get(playerTurn-1).play())
+                switch (playerTurn){
+                    case 1:
+                        log.appendText("\n"+"Player: "+player1Text.getText()+ " have drawn "+ deck.player1.get(0).getName());
+                        break;
+                    case 2:
+                        log.appendText("\n"+"Player: "+player2Text.getText()+ " have drawn "+ deck.player2.get(0).getName());
+                        break;
+                    case 3:
+                        log.appendText("\n"+"Player: "+player3Text.getText()+ " have drawn "+ deck.player3.get(0).getName());
+                        break;
+                    case 4:
+                        log.appendText("\n"+"Player: "+player4Text.getText()+ " have drawn "+ deck.player4.get(0).getName());
+                        break;
+            }else{
+                playingList.set(playerTurn-1,false);
+            }
+
+
             player1Points = deck.score[1];
             player2Points = deck.score[2];
             player3Points = deck.score[3];
@@ -343,6 +443,20 @@ public class GameViewManager {
             }
             updatePoints();
             if(!playingList.get(playerTurn-1)) {
+                switch (playerTurn){
+                    case 1:
+                        log.appendText("\n"+"Player: "+player1Text.getText()+ " have passed");
+                        break;
+                    case 2:
+                        log.appendText("\n"+"Player: "+player2Text.getText()+ " have passed");
+                        break;
+                    case 3:
+                        log.appendText("\n"+"Player: "+player3Text.getText()+ " have passed");
+                        break;
+                    case 4:
+                        log.appendText("\n"+"Player: "+player4Text.getText()+ " have passed");
+                        break;
+                }
                 if (playingList.contains(true)) {
 
                     for (int i = playerTurn + 1; i < (playersList.size() + 2); i++) {
@@ -356,7 +470,9 @@ public class GameViewManager {
                         }
                     }
                 } else {
-                    while (krupier.play()) ;
+                    while (krupier.play()){
+                        log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
+                    } ;
                     updatePoints();
                     timeline.stop();
                     getUsers();
@@ -733,7 +849,7 @@ public class GameViewManager {
                         }
                     }
                 } else {
-                    while (krupier.play()) ;
+                    while (krupier.play()){log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());}
                     updatePoints();
                     timeline.stop();
                     getUsers();
@@ -957,6 +1073,8 @@ public class GameViewManager {
         retryButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                roundN++;
+                log.appendText("\n\nROUND"+ roundN +"\n ");
                 hitButton.setDisable(false);
                 standButton.setDisable(false);
                 deck.discard();
