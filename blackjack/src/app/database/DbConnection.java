@@ -232,7 +232,7 @@ public class DbConnection {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            String sql = "Select 2, 3, 4, 5, 6, 7, 8, 9, 10, walet, dama, krol, ass from cards where ID = ? " ;
+            String sql = "Select ace, two, three, four, five, six, seven, eight, nine, ten, jack, queen, king from cards where ID = ? " ;
             ps = con.prepareStatement(sql);
             ps.setString(1, "karty");
             rs = ps.executeQuery();
@@ -267,5 +267,199 @@ public class DbConnection {
         return data;
     }
 
+    public static void updateCardAce() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set ace = ace + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard2() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set two = two + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard3() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set three = three + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard4() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set four = four + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard5() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set five = five + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard6() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set six = six + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard7() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set seven = seven + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard8() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set eight = eight + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard9() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set nine = nine + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCard10() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set ten = ten + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCardJack() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set jack = jack + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCardQueen() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set queen = queen + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
+
+    public static void updateCardKing() {
+        Connection con = DbConnection.connect();
+        PreparedStatement ps = null;
+        try {
+            String sql = "UPDATE cards set king = king + 1 WHERE ID = ?" ;
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "karty");
+            ps.execute();
+
+        } catch (SQLException e) {
+            // TODO: handle exception
+            System.out.println(e.toString());
+        }
+    }
 
 }

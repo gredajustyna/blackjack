@@ -1,5 +1,6 @@
 package app.classes;
 
+import app.database.DbConnection;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.ArrayList;
@@ -68,6 +69,46 @@ public class Deck {
 
         score[user] += deck.get(0).getValue();
         int value = deck.get(0).getValue();
+
+        switch (value){
+            case 11:
+                DbConnection.updateCardAce();
+                break;
+            case 2:
+                DbConnection.updateCard2();
+                break;
+            case 3:
+                DbConnection.updateCard3();
+                break;
+            case 4:
+                DbConnection.updateCard4();
+                break;
+            case 5:
+                DbConnection.updateCard5();
+                break;
+            case 6:
+                DbConnection.updateCard6();
+                break;
+            case 7:
+                DbConnection.updateCard7();
+                break;
+            case 8:
+                DbConnection.updateCard8();
+                break;
+            case 9:
+                DbConnection.updateCard9();
+                break;
+            case 10:
+                System.out.println(deck.get(0).getName().substring(0,1));
+                if(deck.get(0).getName().substring(0,1).equals("W")){
+                    DbConnection.updateCardJack();
+                } else if (deck.get(0).getName().substring(0,1).equals("D")){
+                    DbConnection.updateCardQueen();
+                } else if (deck.get(0).getName().substring(0,1).equals("K")){
+                    DbConnection.updateCardKing();
+                } else DbConnection.updateCard10();
+                break;
+        }
 
         switch (user) {
             case 0:

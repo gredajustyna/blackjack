@@ -409,6 +409,7 @@ public class MenuViewManager {
         winPercentageBot.setLayoutY(500);
 
 
+
         cardsText = new Text("Cards Stats");
         try {
             cardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
@@ -419,7 +420,11 @@ public class MenuViewManager {
         cardsText.setLayoutX(40);
         cardsText.setLayoutY(50);
 
-        twoCardsText = new Text("2");
+        int[] cardsData = new int[13];
+        cardsData = DbConnection.getCards();
+
+
+        twoCardsText = new Text("Cards two: " + cardsData[1]);
         try {
             twoCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -429,7 +434,7 @@ public class MenuViewManager {
         twoCardsText.setLayoutX(50);
         twoCardsText.setLayoutY(87);
 
-        threeCardsText = new Text("3");
+        threeCardsText = new Text("Cards three: " + cardsData[2]);
         try {
             threeCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -439,7 +444,7 @@ public class MenuViewManager {
         threeCardsText.setLayoutX(50);
         threeCardsText.setLayoutY(125);
 
-        fourCardsText = new Text("3");
+        fourCardsText = new Text("Cards four: " + cardsData[3]);
         try {
             fourCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -449,7 +454,7 @@ public class MenuViewManager {
         fourCardsText.setLayoutX(50);
         fourCardsText.setLayoutY(162);
 
-        fiveCardsText = new Text("4");
+        fiveCardsText = new Text("Cards five: " + cardsData[4]);
         try {
             fiveCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -459,7 +464,7 @@ public class MenuViewManager {
         fiveCardsText.setLayoutX(50);
         fiveCardsText.setLayoutY(200);
 
-        sixCardsText = new Text("6");
+        sixCardsText = new Text("Cards six: " + cardsData[5]);
         try {
             sixCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -469,7 +474,7 @@ public class MenuViewManager {
         sixCardsText.setLayoutX(50);
         sixCardsText.setLayoutY(237);
 
-        sevenCardsText = new Text("7");
+        sevenCardsText = new Text("Cards seven: " + cardsData[6]);
         try {
             sevenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -479,7 +484,7 @@ public class MenuViewManager {
         sevenCardsText.setLayoutX(50);
         sevenCardsText.setLayoutY(275);
 
-        eightCardsText = new Text("8");
+        eightCardsText = new Text("Cards eight: " + cardsData[7]);
         try {
             eightCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -489,7 +494,7 @@ public class MenuViewManager {
         eightCardsText.setLayoutX(50);
         eightCardsText.setLayoutY(312);
 
-        nineCardsText = new Text("9");
+        nineCardsText = new Text("Cards nine: " + cardsData[8]);
         try {
             nineCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -499,7 +504,7 @@ public class MenuViewManager {
         nineCardsText.setLayoutX(50);
         nineCardsText.setLayoutY(350);
 
-        tenCardsText = new Text("10");
+        tenCardsText = new Text("Cards ten: " + cardsData[9]);
         try {
             tenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -509,7 +514,7 @@ public class MenuViewManager {
         tenCardsText.setLayoutX(50);
         tenCardsText.setLayoutY(387);
 
-        waletCardsText = new Text("jack");
+        waletCardsText = new Text("Cards jack: " + cardsData[10]);
         try {
             waletCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -520,7 +525,7 @@ public class MenuViewManager {
         waletCardsText.setLayoutY(425);
 
 
-        queenCardsText = new Text("queen");
+        queenCardsText = new Text("Cards queen: " + cardsData[11]);
         try {
             queenCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -530,7 +535,7 @@ public class MenuViewManager {
         queenCardsText.setLayoutX(50);
         queenCardsText.setLayoutY(462);
 
-        kingCardsText = new Text("king");
+        kingCardsText = new Text("Cards king: " + cardsData[12]);
         try {
             kingCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -538,9 +543,9 @@ public class MenuViewManager {
         }
         kingCardsText.setFill(Color.valueOf("FFFFFF"));
         kingCardsText.setLayoutX(50);
-        kingCardsText.setLayoutY(500);
+        kingCardsText.setLayoutY(495);
 
-        aceCardsText = new Text("ace");
+        aceCardsText = new Text("Cards ace: " + cardsData[0]);
         try {
             aceCardsText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 24));
         }catch (FileNotFoundException e){
@@ -548,7 +553,7 @@ public class MenuViewManager {
         }
         aceCardsText.setFill(Color.valueOf("FFFFFF"));
         aceCardsText.setLayoutX(50);
-        aceCardsText.setLayoutY(532);
+        aceCardsText.setLayoutY(528);
 
 
 
@@ -752,6 +757,7 @@ public class MenuViewManager {
         mainLogOutButton.setVisible(false);
         userPanelWins.setVisible(false);
         userPane.getChildren().add(userPanelWins);
+
 
         try {
             userPanelWins.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
