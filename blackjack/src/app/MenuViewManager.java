@@ -38,6 +38,7 @@ public class MenuViewManager {
     private AnchorPane userPane;
     private AnchorPane statsPane;
     private AnchorPane scoreboardPane;
+    private AnchorPane showLoginsPane;
     private AnchorPane player1Pane;
     private AnchorPane player2Pane;
     private AnchorPane player3Pane;
@@ -73,6 +74,10 @@ public class MenuViewManager {
     private Text kingCardsText;
     private Text aceCardsText;
     private Text cardsText;
+    private Text player1log;
+    private Text player2log;
+    private Text player3log;
+    private Text player4log;
     private Scene mainScene;
     private Stage mainStage;
     private static Stage mainStage2;
@@ -135,7 +140,10 @@ public class MenuViewManager {
         player2Pane = new AnchorPane();
         player3Pane = new AnchorPane();
         player4Pane = new AnchorPane();
+        showLoginsPane = new AnchorPane();
         levelComboBox1 = new ComboBox();
+
+        createShowLoginsPane();
 
         userPanelWins = new Text("Win percentage: " + 100 * 0 + "%");
 
@@ -1405,6 +1413,17 @@ public class MenuViewManager {
             }
         });
 
+        buttonComputer2.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (buttonComputer2.isSelected()) {
+                    player2log.setText("2.");
+                    user2.setLogin(null);
+                }
+
+            }
+        });
+
         player2Pane.getChildren().add(player2);
         player2Pane.getChildren().add(buttonComputer2);
         player2Pane.getChildren().add(buttonPlayer2);
@@ -1471,6 +1490,17 @@ public class MenuViewManager {
             }
         });
 
+        buttonComputer3.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (buttonComputer3.isSelected()) {
+                    player3log.setText("3.");
+                    user3.setLogin(null);
+                }
+
+            }
+        });
+
         player3Pane.getChildren().add(player3);
         player3Pane.getChildren().add(buttonPlayer3);
         player3Pane.getChildren().add(buttonComputer3);
@@ -1534,6 +1564,17 @@ public class MenuViewManager {
                     mainPane.getChildren().add(loginPane);
                     loginPane.getChildren().remove(closeLoginButton);
                 }
+            }
+        });
+
+        buttonComputer4.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
+                if (buttonComputer4.isSelected()) {
+                    user4.setLogin(null);
+                    player4log.setText("4.");
+                }
+
             }
         });
 
@@ -1859,6 +1900,7 @@ public class MenuViewManager {
                             buttonComputer2.setSelected(true);
                     }else {
                         user2.setLogin(login_buff);
+                        player2log.setText(login_buff);
 
                     }
                     isLoggedIn2 = false;
@@ -1879,6 +1921,7 @@ public class MenuViewManager {
                         buttonComputer3.setSelected(true);
                     } else {
                         user3.setLogin(login_buff);
+                        player3log.setText(login_buff);
                     }
                     isLoggedIn3 = false;
                 }
@@ -1898,6 +1941,7 @@ public class MenuViewManager {
                         buttonComputer4.setSelected(true);
                     } else {
                         user4.setLogin(login_buff);
+                        player4log.setText(login_buff);
                     }
                     isLoggedIn4 = false;
                 }
@@ -1935,6 +1979,7 @@ public class MenuViewManager {
             userAvatar.setVisible(true);
             userPane.getChildren().add(userAvatar);
             user1.setLogin(login_buff);
+            player1log.setText(login_buff);
 
             int[] data = new int[4];
             data = DbConnection.getData(user1.getLogin());
@@ -2242,5 +2287,72 @@ public class MenuViewManager {
         for (int i=0; i<signButtons.size(); i++){
             signButtons.get(i).setDisable(true);
         }
+    }
+
+    private void createShowLoginsPane() {
+        showLoginsPane.setPrefHeight(150);
+        showLoginsPane.setPrefWidth(200);
+        showLoginsPane.setLayoutY(0);
+        showLoginsPane.setLayoutX(1000);
+        showLoginsPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
+
+
+        Text mainText = new Text("Currently logged users: ");
+        try {
+            mainText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
+        }catch (FileNotFoundException e){
+            mainText.setFont(Font.font("Verdana",15));
+        }
+        mainText.setFill(Color.valueOf("FFFFFF"));
+        mainText.setLayoutX(0);
+        mainText.setLayoutY(15);
+        showLoginsPane.getChildren().add(mainText);
+
+        player1log = new Text("1. ");
+        try {
+            player1log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
+        }catch (FileNotFoundException e){
+            player1log.setFont(Font.font("Verdana",15));
+        }
+        player1log.setFill(Color.valueOf("FFFFFF"));
+        player1log.setLayoutX(0);
+        player1log.setLayoutY(40);
+        showLoginsPane.getChildren().add(player1log);
+
+        player2log = new Text("2.");
+        try {
+            player2log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
+        }catch (FileNotFoundException e){
+            player2log.setFont(Font.font("Verdana",15));
+        }
+        player2log.setFill(Color.valueOf("FFFFFF"));
+        player2log.setLayoutX(0);
+        player2log.setLayoutY(80);
+        showLoginsPane.getChildren().add(player2log);
+
+        player3log = new Text("3.");
+        try {
+            player3log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
+        }catch (FileNotFoundException e){
+            player3log.setFont(Font.font("Verdana",15));
+        }
+        player3log.setFill(Color.valueOf("FFFFFF"));
+        player3log.setLayoutX(0);
+        player3log.setLayoutY(120);
+        showLoginsPane.getChildren().add(player3log);
+
+        player4log = new Text("4. ");
+        try {
+            player4log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
+        }catch (FileNotFoundException e){
+            player4log.setFont(Font.font("Verdana",15));
+        }
+        player4log.setFill(Color.valueOf("FFFFFF"));
+        player4log.setLayoutX(0);
+        player4log.setLayoutY(160);
+        showLoginsPane.getChildren().add(player4log);
+
+        mainPane.getChildren().add(showLoginsPane);
+
     }
 }
