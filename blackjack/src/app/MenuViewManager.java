@@ -144,6 +144,8 @@ public class MenuViewManager {
         levelComboBox1 = new ComboBox();
 
         createShowLoginsPane();
+        mainPane.getChildren().remove(showLoginsPane);
+
 
         userPanelWins = new Text("Win percentage: " + 100 * 0 + "%");
 
@@ -222,6 +224,7 @@ public class MenuViewManager {
                 if (isLoggedIn) {
 
                     user1.setLogin(login_buff);
+                    player1log.setText(login_buff);
 
                     player1Pane.getChildren().clear();
                     player2Pane.getChildren().clear();
@@ -1851,6 +1854,10 @@ public class MenuViewManager {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+
+                mainPane.getChildren().remove(showLoginsPane);
+                mainPane.getChildren().add(showLoginsPane);
+
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(false);
                 }
@@ -1862,6 +1869,8 @@ public class MenuViewManager {
 
                 if (login_buff != "0"){
                     isLoggedIn = true;
+                    mainLogOutButton.setDisable(false);
+
 
                 }else if (login_buff == "0" && buttonPlayer2.isSelected() && user2.getLogin() == null){
                     turnButtonsOff();
@@ -1955,7 +1964,6 @@ public class MenuViewManager {
                 passwordField.setText("");
             }
         });
-
         loginPane.getChildren().add(loginButton);
 
         mainPane.getChildren().add(loginPane);
@@ -1980,6 +1988,7 @@ public class MenuViewManager {
             userPane.getChildren().add(userAvatar);
             user1.setLogin(login_buff);
             player1log.setText(login_buff);
+
 
             int[] data = new int[4];
             data = DbConnection.getData(user1.getLogin());
