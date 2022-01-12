@@ -1048,6 +1048,12 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
                 createLoginPanel();
+                for(int i=0; i<menuButtons.size(); i++){
+                    menuButtons.get(i).setDisable(true);
+                }
+                for (int i=0; i<signButtons.size(); i++){
+                    signButtons.get(i).setDisable(true);
+                }
 
             }
         });
@@ -1804,6 +1810,10 @@ public class MenuViewManager {
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                for(int i=0; i<menuButtons.size(); i++){
+                    menuButtons.get(i).setDisable(false);
+                }
+
 
                 gameStartButton.setDisable(false);
                 login_buff = DbConnection.Login(usernameField.getText(), passwordField.getText());
@@ -1813,14 +1823,17 @@ public class MenuViewManager {
                     isLoggedIn = true;
 
                 }else if (login_buff == "0" && buttonPlayer2.isSelected() && user2.getLogin() == null){
+                    turnButtonsOff();
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer2.setSelected(false);
                     buttonComputer2.setSelected(true);
                 }else if (login_buff == "0" && buttonPlayer3.isSelected() && user3.getLogin() == null){
+                    turnButtonsOff();
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer3.setSelected(false);
                     buttonComputer3.setSelected(true);
                 }else if (login_buff == "0" && buttonPlayer4.isSelected() && user4.getLogin() == null){
+                    turnButtonsOff();
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer4.setSelected(false);
                     buttonComputer4.setSelected(true);
@@ -1831,6 +1844,7 @@ public class MenuViewManager {
                 }
 
                 if(login_buff != "0" && isLoggedIn2){
+                    turnButtonsOff();
                     if(login_buff.equals(user1.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer2.setSelected(false);
@@ -1850,6 +1864,7 @@ public class MenuViewManager {
                     isLoggedIn2 = false;
                 }
                 if(login_buff != "0" && isLoggedIn3){
+                    turnButtonsOff();
                     if(login_buff.equals(user1.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer3.setSelected(false);
@@ -1868,6 +1883,7 @@ public class MenuViewManager {
                     isLoggedIn3 = false;
                 }
                 if(login_buff != "0" && isLoggedIn4){
+                    turnButtonsOff();
                     if(login_buff.equals(user1.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer4.setSelected(false);
@@ -1886,12 +1902,7 @@ public class MenuViewManager {
                     isLoggedIn4 = false;
                 }
                 mainPane.getChildren().remove(loginPane);
-                for(int i=0; i<menuButtons.size(); i++){
-                    menuButtons.get(i).setDisable(false);
-                }
-                for (int i=0; i<signButtons.size(); i++){
-                    signButtons.get(i).setDisable(false);
-                }
+
 
                 if(login_buff != "0" && user1.getLogin() == null){
                     updateUserPanel();
@@ -2224,4 +2235,12 @@ public class MenuViewManager {
         return 1;
     }
 
+    public void turnButtonsOff(){
+        for(int i=0; i<menuButtons.size(); i++){
+            menuButtons.get(i).setDisable(true);
+        }
+        for (int i=0; i<signButtons.size(); i++){
+            signButtons.get(i).setDisable(true);
+        }
+    }
 }
