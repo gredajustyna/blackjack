@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.skin.CellSkinBase;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -277,12 +278,24 @@ public class MenuViewManager {
         }
 
 
-        TreeMap<String, Integer> sorted = new TreeMap<>(map);
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
+        list.sort(Map.Entry.comparingByValue());
+        System.out.println(list);
 
-        System.out.println(sorted);
-        System.out.println(map);
+
+        int size = users.size();
+
+
+
 
         Text player1 = new Text("1. ");
+        if(size >= 1){
+            String string = String.valueOf(list.get(size-1));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player1 = new Text("1. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player1.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -294,6 +307,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player1);
 
         Text player2 = new Text("2. ");
+        if(size >= 2){
+            String string = String.valueOf(list.get(size-2));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player2 = new Text("2. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player2.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -305,6 +325,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player2);
 
         Text player3 = new Text("3. ");
+        if(size >= 3){
+            String string = String.valueOf(list.get(size-3));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player3 = new Text("3. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player3.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -316,6 +343,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player3);
 
         Text player4 = new Text("4. ");
+        if(size >= 4){
+            String string = String.valueOf(list.get(size-4));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player4 = new Text("4. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player4.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -327,6 +361,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player4);
 
         Text player5 = new Text("5. ");
+        if(size >= 5){
+            String string = String.valueOf(list.get(size-5));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player5 = new Text("5. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player5.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -338,6 +379,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player5);
 
         Text player6 = new Text("6. ");
+        if(size >= 6 ){
+            String string = String.valueOf(list.get(size-6));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player6 = new Text("6. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player6.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -349,6 +397,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player6);
 
         Text player7 = new Text("7. ");
+        if(size >= 7 ){
+            String string = String.valueOf(list.get(size-7));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player7 = new Text("7. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player7.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -360,6 +415,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player7);
 
         Text player8 = new Text("8. ");
+        if(size >= 8 ){
+            String string = String.valueOf(list.get(size-8));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player8 = new Text("8. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player8.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -371,6 +433,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player8);
 
         Text player9 = new Text("9. ");
+        if(size >= 9 ){
+            String string = String.valueOf(list.get(size-9));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player9 = new Text("9. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player9.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -382,6 +451,13 @@ public class MenuViewManager {
         scoreboardPane.getChildren().add(player9);
 
         Text player10 = new Text("10. ");
+        if(size == 10 ){
+            String string = String.valueOf(list.get(size-10));
+            String[] parts = string.split("=");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            player10 = new Text("10. " + part1 + " - " + part2 + "% win");
+        }
         try {
             player10.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
         } catch (FileNotFoundException e) {
@@ -1350,7 +1426,7 @@ public class MenuViewManager {
         buttonpl3.setFitWidth(50);
         buttonpl3.setPreserveRatio(true);
         buttonPlayer3.setGraphic(buttonpl3);
-        buttonPlayer3.setUserData(3);
+        buttonPlayer3.setUserData(0);
         buttonPlayer3.setToggleGroup(player3group);
         buttonPlayer3.setSelected(false);
         buttonPlayer3.setLayoutX(110);
@@ -1367,7 +1443,7 @@ public class MenuViewManager {
         buttoncom3.setFitWidth(40);
         buttoncom3.setPreserveRatio(true);
         buttonComputer3.setGraphic(buttoncom3);
-        buttonComputer3.setUserData(3);
+        buttonComputer3.setUserData(1);
         buttonComputer3.setToggleGroup(player3group);
         buttonComputer3.setSelected(true);
         buttonComputer3.setLayoutX(200);
@@ -1416,7 +1492,7 @@ public class MenuViewManager {
         buttonpl4.setFitWidth(50);
         buttonpl4.setPreserveRatio(true);
         buttonPlayer4.setGraphic(buttonpl4);
-        buttonPlayer4.setUserData(3);
+        buttonPlayer4.setUserData(0);
         buttonPlayer4.setToggleGroup(player4group);
         buttonPlayer4.setSelected(false);
         buttonPlayer4.setLayoutX(110);
@@ -1433,7 +1509,7 @@ public class MenuViewManager {
         buttoncom4.setFitWidth(40);
         buttoncom4.setPreserveRatio(true);
         buttonComputer4.setGraphic(buttoncom4);
-        buttonComputer4.setUserData(3);
+        buttonComputer4.setUserData(1);
         buttonComputer4.setToggleGroup(player4group);
         buttonComputer4.setSelected(true);
         buttonComputer4.setLayoutX(200);
@@ -1486,6 +1562,7 @@ public class MenuViewManager {
                 player2Pane.setVisible(false);
                 player3Pane.setVisible(false);
                 player4Pane.setVisible(false);
+                break;
             case 2:
                 player1Pane.setVisible(true);
                 player2Pane.setVisible(true);
