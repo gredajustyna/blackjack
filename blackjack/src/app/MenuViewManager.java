@@ -38,7 +38,9 @@ public class MenuViewManager {
     private AnchorPane userPane;
     private AnchorPane statsPane;
     private AnchorPane scoreboardPane;
-    private AnchorPane showLoginsPane;
+    private AnchorPane showLoginsPane2;
+    private AnchorPane showLoginsPane3;
+    private AnchorPane showLoginsPane4;
     private AnchorPane player1Pane;
     private AnchorPane player2Pane;
     private AnchorPane player3Pane;
@@ -74,7 +76,6 @@ public class MenuViewManager {
     private Text kingCardsText;
     private Text aceCardsText;
     private Text cardsText;
-    private Text player1log;
     private Text player2log;
     private Text player3log;
     private Text player4log;
@@ -140,11 +141,11 @@ public class MenuViewManager {
         player2Pane = new AnchorPane();
         player3Pane = new AnchorPane();
         player4Pane = new AnchorPane();
-        showLoginsPane = new AnchorPane();
+        showLoginsPane2 = new AnchorPane();
+        showLoginsPane3 = new AnchorPane();
+        showLoginsPane4 = new AnchorPane();
         levelComboBox1 = new ComboBox();
 
-        createShowLoginsPane();
-        mainPane.getChildren().remove(showLoginsPane);
 
 
         userPanelWins = new Text("Win percentage: " + 100 * 0 + "%");
@@ -224,7 +225,7 @@ public class MenuViewManager {
                 if (isLoggedIn) {
 
                     user1.setLogin(login_buff);
-                    player1log.setText(login_buff);
+
 
                     player1Pane.getChildren().clear();
                     player2Pane.getChildren().clear();
@@ -1420,8 +1421,9 @@ public class MenuViewManager {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonComputer2.isSelected()) {
-                    player2log.setText("2.");
                     user2.setLogin(null);
+                    showLoginsPane2.getChildren().clear();
+                    mainPane.getChildren().remove(showLoginsPane2);
                 }
 
             }
@@ -1497,8 +1499,9 @@ public class MenuViewManager {
             @Override
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonComputer3.isSelected()) {
-                    player3log.setText("3.");
                     user3.setLogin(null);
+                    showLoginsPane3.getChildren().clear();
+                    mainPane.getChildren().remove(showLoginsPane3);
                 }
 
             }
@@ -1575,7 +1578,8 @@ public class MenuViewManager {
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonComputer4.isSelected()) {
                     user4.setLogin(null);
-                    player4log.setText("4.");
+                    showLoginsPane4.getChildren().clear();
+                    mainPane.getChildren().remove(showLoginsPane4);
                 }
 
             }
@@ -1855,8 +1859,7 @@ public class MenuViewManager {
             @Override
             public void handle(ActionEvent event) {
 
-                mainPane.getChildren().remove(showLoginsPane);
-                mainPane.getChildren().add(showLoginsPane);
+
 
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(false);
@@ -1909,6 +1912,7 @@ public class MenuViewManager {
                             buttonComputer2.setSelected(true);
                     }else {
                         user2.setLogin(login_buff);
+                        createShowLoginsPane2();
                         player2log.setText(login_buff);
 
                     }
@@ -1930,6 +1934,7 @@ public class MenuViewManager {
                         buttonComputer3.setSelected(true);
                     } else {
                         user3.setLogin(login_buff);
+                        createShowLoginsPane3();
                         player3log.setText(login_buff);
                     }
                     isLoggedIn3 = false;
@@ -1950,6 +1955,8 @@ public class MenuViewManager {
                         buttonComputer4.setSelected(true);
                     } else {
                         user4.setLogin(login_buff);
+
+                        createShowLoginsPane4();
                         player4log.setText(login_buff);
                     }
                     isLoggedIn4 = false;
@@ -1987,7 +1994,7 @@ public class MenuViewManager {
             userAvatar.setVisible(true);
             userPane.getChildren().add(userAvatar);
             user1.setLogin(login_buff);
-            player1log.setText(login_buff);
+
 
 
             int[] data = new int[4];
@@ -2298,37 +2305,14 @@ public class MenuViewManager {
         }
     }
 
-    private void createShowLoginsPane() {
-        showLoginsPane.setPrefHeight(150);
-        showLoginsPane.setPrefWidth(200);
-        showLoginsPane.setLayoutY(0);
-        showLoginsPane.setLayoutX(1000);
-        showLoginsPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
+    private void createShowLoginsPane2() {
+        showLoginsPane2.setPrefHeight(25);
+        showLoginsPane2.setPrefWidth(100);
+        showLoginsPane2.setLayoutY(0);
+        showLoginsPane2.setLayoutX(1100);
+        showLoginsPane2.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
 
-
-        Text mainText = new Text("Currently logged users: ");
-        try {
-            mainText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
-        }catch (FileNotFoundException e){
-            mainText.setFont(Font.font("Verdana",15));
-        }
-        mainText.setFill(Color.valueOf("FFFFFF"));
-        mainText.setLayoutX(0);
-        mainText.setLayoutY(15);
-        showLoginsPane.getChildren().add(mainText);
-
-        player1log = new Text("1. ");
-        try {
-            player1log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
-        }catch (FileNotFoundException e){
-            player1log.setFont(Font.font("Verdana",15));
-        }
-        player1log.setFill(Color.valueOf("FFFFFF"));
-        player1log.setLayoutX(0);
-        player1log.setLayoutY(40);
-        showLoginsPane.getChildren().add(player1log);
-
-        player2log = new Text("2.");
+        player2log = new Text("");
         try {
             player2log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
         }catch (FileNotFoundException e){
@@ -2336,10 +2320,22 @@ public class MenuViewManager {
         }
         player2log.setFill(Color.valueOf("FFFFFF"));
         player2log.setLayoutX(0);
-        player2log.setLayoutY(80);
-        showLoginsPane.getChildren().add(player2log);
+        player2log.setLayoutY(10);
+        showLoginsPane2.getChildren().add(player2log);
 
-        player3log = new Text("3.");
+        mainPane.getChildren().add(showLoginsPane2);
+
+    }
+
+
+    private void createShowLoginsPane3() {
+        showLoginsPane3.setPrefHeight(25);
+        showLoginsPane3.setPrefWidth(100);
+        showLoginsPane3.setLayoutY(25);
+        showLoginsPane3.setLayoutX(1100);
+        showLoginsPane3.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
+
+        player3log = new Text("");
         try {
             player3log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
         }catch (FileNotFoundException e){
@@ -2347,10 +2343,21 @@ public class MenuViewManager {
         }
         player3log.setFill(Color.valueOf("FFFFFF"));
         player3log.setLayoutX(0);
-        player3log.setLayoutY(120);
-        showLoginsPane.getChildren().add(player3log);
+        player3log.setLayoutY(10);
+        showLoginsPane3.getChildren().add(player3log);
 
-        player4log = new Text("4. ");
+        mainPane.getChildren().add(showLoginsPane3);
+
+    }
+
+    private void createShowLoginsPane4() {
+        showLoginsPane4.setPrefHeight(25);
+        showLoginsPane4.setPrefWidth(100);
+        showLoginsPane4.setLayoutY(50);
+        showLoginsPane4.setLayoutX(1100);
+        showLoginsPane4.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
+
+        player4log = new Text("");
         try {
             player4log.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 15));
         }catch (FileNotFoundException e){
@@ -2358,10 +2365,10 @@ public class MenuViewManager {
         }
         player4log.setFill(Color.valueOf("FFFFFF"));
         player4log.setLayoutX(0);
-        player4log.setLayoutY(160);
-        showLoginsPane.getChildren().add(player4log);
+        player4log.setLayoutY(10);
+        showLoginsPane4.getChildren().add(player4log);
 
-        mainPane.getChildren().add(showLoginsPane);
+        mainPane.getChildren().add(showLoginsPane4);
 
     }
 }
