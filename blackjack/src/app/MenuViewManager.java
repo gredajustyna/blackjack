@@ -53,7 +53,7 @@ public class MenuViewManager {
     private Text cardsUsedText;
     private Text timePlayedText;
     private Text winPercentage;
-    private Text userPanelWins;
+    public static Text userPanelWins;
     private Text matchesBotText;
     private Text cardsUsedBotText;
     private Text timePlayedBotText;

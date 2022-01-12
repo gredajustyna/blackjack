@@ -1120,6 +1120,16 @@ public class GameViewManager {
                 removeDealerCards();
                 gameStage.close();
                 MenuViewManager.getMainStage2().show();
+                int[] data = new int[4];
+                data = DbConnection.getData(MenuViewManager.user1.getLogin());
+
+                if(data[0]==0){
+                    MenuViewManager.userPanelWins.setText("Win percentage: " + 100 * 0 + "%");
+
+                }else{
+                    MenuViewManager.userPanelWins.setText("Win percentage: " + 100 * data[1]/data[0] + "%");
+
+                }
             }
         });
 
