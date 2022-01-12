@@ -99,7 +99,6 @@ public class Deck {
                 DbConnection.updateCard9();
                 break;
             case 10:
-                System.out.println(deck.get(0).getName().substring(0,1));
                 if(deck.get(0).getName().substring(0,1).equals("J")){
                     DbConnection.updateCardJack();
                 } else if (deck.get(0).getName().substring(0,1).equals("Q")){

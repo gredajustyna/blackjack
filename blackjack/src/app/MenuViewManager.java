@@ -214,7 +214,7 @@ public class MenuViewManager {
                 if (isLoggedIn) {
 
                     user1.setLogin(login_buff);
-                   // System.out.println(user1.getLogin());
+
                     player1Pane.getChildren().clear();
                     player2Pane.getChildren().clear();
                     player3Pane.getChildren().clear();
@@ -280,7 +280,7 @@ public class MenuViewManager {
 
         List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
         list.sort(Map.Entry.comparingByValue());
-        System.out.println(list);
+
 
 
         int size = users.size();
@@ -1807,7 +1807,7 @@ public class MenuViewManager {
 
                 gameStartButton.setDisable(false);
                 login_buff = DbConnection.Login(usernameField.getText(), passwordField.getText());
-                System.out.println(login_buff);
+
 
                 if (login_buff != "0"){
                     isLoggedIn = true;
@@ -1845,8 +1845,7 @@ public class MenuViewManager {
                             buttonComputer2.setSelected(true);
                     }else {
                         user2.setLogin(login_buff);
-                       // System.out.println(login_buff);
-                        //System.out.println(user1.getLogin());
+
                     }
                     isLoggedIn2 = false;
                 }
@@ -1938,7 +1937,7 @@ public class MenuViewManager {
             }
             userDetected.setText(user1.getLogin());
 
-            System.out.println(DbConnection.getCards()[12]);
+
 
             mainLogOutButton.setVisible(true);
         }else{
@@ -2190,19 +2189,19 @@ public class MenuViewManager {
                     if(buttonComputer1.isSelected()) {
                         bot1 = true;
                         diff1 = returnDiff(levelComboBox1.getSelectionModel().getSelectedItem().toString());
-                        //System.out.println(diff1);
+
                     } else bot1 = false;
                     if(buttonComputer2.isSelected()) {
                         diff2 = returnDiff(levelComboBox2.getSelectionModel().getSelectedItem().toString());
-                       // System.out.println(diff2);
+
                     }
                     if(buttonComputer3.isSelected()) {
                         diff3 = returnDiff(levelComboBox3.getSelectionModel().getSelectedItem().toString());
-                        //System.out.println(diff3);
+
                     }
                     if(buttonComputer4.isSelected()) {
                         diff4 = returnDiff(levelComboBox4.getSelectionModel().getSelectedItem().toString());
-                        //System.out.println(diff4);
+
                     }
 
                     GameViewManager gameViewManager = new GameViewManager(isSoundOn, player.isMute(), decks,players,bot1,diff1,diff2,diff3,diff4);
