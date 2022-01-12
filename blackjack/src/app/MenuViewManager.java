@@ -6,13 +6,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -28,8 +26,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MenuViewManager {
     private AnchorPane mainPane;
@@ -39,6 +36,7 @@ public class MenuViewManager {
     private AnchorPane registerPane;
     private AnchorPane userPane;
     private AnchorPane statsPane;
+    private AnchorPane scoreboardPane;
     private AnchorPane player1Pane;
     private AnchorPane player2Pane;
     private AnchorPane player3Pane;
@@ -130,6 +128,7 @@ public class MenuViewManager {
         loginPane = new AnchorPane();
         registerPane = new AnchorPane();
         userPane = new AnchorPane();
+        scoreboardPane = new AnchorPane();
         statsPane = new AnchorPane();
         player1Pane = new AnchorPane();
         player2Pane = new AnchorPane();
@@ -232,6 +231,168 @@ public class MenuViewManager {
             }
 
         });
+    }
+
+    private void createscoreboardPane() {
+        scoreboardPane.setPrefHeight(600);
+        scoreboardPane.setPrefWidth(500);
+        scoreboardPane.setLayoutY(150);
+        scoreboardPane.setLayoutX(350);
+        scoreboardPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
+        createCloseScoreboardButton();
+        mainPane.getChildren().add(scoreboardPane);
+
+
+        Text statsGreetText = new Text("Top ten players!");
+        try {
+            statsGreetText.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            statsGreetText.setFont(Font.font("Verdana", 30));
+        }
+        statsGreetText.setFill(Color.valueOf("FFFFFF"));
+        statsGreetText.setLayoutX(50);
+        statsGreetText.setLayoutY(50);
+        scoreboardPane.getChildren().add(statsGreetText);
+
+
+        List<String> users = new ArrayList<>();
+        users = DbConnection.selectAllLogins();
+        List<Integer> winData = new ArrayList<>();
+
+
+        int[] data = new int[4];
+
+
+        for (int i =0; i < users.size(); i++){
+            data = DbConnection.getData(users.get(i));
+            if(data[0] == 0) winData.add(0);
+            else winData.add(100*data[1]/data[0]);
+        }
+
+        Map<String, Integer> map = new HashMap<>();
+
+        for (int i =0; i < users.size(); i++){
+            map.put(users.get(i) ,winData.get(i));
+
+        }
+
+
+        TreeMap<String, Integer> sorted = new TreeMap<>(map);
+
+        System.out.println(sorted);
+        System.out.println(map);
+
+        Text player1 = new Text("1. ");
+        try {
+            player1.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player1.setFont(Font.font("Verdana", 30));
+        }
+        player1.setFill(Color.valueOf("FFFFFF"));
+        player1.setLayoutX(50);
+        player1.setLayoutY(100);
+        scoreboardPane.getChildren().add(player1);
+
+        Text player2 = new Text("2. ");
+        try {
+            player2.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player2.setFont(Font.font("Verdana", 30));
+        }
+        player2.setFill(Color.valueOf("FFFFFF"));
+        player2.setLayoutX(50);
+        player2.setLayoutY(150);
+        scoreboardPane.getChildren().add(player2);
+
+        Text player3 = new Text("3. ");
+        try {
+            player3.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player3.setFont(Font.font("Verdana", 30));
+        }
+        player3.setFill(Color.valueOf("FFFFFF"));
+        player3.setLayoutX(50);
+        player3.setLayoutY(200);
+        scoreboardPane.getChildren().add(player3);
+
+        Text player4 = new Text("4. ");
+        try {
+            player4.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player4.setFont(Font.font("Verdana", 30));
+        }
+        player4.setFill(Color.valueOf("FFFFFF"));
+        player4.setLayoutX(50);
+        player4.setLayoutY(250);
+        scoreboardPane.getChildren().add(player4);
+
+        Text player5 = new Text("5. ");
+        try {
+            player5.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player5.setFont(Font.font("Verdana", 30));
+        }
+        player5.setFill(Color.valueOf("FFFFFF"));
+        player5.setLayoutX(50);
+        player5.setLayoutY(300);
+        scoreboardPane.getChildren().add(player5);
+
+        Text player6 = new Text("6. ");
+        try {
+            player6.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player6.setFont(Font.font("Verdana", 30));
+        }
+        player6.setFill(Color.valueOf("FFFFFF"));
+        player6.setLayoutX(50);
+        player6.setLayoutY(350);
+        scoreboardPane.getChildren().add(player6);
+
+        Text player7 = new Text("7. ");
+        try {
+            player7.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player7.setFont(Font.font("Verdana", 30));
+        }
+        player7.setFill(Color.valueOf("FFFFFF"));
+        player7.setLayoutX(50);
+        player7.setLayoutY(400);
+        scoreboardPane.getChildren().add(player7);
+
+        Text player8 = new Text("8. ");
+        try {
+            player8.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player8.setFont(Font.font("Verdana", 30));
+        }
+        player8.setFill(Color.valueOf("FFFFFF"));
+        player8.setLayoutX(50);
+        player8.setLayoutY(450);
+        scoreboardPane.getChildren().add(player8);
+
+        Text player9 = new Text("9. ");
+        try {
+            player9.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player9.setFont(Font.font("Verdana", 30));
+        }
+        player9.setFill(Color.valueOf("FFFFFF"));
+        player9.setLayoutX(50);
+        player9.setLayoutY(500);
+        scoreboardPane.getChildren().add(player9);
+
+        Text player10 = new Text("10. ");
+        try {
+            player10.setFont(javafx.scene.text.Font.loadFont(new FileInputStream(FONT_PATH), 30));
+        } catch (FileNotFoundException e) {
+            player10.setFont(Font.font("Verdana", 30));
+        }
+        player10.setFill(Color.valueOf("FFFFFF"));
+        player10.setLayoutX(50);
+        player10.setLayoutY(550);
+        scoreboardPane.getChildren().add(player10);
+
+
     }
 
     private void createStatsPane(){
@@ -682,6 +843,23 @@ public class MenuViewManager {
     private void createScoreboardButton(){
         MainButton scoreboardButton = new MainButton("Scoreboard");
         addMenuButton(scoreboardButton);
+        scoreboardButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(isLoggedIn){
+                    createscoreboardPane();
+                    for(int i=0; i<menuButtons.size(); i++){
+                        menuButtons.get(i).setDisable(true);
+                    }
+                    for (int i=0; i<signButtons.size(); i++){
+                        signButtons.get(i).setDisable(true);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Log in to view scoreboard!");
+                }
+
+            }
+        });
     }
 
     private void createHelpButton(){
@@ -1893,6 +2071,13 @@ public class MenuViewManager {
         closeButton.setLayoutX(440);
         statsPane.getChildren().add(closeButton);
     }
+
+        private void createCloseScoreboardButton(){
+            CloseButton closeButton = new CloseButton(menuButtons, signButtons, mainPane, scoreboardPane);
+            closeButton.setLayoutY(10);
+            closeButton.setLayoutX(440);
+            scoreboardPane.getChildren().add(closeButton);
+        }
 
     private void createLogOutButton(){
         mainLogOutButton = new SignButton("Log out");
