@@ -21,7 +21,7 @@ public class Deck {
 
 
     public Deck(int decksNumber){
-        String[] suits = {" Pik"," Kier"," Trefl"," Karo"};
+        String[] suits = {" Spades"," Hearts"," Clubs"," Diamonds"};
         Card card;
         for(int i =2; i<11; i++){
             card = new Card(i+suits[0],i);
@@ -34,13 +34,13 @@ public class Deck {
             deck.add(card);
         }
         for(int i =0; i<4;i++){
-            card = new Card("Król"+suits[i],10);
+            card = new Card("King"+suits[i],10);
             deck.add(card);
-            card = new Card("Dama"+suits[i],10);
+            card = new Card("Queen"+suits[i],10);
             deck.add(card);
-            card = new Card("Walet"+suits[i],10);
+            card = new Card("Jack"+suits[i],10);
             deck.add(card);
-            card = new Card("As"+suits[i],11);
+            card = new Card("Ace"+suits[i],11);
             deck.add(card);
         }
 
@@ -100,9 +100,9 @@ public class Deck {
                 break;
             case 10:
                 System.out.println(deck.get(0).getName().substring(0,1));
-                if(deck.get(0).getName().substring(0,1).equals("W")){
+                if(deck.get(0).getName().substring(0,1).equals("J")){
                     DbConnection.updateCardJack();
-                } else if (deck.get(0).getName().substring(0,1).equals("D")){
+                } else if (deck.get(0).getName().substring(0,1).equals("Q")){
                     DbConnection.updateCardQueen();
                 } else if (deck.get(0).getName().substring(0,1).equals("K")){
                     DbConnection.updateCardKing();

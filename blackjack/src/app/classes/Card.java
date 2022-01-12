@@ -31,109 +31,109 @@ public class Card {
 
     public static String getCardImage(String cardName){
         switch (cardName){
-            case "2 Kier":
+            case "2 Hearts":
                 return "/cardHearts2.png";
-            case "3 Kier":
+            case "3 Hearts":
                 return "/cardHearts3.png";
-            case "4 Kier":
+            case "4 Hearts":
                 return "/cardHearts4.png";
-            case "5 Kier":
+            case "5 Hearts":
                 return "/cardHearts5.png";
-            case "6 Kier":
+            case "6 Hearts":
                 return "/cardHearts6.png";
-            case "7 Kier":
+            case "7 Hearts":
                 return "/cardHearts7.png";
-            case "8 Kier":
+            case "8 Hearts":
                 return "/cardHearts8.png";
-            case "9 Kier":
+            case "9 Hearts":
                 return "/cardHearts9.png";
-            case "10 Kier":
+            case "10 Hearts":
                 return "/cardHearts10.png";
-            case "As Kier":
+            case "Ace Hearts":
                 return "/cardHeartsA.png";
-            case "Walet Kier":
+            case "Jack Hearts":
                 return "/cardHeartsJ.png";
-            case "Król Kier":
+            case "King Hearts":
                 return "/cardHeartsK.png";
-            case "Dama Kier":
+            case "Queen Hearts":
                 return "/cardHeartsQ.png";
-            case "2 Karo":
+            case "2 Diamonds":
                 return "/cardDiamonds2.png";
-            case "3 Karo":
+            case "3 Diamonds":
                 return "/cardDiamonds3.png";
-            case "4 Karo":
+            case "4 Diamonds":
                 return "/cardDiamonds4.png";
-            case "5 Karo":
+            case "5 Diamonds":
                 return "/cardDiamonds5.png";
-            case "6 Karo":
+            case "6 Diamonds":
                 return "/cardDiamonds6.png";
-            case "7 Karo":
+            case "7 Diamonds":
                 return "/cardDiamonds7.png";
-            case "8 Karo":
+            case "8 Diamonds":
                 return "/cardDiamonds8.png";
-            case "9 Karo":
+            case "9 Diamonds":
                 return "/cardDiamonds9.png";
-            case "10 Karo":
+            case "10 Diamonds":
                 return "/cardDiamonds10.png";
-            case "As Karo":
+            case "Ace Diamonds":
                 return "/cardDiamondsA.png";
-            case "Walet Karo":
+            case "Jack Diamonds":
                 return "/cardDiamondsJ.png";
-            case "Król Karo":
+            case "King Diamonds":
                 return "/cardDiamondsK.png";
-            case "Dama Karo":
+            case "Queen Diamonds":
                 return "/cardDiamondsQ.png";
-            case "2 Trefl":
+            case "2 Clubs":
                 return "/cardClubs2.png";
-            case "3 Trefl":
+            case "3 Clubs":
                 return "/cardClubs3.png";
-            case "4 Trefl":
+            case "4 Clubs":
                 return "/cardClubs4.png";
-            case "5 Trefl":
+            case "5 Clubs":
                 return "/cardClubs5.png";
-            case "6 Trefl":
+            case "6 Clubs":
                 return "/cardClubs6.png";
-            case "7 Trefl":
+            case "7 Clubs":
                 return "/cardClubs7.png";
-            case "8 Trefl":
+            case "8 Clubs":
                 return "/cardClubs8.png";
-            case "9 Trefl":
+            case "9 Clubs":
                 return "/cardClubs9.png";
-            case "10 Trefl":
+            case "10 Clubs":
                 return "/cardClubs10.png";
-            case "As Trefl":
+            case "Ace Clubs":
                 return "/cardClubsA.png";
-            case "Walet Trefl":
+            case "Jack Clubs":
                 return "/cardClubsJ.png";
-            case "Król Trefl":
+            case "King Clubs":
                 return "/cardClubsK.png";
-            case "Dama Trefl":
+            case "Queen Clubs":
                 return "/cardClubsQ.png";
-            case "2 Pik":
+            case "2 Spades":
                 return "/cardSpades2.png";
-            case "3 Pik":
+            case "3 Spades":
                 return "/cardSpades3.png";
-            case "4 Pik":
+            case "4 Spades":
                 return "/cardSpades4.png";
-            case "5 Pik":
+            case "5 Spades":
                 return "/cardSpades5.png";
-            case "6 Pik":
+            case "6 Spades":
                 return "/cardSpades6.png";
-            case "7 Pik":
+            case "7 Spades":
                 return "/cardSpades7.png";
-            case "8 Pik":
+            case "8 Spades":
                 return "/cardSpades8.png";
-            case "9 Pik":
+            case "9 Spades":
                 return "/cardSpades9.png";
-            case "10 Pik":
+            case "10 Spades":
                 return "/cardSpades10.png";
-            case "As Pik":
+            case "Ace Spades":
                 return "/cardSpadesA.png";
-            case "Walet Pik":
+            case "Jack Spades":
                 return "/cardSpadesJ.png";
-            case "Król Pik":
+            case "King Spades":
                 return "/cardSpadesK.png";
-            case "Dama Pik":
+            case "Queen Spades":
                 return "/cardSpadesQ.png";
             default:
                 return "/cardBack_green5.png";

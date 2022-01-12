@@ -214,8 +214,9 @@ public class GameViewManager {
         updatePoints();
         showDealerCards();
         showCurrentPlayerCards();
-            playRound();
+        playRound();
 
+        updateCurrentlyPlaying();
         botPlay(); //jeśli pierwszay gracz botem
 
 
@@ -340,7 +341,7 @@ public class GameViewManager {
                         }
                     }else{
                         while(krupier.play()){
-                            log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
+                            log.appendText("\n"+"Dealer have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
                         };
                         updatePoints();
                         //TODO niech się gra kończy gdy w playinglist nie ma już true
@@ -352,7 +353,7 @@ public class GameViewManager {
                         createRetryPanel();
                         return;
                     }
-
+                    updateCurrentlyPlaying();
                     botPlay();
                 }
 
@@ -395,7 +396,7 @@ public class GameViewManager {
                     }
                 }else{
                     while(krupier.play()){
-                        log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
+                        log.appendText("\n"+"Dealer have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
                     };
                     updatePoints();
                     System.out.println(15 - secondsLeft);
@@ -404,6 +405,7 @@ public class GameViewManager {
                     createRetryPanel();
                     return;
                 }
+                updateCurrentlyPlaying();
                 botPlay();
             }
         });
@@ -471,7 +473,7 @@ public class GameViewManager {
                     }
                 } else {
                     while (krupier.play()){
-                        log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
+                        log.appendText("\n"+"Dealer have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());
                     } ;
                     updatePoints();
                     timeline.stop();
@@ -482,7 +484,8 @@ public class GameViewManager {
 
                 }
             }
-                botPlay();
+            updateCurrentlyPlaying();
+            botPlay();
 
 
         }
@@ -491,16 +494,16 @@ public class GameViewManager {
     private void updateCurrentlyPlaying(){
         switch (playerTurn){
             case 1:
-                currentPlayer.setText("Currently playing: " + MenuViewManager.user1.getLogin());
+                currentPlayer.setText("Currently playing: " + player1Text.getText());
                 break;
             case 2:
-                currentPlayer.setText("Currently playing: " + MenuViewManager.user2.getLogin());
+                currentPlayer.setText("Currently playing: " + player2Text.getText());
                 break;
             case 3:
-                currentPlayer.setText("Currently playing: " + MenuViewManager.user3.getLogin());
+                currentPlayer.setText("Currently playing: " + player3Text.getText());
                 break;
             case 4:
-                currentPlayer.setText("Currently playing: " + MenuViewManager.user4.getLogin());
+                currentPlayer.setText("Currently playing: " + player4Text.getText());
                 break;
         }
     }
@@ -849,7 +852,7 @@ public class GameViewManager {
                         }
                     }
                 } else {
-                    while (krupier.play()){log.appendText("\n"+"Krupier: have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());}
+                    while (krupier.play()){log.appendText("\n"+"Dealer have drawn "+ deck.krupier.get(deck.krupier.size()-1).getName());}
                     updatePoints();
                     timeline.stop();
                     getUsers();
@@ -1075,6 +1078,7 @@ public class GameViewManager {
             public void handle(ActionEvent event) {
                 roundN++;
                 log.appendText("\n\nROUND"+ roundN +"\n ");
+
                 hitButton.setDisable(false);
                 standButton.setDisable(false);
                 deck.discard();
@@ -1099,6 +1103,7 @@ public class GameViewManager {
                 playerTurn =1;
                 showCurrentPlayerCards();
                 showDealerCards();
+                updateCurrentlyPlaying();
             }
         });
 
@@ -1178,7 +1183,7 @@ public class GameViewManager {
                 noWinner = 1;
                 switch (i) {
                     case 0:
-                        retryText.setText("The winner is Krupier");
+                        retryText.setText("The winner is the Dealer");
 
                         break;
                     case 1:
@@ -1220,7 +1225,7 @@ public class GameViewManager {
                 noWinner = 1;
                 switch (i) {
                     case 0:
-                        winners = winners + "Krupier, ";
+                        winners = winners + "Dealer, ";
                         break;
                     case 1:
                         winners = winners + player1Text.getText() + ", ";
