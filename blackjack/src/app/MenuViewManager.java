@@ -1913,7 +1913,7 @@ public class MenuViewManager {
                     }else {
                         user2.setLogin(login_buff);
                         createShowLoginsPane2();
-                        player2log.setText(login_buff);
+                        player2log.setText("Logged in: " + login_buff);
 
                     }
                     isLoggedIn2 = false;
@@ -1935,7 +1935,7 @@ public class MenuViewManager {
                     } else {
                         user3.setLogin(login_buff);
                         createShowLoginsPane3();
-                        player3log.setText(login_buff);
+                        player3log.setText("Logged in: " + login_buff);
                     }
                     isLoggedIn3 = false;
                 }
@@ -1957,7 +1957,7 @@ public class MenuViewManager {
                         user4.setLogin(login_buff);
 
                         createShowLoginsPane4();
-                        player4log.setText(login_buff);
+                        player4log.setText("Logged in: " + login_buff);
                     }
                     isLoggedIn4 = false;
                 }
@@ -2307,9 +2307,9 @@ public class MenuViewManager {
 
     private void createShowLoginsPane2() {
         showLoginsPane2.setPrefHeight(25);
-        showLoginsPane2.setPrefWidth(100);
-        showLoginsPane2.setLayoutY(0);
-        showLoginsPane2.setLayoutX(1100);
+        showLoginsPane2.setPrefWidth(200);
+        showLoginsPane2.setLayoutY(25);
+        showLoginsPane2.setLayoutX(950);
         showLoginsPane2.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
 
         player2log = new Text("");
@@ -2330,9 +2330,9 @@ public class MenuViewManager {
 
     private void createShowLoginsPane3() {
         showLoginsPane3.setPrefHeight(25);
-        showLoginsPane3.setPrefWidth(100);
-        showLoginsPane3.setLayoutY(25);
-        showLoginsPane3.setLayoutX(1100);
+        showLoginsPane3.setPrefWidth(200);
+        showLoginsPane3.setLayoutY(50);
+        showLoginsPane3.setLayoutX(950);
         showLoginsPane3.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
 
         player3log = new Text("");
@@ -2352,9 +2352,9 @@ public class MenuViewManager {
 
     private void createShowLoginsPane4() {
         showLoginsPane4.setPrefHeight(25);
-        showLoginsPane4.setPrefWidth(100);
-        showLoginsPane4.setLayoutY(50);
-        showLoginsPane4.setLayoutX(1100);
+        showLoginsPane4.setPrefWidth(200);
+        showLoginsPane4.setLayoutY(75);
+        showLoginsPane4.setLayoutX(950);
         showLoginsPane4.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7); -fx-background-radius: 10;");
 
         player4log = new Text("");
