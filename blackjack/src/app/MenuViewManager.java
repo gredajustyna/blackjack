@@ -12,6 +12,8 @@ import javafx.scene.control.skin.CellSkinBase;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -82,6 +84,7 @@ public class MenuViewManager {
     private Scene mainScene;
     private Stage mainStage;
     private static Stage mainStage2;
+    CloseButton closeButtonStart;
     private ToggleGroup playerToggle;
     private ToggleGroup group;
     private static final int HEIGHT = 800;
@@ -224,7 +227,6 @@ public class MenuViewManager {
             public void handle(ActionEvent event) {
                 if (isLoggedIn) {
 
-                    user1.setLogin(login_buff);
 
 
                     player1Pane.getChildren().clear();
@@ -1410,7 +1412,9 @@ public class MenuViewManager {
                 if (buttonPlayer2.isSelected()) {
                     gameStartButton.setDisable(true);
                     isLoggedIn2 = true;
+                    mainPane.getChildren().remove(loginPane);
                     mainPane.getChildren().add(loginPane);
+                    startPane.setDisable(true);
                     loginPane.getChildren().remove(closeLoginButton);
                 }
 
@@ -1422,6 +1426,7 @@ public class MenuViewManager {
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonComputer2.isSelected()) {
                     user2.setLogin(null);
+                    mainPane.getChildren().remove(loginPane);
                     showLoginsPane2.getChildren().clear();
                     mainPane.getChildren().remove(showLoginsPane2);
                 }
@@ -1489,7 +1494,9 @@ public class MenuViewManager {
                 if (buttonPlayer3.isSelected()) {
                     gameStartButton.setDisable(true);
                     isLoggedIn3 = true;
+                    mainPane.getChildren().remove(loginPane);
                     mainPane.getChildren().add(loginPane);
+                    startPane.setDisable(true);
                     loginPane.getChildren().remove(closeLoginButton);
                 }
             }
@@ -1500,6 +1507,7 @@ public class MenuViewManager {
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonComputer3.isSelected()) {
                     user3.setLogin(null);
+                    mainPane.getChildren().remove(loginPane);
                     showLoginsPane3.getChildren().clear();
                     mainPane.getChildren().remove(showLoginsPane3);
                 }
@@ -1567,7 +1575,9 @@ public class MenuViewManager {
                 if (buttonPlayer4.isSelected()) {
                     gameStartButton.setDisable(true);
                     isLoggedIn4 = true;
+                    mainPane.getChildren().remove(loginPane);
                     mainPane.getChildren().add(loginPane);
+                    startPane.setDisable(true);
                     loginPane.getChildren().remove(closeLoginButton);
                 }
             }
@@ -1578,6 +1588,7 @@ public class MenuViewManager {
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean aBoolean, Boolean t1) {
                 if (buttonComputer4.isSelected()) {
                     user4.setLogin(null);
+                    mainPane.getChildren().remove(loginPane);
                     showLoginsPane4.getChildren().clear();
                     mainPane.getChildren().remove(showLoginsPane4);
                 }
@@ -1594,7 +1605,37 @@ public class MenuViewManager {
 
 
         createCloseStartButton();
+        closeButtonStart.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+                    System.out.println("hehe");
+                    if(MenuViewManager.isSoundOn){
+                        CloseButton.clickSound.play();
+                    }
+                    for(int i=0; i<menuButtons.size(); i++){
+                        menuButtons.get(i).setDisable(false);
+                    }
+                    for (int i=0; i<signButtons.size(); i++){
+                        signButtons.get(i).setDisable(false);
+                    }
+                    mainPane.getChildren().remove(startPane);
+                    startPane.getChildren().clear();
+                    user2.setLogin(null);
+                    user3.setLogin(null);
+                    user4.setLogin(null);
+                    mainPane.getChildren().remove(showLoginsPane2);
+                    mainPane.getChildren().remove(showLoginsPane3);
+                    mainPane.getChildren().remove(showLoginsPane4);
+                    isLoggedIn2 = false;
+                    isLoggedIn3 = false;
+                    isLoggedIn4 = false;
+                }
+            }
+        });
+
         mainPane.getChildren().add(startPane);
+
     }
 
     private void updateLevelVisibility(ComboBox comboBox, int value){
@@ -1770,10 +1811,10 @@ public class MenuViewManager {
     }
 
     private void createCloseStartButton(){
-        CloseButton closeButton = new CloseButton(menuButtons, signButtons, mainPane, startPane);
-        closeButton.setLayoutY(10);
-        closeButton.setLayoutX(440);
-        startPane.getChildren().add(closeButton);
+        closeButtonStart = new CloseButton(menuButtons, signButtons, mainPane, startPane);
+        closeButtonStart.setLayoutY(10);
+        closeButtonStart.setLayoutX(440);
+        startPane.getChildren().add(closeButtonStart);
     }
 
     private void createCloseHelpButton(){
@@ -1860,7 +1901,7 @@ public class MenuViewManager {
             public void handle(ActionEvent event) {
 
 
-
+                startPane.setDisable(false);
                 for(int i=0; i<menuButtons.size(); i++){
                     menuButtons.get(i).setDisable(false);
                 }

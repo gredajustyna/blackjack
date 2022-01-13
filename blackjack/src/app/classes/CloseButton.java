@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CloseButton extends Button {
     private final String BUTTON_STYLE = "-fx-background-color: transparent; -fx-background-image: url('quitX.png')";
-    AudioClip clickSound = new AudioClip("file:src/app/music/click.m4a");
+    public static AudioClip clickSound = new AudioClip("file:src/app/music/click.m4a");
 
     public CloseButton(List<MainButton> menuButtons, List<SignButton> signButtons, AnchorPane mainPane, AnchorPane childPane){
         setPrefHeight(50);
@@ -57,5 +57,6 @@ public class CloseButton extends Button {
             }
         });
     }
+
 
 }
