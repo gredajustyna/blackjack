@@ -51,4 +51,12 @@ public class SoundButton extends Button {
         });
 
     }
+
+    public void setX(){
+        setStyle(BUTTON_FREE_STYLE);
+    }
+
+    public void setFree(){
+        setStyle(BUTTON_PRESSED_STYLE);
+    }
 }

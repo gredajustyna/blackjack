@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TouchEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -95,6 +96,8 @@ public class MenuViewManager {
     private boolean isLoggedIn = false;
     private MainButton gameStartButton;
     private CloseButton closeLoginButton;
+    public static MusicButton musicButton;
+    public static SoundButton soundButton;
 
     //radiobuttons
 
@@ -126,7 +129,7 @@ public class MenuViewManager {
 
     List<MainButton> menuButtons;
     List<SignButton> signButtons;
-    MediaPlayer player;
+    public static MediaPlayer player;
     public static boolean isSoundOn = true;
 
     public MenuViewManager(){
@@ -205,6 +208,8 @@ public class MenuViewManager {
 
 
         DbConnection.connect();
+
+
 
     }
 
@@ -1825,17 +1830,17 @@ public class MenuViewManager {
     }
 
     private void createMusicButton(){
-        MusicButton button = new MusicButton(player);
-        button.setLayoutY(740);
-        button.setLayoutX(10);
-        mainPane.getChildren().add(button);
+        musicButton = new MusicButton(player);
+        musicButton.setLayoutY(740);
+        musicButton.setLayoutX(10);
+        mainPane.getChildren().add(musicButton);
     }
 
     private void createSoundButton(){
-        SoundButton button = new SoundButton();
-        button.setLayoutY(740);
-        button.setLayoutX(70);
-        mainPane.getChildren().add(button);
+        soundButton = new SoundButton();
+        soundButton.setLayoutY(740);
+        soundButton.setLayoutX(70);
+        mainPane.getChildren().add(soundButton);
     }
 
     public void createLoginPanel(){
@@ -1907,6 +1912,7 @@ public class MenuViewManager {
                 }
 
 
+
                 gameStartButton.setDisable(false);
                 login_buff = DbConnection.Login(usernameField.getText(), passwordField.getText());
 
@@ -1932,6 +1938,13 @@ public class MenuViewManager {
                     buttonPlayer4.setSelected(false);
                     buttonComputer4.setSelected(true);
                 } else{
+                    startPane.setDisable(false);
+                    for(int i=0; i<menuButtons.size(); i++){
+                        menuButtons.get(i).setDisable(false);
+                    }for (int i=0; i<signButtons.size(); i++){
+                        signButtons.get(i).setDisable(false);
+                    }
+
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     isLoggedIn = false;
 
@@ -2321,8 +2334,8 @@ public class MenuViewManager {
                     Stage primaryStage = gameViewManager.getGameStage();
                     primaryStage.show();
                     mainStage.close();
-                    mainStage2= mainStage;
-                    player.dispose();
+                    mainStage2 = mainStage;
+                   // player.dispose();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -2412,4 +2425,6 @@ public class MenuViewManager {
         mainPane.getChildren().add(showLoginsPane4);
 
     }
+
+
 }

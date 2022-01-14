@@ -12,6 +12,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,6 +22,7 @@ import javafx.util.Duration;
 import javafx.scene.control.TextArea;
 
 import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -149,6 +151,8 @@ public class GameViewManager {
         dif4 = diff4;
 
 
+
+
         log = new TextArea();
         log.setLayoutX(0);
         log.setLayoutY(0);
@@ -192,11 +196,15 @@ public class GameViewManager {
 
         deck.shuffle();
 
+
+
         krupier = new BotPlayer(1,deck,0);
         createUsersTable();
         createTimer();
         buildHitButton();
         buildStandButton();
+        createMusicButton();
+        createSoundButton();
         //connecting to the deck class and creating game
 
 
@@ -1133,6 +1141,7 @@ public class GameViewManager {
                 removeDealerCards();
                 gameStage.close();
                 MenuViewManager.getMainStage2().show();
+
                 int[] data = new int[4];
                 data = DbConnection.getData(MenuViewManager.user1.getLogin());
 
@@ -1143,6 +1152,16 @@ public class GameViewManager {
                     MenuViewManager.userPanelWins.setText("Win percentage: " + 100 * data[1]/data[0] + "%");
 
                 }
+
+                if (MenuViewManager.player.isMute()){
+                    MenuViewManager.musicButton.setX();
+                }else{
+                    MenuViewManager.musicButton.setFree();
+                }
+                if(!MenuViewManager.isSoundOn){
+                    MenuViewManager.soundButton.setX();
+                }else MenuViewManager.soundButton.setFree();
+
 
             }
         });
@@ -1406,6 +1425,8 @@ public class GameViewManager {
 
     */
     public void addCards(){
+
+
         removeCurrentPlayerCards();
         playerCardsPane.getChildren().clear();
         String card1string = "";
@@ -1475,6 +1496,26 @@ public class GameViewManager {
         if (diff == 1) return "mediumbot";
         if (diff == 2) return "hardbot";
         return "";
+    }
+
+    private void createMusicButton(){
+        MusicButton button = new MusicButton(MenuViewManager.player);
+        button.setLayoutY(740);
+        button.setLayoutX(10);
+        if (MenuViewManager.player.isMute()){
+            button.setX();
+        }
+        gamePane.getChildren().add(button);
+    }
+
+    private void createSoundButton(){
+        SoundButton button = new SoundButton();
+        button.setLayoutY(740);
+        button.setLayoutX(70);
+        if(!MenuViewManager.isSoundOn){
+            button.setX();
+        }
+        gamePane.getChildren().add(button);
     }
 
 
