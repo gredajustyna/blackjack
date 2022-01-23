@@ -60,4 +60,5 @@ public class MusicButton extends Button {
     public void setFree(){
         setStyle(BUTTON_PRESSED_STYLE);
     }
+
 }

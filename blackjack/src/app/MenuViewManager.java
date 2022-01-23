@@ -1927,16 +1927,22 @@ public class MenuViewManager {
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer2.setSelected(false);
                     buttonComputer2.setSelected(true);
+                    updateLevelVisibility(levelComboBox2, (int)buttonComputer2.getUserData());
+                    isLoggedIn2 = false;
                 }else if (login_buff == "0" && buttonPlayer3.isSelected() && user3.getLogin() == null){
                     turnButtonsOff();
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer3.setSelected(false);
                     buttonComputer3.setSelected(true);
+                    updateLevelVisibility(levelComboBox3, (int)buttonComputer3.getUserData());
+                    isLoggedIn3 = false;
                 }else if (login_buff == "0" && buttonPlayer4.isSelected() && user4.getLogin() == null){
                     turnButtonsOff();
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                     buttonPlayer4.setSelected(false);
                     buttonComputer4.setSelected(true);
+                    updateLevelVisibility(levelComboBox4, (int)buttonComputer4.getUserData());
+                    isLoggedIn4 = false;
                 } else{
                     startPane.setDisable(false);
                     for(int i=0; i<menuButtons.size(); i++){
@@ -1956,14 +1962,17 @@ public class MenuViewManager {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer2.setSelected(false);
                         buttonComputer2.setSelected(true);
+                        updateLevelVisibility(levelComboBox2, (int)buttonComputer2.getUserData());
                     } else if(login_buff.equals(user3.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer2.setSelected(false);
                         buttonComputer2.setSelected(true);
+                        updateLevelVisibility(levelComboBox2, (int)buttonComputer2.getUserData());
                     }else if(login_buff.equals(user4.getLogin())) {
                             JOptionPane.showMessageDialog(null, "Account already in use!");
                             buttonPlayer2.setSelected(false);
                             buttonComputer2.setSelected(true);
+                        updateLevelVisibility(levelComboBox2, (int)buttonComputer2.getUserData());
                     }else {
                         user2.setLogin(login_buff);
                         createShowLoginsPane2();
@@ -1978,14 +1987,17 @@ public class MenuViewManager {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer3.setSelected(false);
                         buttonComputer3.setSelected(true);
+                        updateLevelVisibility(levelComboBox3, (int)buttonComputer3.getUserData());
                     } else if(login_buff.equals(user2.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer3.setSelected(false);
                         buttonComputer3.setSelected(true);
+                        updateLevelVisibility(levelComboBox3, (int)buttonComputer3.getUserData());
                     }else if(login_buff.equals(user4.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer3.setSelected(false);
                         buttonComputer3.setSelected(true);
+                        updateLevelVisibility(levelComboBox3, (int)buttonComputer3.getUserData());
                     } else {
                         user3.setLogin(login_buff);
                         createShowLoginsPane3();
@@ -1999,14 +2011,17 @@ public class MenuViewManager {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer4.setSelected(false);
                         buttonComputer4.setSelected(true);
+                        updateLevelVisibility(levelComboBox4, (int)buttonComputer4.getUserData());
                     } else if(login_buff.equals(user2.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer4.setSelected(false);
                         buttonComputer4.setSelected(true);
+                        updateLevelVisibility(levelComboBox4, (int)buttonComputer4.getUserData());
                     }else if(login_buff.equals(user3.getLogin())) {
                         JOptionPane.showMessageDialog(null, "Account already in use!");
                         buttonPlayer4.setSelected(false);
                         buttonComputer4.setSelected(true);
+                        updateLevelVisibility(levelComboBox4, (int)buttonComputer4.getUserData());
                     } else {
                         user4.setLogin(login_buff);
 
